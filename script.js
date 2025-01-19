@@ -384,52 +384,6 @@ function PointSystem(figureNumber) {
     }
 }
 
-function doesFigureFitInGrid(mainGridId, figureMatrix) {
-    const mainGrid = document.getElementById(mainGridId);
-
-    if (!mainGrid) {
-        console.error(`Grid with ID ${mainGridId} not found.`);
-        return false;
-    }
-
-    const mainGridItems = mainGrid.children;
-    const mainGridWidth = Math.sqrt(mainGridItems.length); // Assuming the main grid is square
-
-    const coordinates = getFirstAndLastRowColWithValue(figureMatrix);
-    const { FirstRow: FirstRow, FirstCol: FirstCol, LastRow: LastRow, LastCol: LastCol } = coordinates;
-
-
-    // Handle the case where no rows have non-zero values
-    if (FirstRow === -1 || LastRow === -1) {
-        return false;
-    }
-
-    // Handle the case where no columns have non-zero values
-    if (FirstCol === -1 || LastCol === -1) {
-        return false;
-    }
-
-    let figure2 = extractFigureFromGrid(mainGridId, 0, 0, figureMatrix.length, figureMatrix[0].length);
-    // If it fits at any position, return true
-    if (doesFigureFitInPartialGrid(figureMatrix, figure2)) return true;
-
-
-    // If no valid position is found, return false
-    return false;
-}
-
-function doAllFiguresNotFit(mainGridId, smallGridIds) {
-    // Iterate over each small grid ID
-    for (let smallGridId of smallGridIds) {
-        if (doesFigureFitInGrid(mainGridId, getFigureFromSmallGrid(smallGridId))) {
-            // If any figure fits, return false
-            return false;
-        }
-    }
-    // If none of the figures fit, return true
-    return true;
-}
-
 function getFigureFromSmallGrid(smallGridId) {
     const smallGrid = document.getElementById(smallGridId);
 
@@ -462,9 +416,8 @@ function filterFittingFigures(mainGridId) {
     figurePriorities.forEach((priority, index) => {
         // Get the figure's matrix using getFigureValues
         const figureMatrix = getFigureValues(index + 1); // Assuming figures start at 1
-
         // Check if the figure fits in the main grid
-        if (doesFigureFitInGrid(mainGridId, figureMatrix)) {
+        if (doesAnyRotationFit(mainGridId, figureMatrix)) {
             updatedFigurePriorities.push(priority); // Keep the original priority
         } else {
             updatedFigurePriorities.push(0); // Replace the priority with 0
@@ -472,60 +425,6 @@ function filterFittingFigures(mainGridId) {
     });
 
     return updatedFigurePriorities;
-}
-
-function doesFigureFitInPartialGrid(figure1, figure2) {
-    if (!Array.isArray(figure1) || !Array.isArray(figure2)) {
-        console.error('Both inputs must be valid 2D arrays.');
-        return false;
-    }
-
-    if (figure1.length !== figure2.length || figure1[0].length !== figure2[0].length) {
-        console.error('The two arrays must have the same dimensions.');
-        return false;
-    }
-
-    for (let row = 0; row < figure1.length; row++) {
-        for (let col = 0; col < figure1[row].length; col++) {
-            if (figure1[row][col] === 1 && figure2[row][col] !== 0) {
-                return false; // Conflict: A 1 in figure1 corresponds to a non-0 in figure2
-            }
-        }
-    }
-
-    return true; // All 1s in figure1 correspond to 0s in figure2
-}
-
-function extractFigureFromGrid(mainGridId, startRow, startCol, height, width) {
-    const mainGrid = document.getElementById(mainGridId);
-
-    if (!mainGrid) {
-        console.error(`Main grid with ID ${mainGridId} not found.`);
-        return null;
-    }
-
-    const mainItems = mainGrid.children;
-    const gridWidth = Math.sqrt(mainItems.length);
-
-    // Initialize an empty figure matrix with the given dimensions
-    const figureMatrix = Array.from({ length: height }, () => Array(width).fill(0));
-
-    // Loop through the specified section of the grid and copy values
-    for (let row = 0; row < height; row++) {
-        for (let col = 0; col < width; col++) {
-            const mainGridRow = startRow + row;
-            const mainGridCol = startCol + col;
-
-            // Check bounds
-            if (mainGridRow < gridWidth && mainGridCol < gridWidth) {
-                const mainIndex = mainGridRow * gridWidth + mainGridCol;
-                const value = parseInt(mainItems[mainIndex]?.getAttribute('data-value')) || 0;
-                figureMatrix[row][col] = value;
-            }
-        }
-    }
-
-    return figureMatrix;
 }
 
 function enableTouchSupportSmall(gridContainer) {
