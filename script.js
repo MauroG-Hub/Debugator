@@ -450,6 +450,12 @@ function enableTouchSupportSmall(gridContainer) {
     gridContainer.addEventListener('touchstart', (event) => {
         const touch = event.touches[0];
         const target = event.target;
+
+         // Verifica si la celda tiene un valor diferente a 0
+        if (parseInt(target.getAttribute('data-value')) === 0) {
+            console.log("No se puede arrastrar una celda con valor 0.");
+            return; // No permite iniciar el drag si el valor es 0
+        }
     
         if (!target.classList.contains('smallgrid-item')) return;
     
@@ -505,7 +511,7 @@ function enableTouchSupportSmall(gridContainer) {
         const destinationRow = Math.floor((touch.clientY - rect.top) / cellSize);
         const destinationCol = Math.floor((touch.clientX - rect.left) / cellSize);
 
-        event.preventDefault();
+        //event.preventDefault();
 
         activeElement.style.left = `${touch.clientX - ((initialSmallCol-1)*cellSize)}px`;
         activeElement.style.top = `${touch.clientY - ((initialSmallRow-1)*cellSize)}px`;
