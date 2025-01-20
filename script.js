@@ -451,11 +451,6 @@ function enableTouchSupportSmall(gridContainer) {
         const touch = event.touches[0];
         const target = event.target;
 
-         // Verifica si la celda tiene un valor diferente a 0
-        if (parseInt(target.getAttribute('data-value')) === 0) {
-            console.log("No se puede arrastrar una celda con valor 0.");
-            return; // No permite iniciar el drag si el valor es 0
-        }
     
         if (!target.classList.contains('smallgrid-item')) return;
     
@@ -540,7 +535,7 @@ function enableTouchSupportSmall(gridContainer) {
         const touch = event.changedTouches[0];
         const destinationElement = document.elementFromPoint(touch.clientX, touch.clientY);
     
-        if (destinationElement && destinationElement.classList.contains('maingrid-item')) {
+        //if (destinationElement && destinationElement.classList.contains('maingrid-item')) {}
             const mainGrid = document.getElementById('gridContainer');
             const rect = mainGrid.getBoundingClientRect();
             const cellSize = rect.width / 10; // Tamaño de la celda del main grid
@@ -562,8 +557,8 @@ function enableTouchSupportSmall(gridContainer) {
 
     
             // Llama a Copy con las coordenadas ajustadas
-            Copy(adjustedRow, adjustedCol, sourceGridId);
-        }
+            Copy(adjustedRow, adjustedCol, sourceGridId,0);
+        
     
         // Limpia el elemento visual del arrastre
         document.body.removeChild(activeElement);
@@ -571,6 +566,15 @@ function enableTouchSupportSmall(gridContainer) {
         cleanMainGridValuesInRange('gridContainer', 11, 19);
 
     });
+
+    gridContainer.addEventListener('touchcancel', () => {
+        if (activeElement) {
+            document.body.removeChild(activeElement);
+            activeElement = null;
+            console.log("Clon eliminado debido a un touchcancel.");
+        }
+    });
+    
     
     
 }
@@ -584,6 +588,7 @@ function rotar(event) {
     const newGrid = Array.from({ length: gridSize }, () => Array(gridSize).fill(null));
 
     NoRotationCount = 0;
+    DisableRotationTip = true;
 
     // Construimos la nueva matriz rotada
     cells.forEach((cell, index) => {
