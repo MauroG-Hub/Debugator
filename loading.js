@@ -25,7 +25,9 @@ function loadGridStateFromNumber(containerId, figureNumber) {
 }
 
 function loadFigureOnPageLoad() {
-    figurePrioritiesFittable = filterFittingFigures('gridContainer');
+    figureFittable = filterFittingFigures('gridContainer');
+    prepareExpandedList(figureFittable);
+
     let figureNumber = randomFigure();
     loadGridStateFromNumber('smallGrid1', figureNumber);
 	figureNumber = randomFigure();

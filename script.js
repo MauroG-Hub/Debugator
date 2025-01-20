@@ -71,9 +71,7 @@ function isValidSmallGrid(smallGridId) {
 }
 
 function randomFigure() {
-    if (expandedList.length === 0) {
-        prepareExpandedList(figurePrioritiesFittable);
-    }
+    
     const randomIndex = Math.floor(Math.random() * expandedList.length);
     return expandedList[randomIndex];
 }
@@ -410,21 +408,24 @@ function getFigureFromSmallGrid(smallGridId) {
 }
 
 function filterFittingFigures(mainGridId) {
-    const updatedFigurePriorities = [];
+    const updatedFigureFits = [];
+    let figureMatrix;
 
-    // Iterate through each figure in figurePriorities
-    figurePriorities.forEach((priority, index) => {
+    for(let index = 1; index <= 41; index++){
+
         // Get the figure's matrix using getFigureValues
-        const figureMatrix = getFigureValues(index + 1); // Assuming figures start at 1
+        figureMatrix = getFigureValues(index);
+
         // Check if the figure fits in the main grid
         if (doesAnyRotationFit(mainGridId, figureMatrix)) {
-            updatedFigurePriorities.push(priority); // Keep the original priority
+            updatedFigureFits.push(index); // Keep the original priority
         } else {
-            updatedFigurePriorities.push(0); // Replace the priority with 0
+            updatedFigureFits.push(0); // Replace the priority with 0
         }
-    });
 
-    return updatedFigurePriorities;
+    };
+
+    return updatedFigureFits;
 }
 
 function enableTouchSupportSmall(gridContainer) {
