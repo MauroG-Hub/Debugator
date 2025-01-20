@@ -7,6 +7,8 @@ let expandedList = [];
 const cleanedGrids = new Set();
 let figurePrioritiesFittable = figurePriorities;
 let lastHighlightedCell = null; // Para rastrear la última celda impresa
+let NoRotationCount = 0;
+let DisableRotationTip = false;
 
 
 function Copy(row, col, sourceGridId, Dumb) {
@@ -57,6 +59,17 @@ function Copy(row, col, sourceGridId, Dumb) {
         if(doAllFiguresNotFit('gridContainer',['smallGrid1', 'smallGrid2', 'smallGrid3'])){
             console.log('You lost');
         }
+
+        if (!DisableRotationTip) {
+            NoRotationCount++;
+
+            if (NoRotationCount > 5) {
+                showTipPopup("Tip:<br>Figure can be rotated<br>Just touch it<br>");
+                DisableRotationTip = true;
+                NoRotationCount = 0;
+            }
+        }
+
     }
     
 }
@@ -440,41 +453,42 @@ function enableTouchSupportSmall(gridContainer) {
     
         if (!target.classList.contains('smallgrid-item')) return;
     
-        // Clona el elemento visual para el arrastre
-        const smallGrid = document.getElementById(gridContainer.id);
-        const originalItems = Array.from(smallGrid.children);
-        let dragImage = smallGrid.cloneNode(true); // Clone the entire small grid
+            // Clona el elemento visual para el arrastre
+            const smallGrid = document.getElementById(gridContainer.id);
+            const originalItems = Array.from(smallGrid.children);
+            let dragImage = smallGrid.cloneNode(true); // Clone the entire small grid
 
-        activeElement = dragImage;
-        activeElement.style.position = 'absolute';
-        activeElement.style.pointerEvents = 'none';
-        activeElement.style.transform = 'scale(2.25)'; // Scale the clone to twice its size
-        activeElement.style.zIndex = '9999';
-        activeElement.setAttribute('data-source-grid-id', gridContainer.id); // Asocia el ID del grid
-        document.body.appendChild(activeElement);
-    
+            activeElement = dragImage;
+            activeElement.classList.add('drag-clone');
+            activeElement.style.position = 'absolute';
+            activeElement.style.pointerEvents = 'none';
+            activeElement.style.transform = 'scale(2.25)'; // Scale the clone to twice its size
+            activeElement.style.zIndex = '9999';
+            activeElement.setAttribute('data-source-grid-id', gridContainer.id); // Asocia el ID del grid
+            document.body.appendChild(activeElement);
+        
 
-        // Calcula el offset inicial
-        const rect = target.getBoundingClientRect();
-        touchOffsetX = touch.clientX - rect.left;
-        touchOffsetY = touch.clientY - rect.top;
-    
-        // Posiciona el clon inicialmente
-        activeElement.style.left = `${touch.clientX - touchOffsetX}px`;
-        activeElement.style.top = `${touch.clientY - touchOffsetY}px`;
-    
-        // Calcula y almacena las coordenadas iniciales relativas al small grid
-        const sourceRect = gridContainer.getBoundingClientRect();
-        const smallCellSize = sourceRect.width / 5; // Tamaño de la celda del small grid (5x5)
-        const initialSmallRow = Math.floor((touch.clientY - sourceRect.top) / smallCellSize);
-        const initialSmallCol = Math.floor((touch.clientX - sourceRect.left) / smallCellSize);
-    
-        // Almacena las coordenadas relativas en el elemento activo
-        activeElement.setAttribute('data-initial-row', initialSmallRow);
-        activeElement.setAttribute('data-initial-col', initialSmallCol);
+            // Calcula el offset inicial
+            const rect = target.getBoundingClientRect();
+            touchOffsetX = touch.clientX - rect.left;
+            touchOffsetY = touch.clientY - rect.top;
+        
+            // Posiciona el clon inicialmente
+            activeElement.style.left = `${touch.clientX - touchOffsetX}px`;
+            activeElement.style.top = `${touch.clientY - touchOffsetY}px`;
+        
+            // Calcula y almacena las coordenadas iniciales relativas al small grid
+            const sourceRect = gridContainer.getBoundingClientRect();
+            const smallCellSize = sourceRect.width / 5; // Tamaño de la celda del small grid (5x5)
+            const initialSmallRow = Math.floor((touch.clientY - sourceRect.top) / smallCellSize);
+            const initialSmallCol = Math.floor((touch.clientX - sourceRect.left) / smallCellSize);
+        
+            // Almacena las coordenadas relativas en el elemento activo
+            activeElement.setAttribute('data-initial-row', initialSmallRow);
+            activeElement.setAttribute('data-initial-col', initialSmallCol);
 
-        figurematrix = getFigureFromSmallGrid(gridContainer.id);
-    
+            figurematrix = getFigureFromSmallGrid(gridContainer.id);
+        
     });
     
 
@@ -490,6 +504,8 @@ function enableTouchSupportSmall(gridContainer) {
         const cellSize = rect.width / 10; // Tamaño de la celda del main grid
         const destinationRow = Math.floor((touch.clientY - rect.top) / cellSize);
         const destinationCol = Math.floor((touch.clientX - rect.left) / cellSize);
+
+        event.preventDefault();
 
         activeElement.style.left = `${touch.clientX - ((initialSmallCol-1)*cellSize)}px`;
         activeElement.style.top = `${touch.clientY - ((initialSmallRow-1)*cellSize)}px`;
@@ -547,6 +563,7 @@ function enableTouchSupportSmall(gridContainer) {
         document.body.removeChild(activeElement);
         activeElement = null;
         cleanMainGridValuesInRange('gridContainer', 11, 19);
+
     });
     
     
@@ -559,6 +576,8 @@ function rotar(event) {
     const cells = Array.from(smallGrid.children);
     const gridSize = Math.sqrt(cells.length); // Asumimos que es una matriz cuadrada
     const newGrid = Array.from({ length: gridSize }, () => Array(gridSize).fill(null));
+
+    NoRotationCount = 0;
 
     // Construimos la nueva matriz rotada
     cells.forEach((cell, index) => {
@@ -595,5 +614,57 @@ function cleanMainGridValuesInRange(containerId, minValue, maxValue) {
             cell.textContent = ''; // Limpia el contenido visible
         }
     });
+}
+
+function removeRemainingClones() {
+    const clones = document.querySelectorAll('.drag-clone'); // Selecciona todos los clones
+    clones.forEach(clone => {
+        clone.remove(); // Elimina cada clon encontrado
+    });
+}
+
+document.addEventListener('DOMContentLoaded', removeRemainingClones);
+
+function showTipPopup(message) {
+    // Crea el contenedor del popup
+    const popup = document.createElement('div');
+    popup.classList.add('tip-popup');
+    popup.innerHTML = message; // Cambiar a innerHTML para admitir HTML
+
+    // Crea el botón para cerrar
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Cerrar';
+    closeButton.classList.add('popup-close-button');
+    closeButton.onclick = () => {
+        popup.remove(); // Elimina el popup del DOM
+    };
+
+    // Agrega el botón al popup
+    popup.appendChild(closeButton);
+
+    // Agrega el popup al cuerpo del documento
+    document.body.appendChild(popup);
+
+    // Estilos básicos para el popup
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.padding = '20px';
+    popup.style.backgroundColor = '#fff';
+    popup.style.border = '1px solid #ccc';
+    popup.style.borderRadius = '10px';
+    popup.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+    popup.style.zIndex = '1000';
+    popup.style.textAlign = 'center';
+
+    // Estilos para el botón
+    closeButton.style.marginTop = '10px';
+    closeButton.style.padding = '5px 10px';
+    closeButton.style.border = 'none';
+    closeButton.style.backgroundColor = '#007BFF';
+    closeButton.style.color = '#fff';
+    closeButton.style.cursor = 'pointer';
+    closeButton.style.borderRadius = '5px';
 }
 
