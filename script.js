@@ -1,5 +1,5 @@
-//const figurePriorities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41];
-const figurePriorities = [1, 6, 6, 1, 1, 1, 1, 6, 6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  8,  8, 10];
+//nst figurePriorities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+const figurePriorities = [1, 6, 2, 8, 8, 8, 8, 8, 6,  6,  6,  3,  6,  3,  3,  8,  5,  8,  8];
 
 let TotalPoints = 0;
 let SmallGridID;
@@ -424,7 +424,7 @@ function filterFittingFigures(mainGridId) {
     const updatedFigureFits = [];
     let figureMatrix;
 
-    for(let index = 1; index <= 41; index++){
+    for(let index = 1; index <= 19; index++){
 
         // Get the figure's matrix using getFigureValues
         figureMatrix = getFigureValues(index);
