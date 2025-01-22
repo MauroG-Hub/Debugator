@@ -5,9 +5,12 @@ function loadGridStateFromNumber(containerId, figureNumber) {
     const items = grid.children;
 
     try {
-        const gridState = getFigureValues(figureNumber);
+        let gridState = getFigureValues(figureNumber);
         const color = randomNumber(9);
         let value;
+        const Rotate = randomNumber(4)-1;
+        
+        gridState = repeatFunction(rotateMatrix, Rotate, gridState);
 
         // Actualizar el estado de la cuadrícula
         for (let row = 0; row < gridState.length; row++) {
@@ -177,10 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFigureOnPageLoad();
 });
 
-function prepareExpandedList(priorities) {
+function prepareExpandedList(figureFittable) {
+  
     expandedList = []; // Clear the list before populating
-    priorities.forEach((priority, number) => {
-        if (priority > 0) { // Skip zeros
+    figurePriorities.forEach((priority, number) => {
+        if (figureFittable[number] > 0) { // Skip zeros
             for (let i = 0; i < priority; i++) {
                 expandedList.push(number + 1); // Numbers start at 1
             }

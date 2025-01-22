@@ -151,6 +151,31 @@ const Figure01 =[
     [0,0,0,0,0]
   ]
 
+  const Figure20 =[
+    [0,1,1,1,0],
+    [0,0,0,1,0],
+    [0,1,1,1,0],
+    [0,1,0,0,0],
+    [0,1,1,1,0]
+  ]
+
+  const Figure21 =[
+    [0,1,1,1,0],
+    [0,1,0,0,0],
+    [0,1,1,1,0],
+    [0,0,0,1,0],
+    [0,1,1,1,0]
+  ]
+
+  const Figure22 =[
+    [0,1,1,1,0],
+    [0,1,0,0,0],
+    [0,1,1,1,0],
+    [0,1,0,0,0],
+    [0,1,1,1,0]
+  ]
+
+
   function getFigureName(number) {
     try {
         // Generate the figure name based on the number

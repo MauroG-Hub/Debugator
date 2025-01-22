@@ -1,5 +1,5 @@
-//nst figurePriorities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-const figurePriorities = [1, 6, 2, 8, 8, 8, 8, 8, 6,  6,  6,  3,  6,  3,  3,  8,  5,  8,  8];
+//nst figurePriorities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+const figurePriorities = [1, 6, 2, 8, 8, 8, 8, 8, 6,  6,  6,  3,  6,  3,  3,  8,  5,  8,  8,  3,  3,  5];
 
 let TotalPoints = 0;
 let SmallGridID;
@@ -57,7 +57,7 @@ function Copy(row, col, sourceGridId, Dumb) {
         }
 
         if(doAllFiguresNotFit('gridContainer',['smallGrid1', 'smallGrid2', 'smallGrid3'])){
-            console.log('You lost');
+            showTipPopup("Game Over<br>");
         }
 
         if (!DisableRotationTip) {
@@ -424,7 +424,7 @@ function filterFittingFigures(mainGridId) {
     const updatedFigureFits = [];
     let figureMatrix;
 
-    for(let index = 1; index <= 19; index++){
+    for(let index = 1; index <= 22; index++){
 
         // Get the figure's matrix using getFigureValues
         figureMatrix = getFigureValues(index);
@@ -679,3 +679,20 @@ function showTipPopup(message) {
     closeButton.style.borderRadius = '5px';
 }
 
+function repeatFunction(func, times, arg) {
+    if (typeof func !== 'function') {
+        throw new Error('The first argument must be a function.');
+    }
+    if (typeof times !== 'number' || times < 0 || !Number.isInteger(times)) {
+        return arg;
+    }
+    
+    if (times === 0) {
+        return arg;
+    }
+    
+    for (let i = 0; i < times; i++) {
+        arg = func(arg);
+    }
+    return arg;
+}

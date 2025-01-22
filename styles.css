@@ -94,6 +94,7 @@ body {
 			position: relative;
 			z-index: 2;
             margin: 10px 10px 5px 10px;
+            
         }
 
         .small-grid {
@@ -104,6 +105,8 @@ body {
             gap: 1px;
             margin: auto;
             position: relative;
+            padding-left: 5px;
+            padding-right: 5px;
         }
 
         .grid-item {
