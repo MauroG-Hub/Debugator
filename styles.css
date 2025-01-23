@@ -277,3 +277,16 @@ body {
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
+
+
+#level-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}

@@ -1,5 +1,4 @@
-//nst figurePriorities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-const figurePriorities = [1, 6, 2, 8, 8, 8, 8, 8, 6,  6,  6,  3,  6,  3,  3,  8,  5,  8,  8,  3,  3,  5];
+
 
 let TotalPoints = 0;
 let SmallGridID;
@@ -9,6 +8,7 @@ let figurePrioritiesFittable = figurePriorities;
 let lastHighlightedCell = null; // Para rastrear la última celda impresa
 let NoRotationCount = 0;
 let DisableRotationTip = false;
+const levelContainer = document.getElementById('level-container');
 
 
 function Copy(row, col, sourceGridId, Dumb) {
@@ -393,6 +393,19 @@ function PointSystem(figureNumber) {
     } else {
         console.error('Element #total-score not found in the DOM.');
     }
+	
+	UpdateLevel(TotalPoints);
+}
+
+function UpdateLevel(Points){
+	if ((TotalPoints > 1000)&&(TotalPoints < 11000))Level = Math.floor(TotalPoints/1000);
+	
+    if (levelContainer) {
+        levelContainer.textContent = `Level: ${Level}`;
+    } else {
+        console.error('Level container not found in the DOM.');
+    }
+
 }
 
 function getFigureFromSmallGrid(smallGridId) {
