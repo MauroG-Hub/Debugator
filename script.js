@@ -1,14 +1,5 @@
 
 
-let TotalPoints = 0;
-let SmallGridID;
-let expandedList = [];
-const cleanedGrids = new Set();
-let figurePrioritiesFittable = figurePriorities;
-let lastHighlightedCell = null; // Para rastrear la última celda impresa
-let NoRotationCount = 0;
-let DisableRotationTip = false;
-const levelContainer = document.getElementById('level-container');
 
 
 function Copy(row, col, sourceGridId, Dumb) {
@@ -375,38 +366,7 @@ function clearColumns(mainGridId, columnsToClear) {
     });
 }
 
-function PointSystem(figureNumber) {
-    let PointsToAdd = 0;
 
-    if (figureNumber !== 0) {
-        PointsToAdd = countOnesInFigure(figureNumber);
-    } else {
-        PointsToAdd = 1;
-    }
-
-    TotalPoints += PointsToAdd;
-
-    // Update the score in the interface
-    const scoreElement = document.getElementById('total-score');
-    if (scoreElement) {
-        scoreElement.textContent = TotalPoints;
-    } else {
-        console.error('Element #total-score not found in the DOM.');
-    }
-	
-	UpdateLevel(TotalPoints);
-}
-
-function UpdateLevel(Points){
-	if ((TotalPoints > 1000)&&(TotalPoints < 11000))Level = Math.floor(TotalPoints/1000);
-	
-    if (levelContainer) {
-        levelContainer.textContent = `Level: ${Level}`;
-    } else {
-        console.error('Level container not found in the DOM.');
-    }
-
-}
 
 function getFigureFromSmallGrid(smallGridId) {
     const smallGrid = document.getElementById(smallGridId);
