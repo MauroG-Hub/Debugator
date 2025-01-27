@@ -16,11 +16,15 @@ function PointSystem(PointsToAdd) {
 
 function UpdateLevel(Points){
 	if ((TotalPoints > 1000)&&(TotalPoints < 11000))Level = Math.floor(TotalPoints/1000);
-	
+	UpdatePriorities();
     if (levelContainer) {
         levelContainer.textContent = `Level: ${Level}`;
     } else {
         console.error('Level container not found in the DOM.');
     }
 
+}
+
+function UpdatePriorities(){
+	figurePriorities = figurePrioritiesLevels[Level - 1];
 }
