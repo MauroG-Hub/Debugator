@@ -35,12 +35,11 @@ function Copy(row, col, sourceGridId, Dumb) {
         const figureNumber = parseInt(smallGrid.getAttribute('data-figure-number')) || 0;
 
         // Call PointSystem with the figure number
-        PointSystem(figureNumber);
+        PointSystem(countOnesInFigure(figureNumber));
 
         let columnsToClear = analyzeColumns('gridContainer');
         let rowsToClear = analyzeRows('gridContainer');
-        clearColumns('gridContainer', columnsToClear);
-        clearRows('gridContainer', rowsToClear);
+        clearRowsAndColumns('gridContainer', rowsToClear, columnsToClear);
 
         if (checkAllGridsCleared(['smallGrid1', 'smallGrid2', 'smallGrid3'])) {
             cleanedGrids.clear();
@@ -291,7 +290,7 @@ function analyzeRows(mainGridId) {
     return rowsToClear;
 }
 
-function clearRows(mainGridId, rowsToClear) {
+function clearRowsAndColumns(mainGridId, rowsToClear, columnsToClear) {
     const mainGrid = document.getElementById(mainGridId);
 
     if (!mainGrid) {
@@ -307,9 +306,19 @@ function clearRows(mainGridId, rowsToClear) {
             const index = row * gridWidth + col;
             items[index].setAttribute('data-value', 0);
             items[index].textContent = 0;
-            PointSystem(0);
         }
     });
+	
+	columnsToClear.forEach(col => {
+        for (let row = 0; row < gridWidth; row++) {
+            const index = row * gridWidth + col;
+            items[index].setAttribute('data-value', 0);
+            items[index].textContent = 0;
+        }
+    });
+	PointSystem((rowsToClear.length + columnsToClear.length)*10);
+	
+	
 }
 
 function analyzeColumns(mainGridId) {
@@ -345,26 +354,6 @@ function analyzeColumns(mainGridId) {
     return columnsToClear;
 }
 
-function clearColumns(mainGridId, columnsToClear) {
-    const mainGrid = document.getElementById(mainGridId);
-
-    if (!mainGrid) {
-        console.error(`Element with ID ${mainGridId} not found.`);
-        return;
-    }
-
-    const items = mainGrid.children;
-    const gridWidth = Math.sqrt(items.length);
-
-    columnsToClear.forEach(col => {
-        for (let row = 0; row < gridWidth; row++) {
-            const index = row * gridWidth + col;
-            items[index].setAttribute('data-value', 0);
-            items[index].textContent = 0;
-            PointSystem(0);
-        }
-    });
-}
 
 
 

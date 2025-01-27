@@ -1,17 +1,10 @@
 
-function PointSystem(figureNumber) {
-    let PointsToAdd = 0;
+function PointSystem(PointsToAdd) {
+    
+    TotalPoints += Math.max(Math.floor(((PointsToAdd*14/9)-(5/9))*1.5),1);
 
-    if (figureNumber !== 0) {
-        PointsToAdd = countOnesInFigure(figureNumber);
-    } else {
-        PointsToAdd = 1;
-    }
-
-    TotalPoints += PointsToAdd;
 
     // Update the score in the interface
-    const scoreElement = document.getElementById('total-score');
     if (scoreElement) {
         scoreElement.textContent = TotalPoints;
     } else {
