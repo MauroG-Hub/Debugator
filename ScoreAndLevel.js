@@ -15,7 +15,7 @@ function PointSystem(PointsToAdd) {
 }
 
 function UpdateLevel(Points){
-	if ((TotalPoints > 1000)&&(TotalPoints < 11000))Level = Math.floor(TotalPoints/1000);
+	if ((TotalPoints > 1000)&&(TotalPoints < 11000))Level = Math.floor(TotalPoints/1000)+1;
 	UpdatePriorities();
     if (levelContainer) {
         levelContainer.textContent = `Level: ${Level}`;
