@@ -1,14 +1,29 @@
 
 function doAllFiguresNotFit(mainGridId, smallGridIds) {
-    // Iterate over each small grid ID
+	let AllEmpty = true;
+	
+     // Iterate over each small grid ID
     for (let smallGridId of smallGridIds) {
-        if (doesAnyRotationFit(mainGridId, getFigureFromSmallGrid(smallGridId))) {
+		
+		// Get figure and check if any rotation fits
+		let figure = getFigureFromSmallGrid(smallGridId);
+		
+		 // Skip if figure is empty or contains only zeros
+		let flatFigure = figure.flat();
+		
+		
+        if (Array.isArray(figure) && !flatFigure.every(val => val === 0)) {
+			AllEmpty = false;
+		   if (doesAnyRotationFit(mainGridId, figure)) {
             // If any figure fits, return false
+			
             return false;
-        }
+			
+			} 
+        }  
     }
     // If none of the figures fit, return true
-    return true;
+	if (AllEmpty) { return false; } else { return true };
 }
 
 function doesAnyRotationFit(mainGridId, figureMatrix) {
@@ -30,12 +45,13 @@ function doesAnyRotationFit(mainGridId, figureMatrix) {
     for (let i = 0; i < 4; i++) {
         const coordinates = getFirstAndLastRowColWithValue(rotatedMatrix);
         const rotatedSubFigure = extractSubFigure(rotatedMatrix, coordinates);
+        
         if (doesFigureFitInGrid(mainGrid, rotatedSubFigure)) {
             return true; // Break and return true if any rotation fits
         }
         rotatedMatrix = rotateMatrix(rotatedMatrix); // Rotate 90° clockwise
     }
-
+    
     return false; // No rotation fits
 }
 
@@ -75,7 +91,10 @@ function doesFigureFitInGrid(mainGrid, figureSubFigure) {
     // Iterate over every valid starting position in the main grid
     for (let startRow = 0; startRow <= gridSize - subGridHeight; startRow++) {
         for (let startCol = 0; startCol <= gridSize - subGridWidth; startCol++) {
+            
             if (compareSubmatrices(mainGrid, figureSubFigure, startRow, startCol)) {
+                
+                
                 return true; // Break and return true on the first valid position
             }
         }
@@ -104,7 +123,9 @@ function compareSubmatrices(mainGrid, figureSubFigure, startRow, startCol) {
     // Compare each position in the matrices
     for (let row = 0; row < subGridHeight; row++) {
         for (let col = 0; col < subGridWidth; col++) {
-            if (figureSubFigure[row][col] === 1 && subGrid[row][col] !== 0) {
+            
+            if (figureSubFigure[row][col] !== 0 && subGrid[row][col] !== 0) {
+                
                 return false; // Conflict: A `1` in figureSubmatrix does not correspond to a `0` in subGrid
             }
         }

@@ -49,6 +49,7 @@ function Copy(row, col, sourceGridId, Dumb) {
         if(doAllFiguresNotFit('gridContainer',['smallGrid1', 'smallGrid2', 'smallGrid3'])){
             showTipPopup("Game Over<br>");
         }
+		
 
         if (!DisableRotationTip) {
             NoRotationCount++;
