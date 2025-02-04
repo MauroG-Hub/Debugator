@@ -178,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ** Load initial figures **
     loadFigureOnPageLoad();
+    positionUndoButton(screenWidth, screenHeight);
 });
 
 function prepareExpandedList(figureFittable) {

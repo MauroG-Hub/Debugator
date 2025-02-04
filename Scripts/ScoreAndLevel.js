@@ -1,8 +1,9 @@
 
 function PointSystem(PointsToAdd) {
     
-    TotalPoints += Math.max(Math.floor(((PointsToAdd*14/9)-(5/9))*1.5),1);
-
+    if(PointsToAdd > 0){
+        TotalPoints += Math.max(Math.floor(((PointsToAdd*14/9)-(5/9))*1.5),1);  
+    };
 
     // Update the score in the interface
     if (scoreElement) {

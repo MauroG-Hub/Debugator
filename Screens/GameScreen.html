@@ -8,9 +8,11 @@
 	<script src="../Scripts/GlobalVar.js" defer></script>
 	<script src="../Scripts/ScoreAndLevel.js" defer></script>
     <script src="../Scripts/loading.js" defer></script>
+    <script src="../Scripts/LastState.js" defer></script>
     <script src="../Scripts/script.js" defer></script>
     <script src="../Scripts/ValidateFit.js" defer></script>
 	<link rel="stylesheet" href="../Styles/stylesGame.css">
+    <link rel="stylesheet" href="../Styles/StyleLastState.css">
     <link rel="stylesheet" href="../Styles/StyleTipPopUp.css">
 	<link rel="stylesheet" href="../Styles/background.css">
 </head>
@@ -19,6 +21,7 @@
         <button class="back-button" onclick="location.href='../Index.html'">&larr;</button>
     </div>
 	<div id="level-container">Level: 1</div>
+    <button class="Undo-button " onclick=RecoverLastStep()>Undo</button>
     <div class="main-wrapper">
         <div id="score-container">
             <div id="total-score">0</div>
@@ -28,7 +31,7 @@
                 <div class="grid-container" id="gridContainer"></div>
             </div>
         </div>
-        <div class="grid-wrapper grid-wrapperOutside">
+        <div class="grid-wrapper grid-wrapperOutside" id="smallgridoutsidewrapper">
             <div class="grid-wrapper grid-wrapperInside">
                 <div class="small-grids">
                     <div class="small-grid" id="smallGrid1"></div>

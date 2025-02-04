@@ -2,7 +2,7 @@
 let TotalPoints = 0;
 let SmallGridID;
 let expandedList = [];
-const cleanedGrids = new Set();
+let cleanedGrids = new Set();
 let lastHighlightedCell = null; // Para rastrear la última celda impresa
 let NoRotationCount = 0;
 let DisableRotationTip = false;

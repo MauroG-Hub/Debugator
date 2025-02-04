@@ -25,15 +25,16 @@ function Copy(row, col, sourceGridId, Dumb) {
         return;
     }
     
+    //Backup current data state
+    if (!Dumb){SaveLastStep()};
     copyValuesFromGrid(sourceGridId, 'gridContainer', row, col, Dumb);
 
     if (!Dumb){
-        clearGrid(sourceGridId);
 
         // Retrieve the figure number associated with the source grid
         const smallGrid = document.getElementById(sourceGridId);
         const figureNumber = parseInt(smallGrid.getAttribute('data-figure-number')) || 0;
-
+        clearGrid(sourceGridId);
         // Call PointSystem with the figure number
         PointSystem(countOnesInFigure(figureNumber));
 
@@ -114,7 +115,7 @@ function copyValuesFromGrid(gridId, mainGridId, startRow, startCol, Dumb) {
                 if (value > 0) {
                     FinalValue = value;
                     if(Dumb){FinalValue = Math.abs(value) + 10;}
-                    mainItems[targetIndex].setAttribute('data-value', FinalValue);
+                    mainItems[targetIndex].setAttribute('data-value', parseInt(FinalValue));
                     mainItems[targetIndex].textContent = FinalValue;
                 }
             }
@@ -245,8 +246,9 @@ function clearGrid(gridId) {
         item.setAttribute('data-value', 0);
         item.textContent = 0;
     }
-
+    grid.setAttribute('data-figure-number', 0);
     cleanedGrids.add(gridId);
+   
 }
 
 function checkAllGridsCleared(gridIds) {
@@ -518,7 +520,8 @@ function enableTouchSupportSmall(gridContainer) {
             const adjustedRow = Math.max(-1, Math.min(destinationRow - initialSmallRow + FirstRow, 10));
             const adjustedCol = Math.max(-1, Math.min(destinationCol - initialSmallCol + FirstCol, 10));
 
-    
+               
+            
             // Llama a Copy con las coordenadas ajustadas
             Copy(adjustedRow, adjustedCol, sourceGridId,0);
         
