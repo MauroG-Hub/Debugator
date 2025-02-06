@@ -60,7 +60,6 @@ function Translate(LanguageCode, TextKey){
 function SetLanguage(LanguageCode){
     
     Language = LanguageCode;
-    localStorage.setItem('Language', LanguageCode);
     const ButtonText = Translate(Language, "Start");
     const Button = document.getElementById("Startbutton");
     Button.innerText=  ButtonText;
