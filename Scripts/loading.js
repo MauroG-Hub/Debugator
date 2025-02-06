@@ -176,6 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
         item.style.borderRadius = borderRadiusSmall;
     });
 
+    const params = new URLSearchParams(window.location.search);
+    Language = params.get('lang') || 'EN';
+
     const UnduButtonText = Translate(Language, "Undo");
     const UnduButton = document.getElementById("Undo-button");
     UnduButton.innerText=  UnduButtonText;

@@ -2,7 +2,7 @@
 // ------ Languages  -----------------
 
 
-let Language = localStorage.getItem('Language') || "EN";
+let Language = "EN";
 
 
 let Translations = {
