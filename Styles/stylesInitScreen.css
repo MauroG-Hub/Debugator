@@ -29,7 +29,7 @@ body {
         
 .start-button {
     font-size: 2rem;
-    padding: 15px 30px;
+    padding: 15px 50px;
     background-color: #00BFFF;
     color: white;
     border: none;
@@ -63,3 +63,29 @@ body {
     z-index: 1000;
 }
 
+.Language-button {
+    font-size: 1.5rem;
+    margin-top: 2vh;
+    padding: 10px 20px;
+    background-color: #00BFFF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+	z-index: 1000; /* Asegúrate de que esté por encima del fondo */
+    position: relative; /* Si no está ya establecido */
+}
+
+
+.Language-button:active {
+    transform: scale(1);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+#LanguageWrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3vh;
+}

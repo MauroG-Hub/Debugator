@@ -18,8 +18,9 @@ function PointSystem(PointsToAdd) {
 function UpdateLevel(Points){
 	if ((TotalPoints > 1000)&&(TotalPoints < 11000))Level = Math.floor(TotalPoints/1000)+1;
 	UpdatePriorities();
+    const LevelTranslated = Translate(Language, 'Level');
     if (levelContainer) {
-        levelContainer.textContent = `Level: ${Level}`;
+        levelContainer.textContent = `${LevelTranslated}: ${Level}`;
     } else {
         console.error('Level container not found in the DOM.');
     }

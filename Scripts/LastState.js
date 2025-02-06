@@ -113,15 +113,15 @@ function positionUndoButton(screenWidth, screenHeight) {
     const undoButton = document.querySelector('.Undo-button');
 
     const rect = smallGridsContainer.getBoundingClientRect();
-    let Buttonwith = rect.right + 50;
+    let Buttonwith = rect.right + 60;
     let Buttonhigth = rect.top + (rect.height/2);
     
 
-    if(screenWidth < 550){
+    if(screenWidth < 570){
         Buttonwith = rect.right + 40;
     }
 
-    if(screenWidth < 520){
+    if(screenWidth < 550){
         Buttonwith = rect.right - (rect.width/2);
         Buttonhigth = rect.top + rect.height + 50;
 

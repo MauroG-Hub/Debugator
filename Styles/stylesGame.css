@@ -229,30 +229,6 @@ body {
     color: white; /* Asegúrate de que el texto sea visible */
 }
 
-        
-.start-button {
-    font-size: 2rem;
-    padding: 15px 30px;
-    background-color: #00BFFF;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-	z-index: 10; /* Asegúrate de que esté por encima del fondo */
-    position: relative; /* Si no está ya establecido */
-}
-
-.start-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
-
-.start-button:active {
-    transform: scale(1);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-}
 
 .top-left-button-wrapper {
     position: fixed;
@@ -290,3 +266,4 @@ body {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
+

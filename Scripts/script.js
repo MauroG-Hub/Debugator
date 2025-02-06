@@ -48,7 +48,8 @@ function Copy(row, col, sourceGridId, Dumb) {
         }
 
         if(doAllFiguresNotFit('gridContainer',['smallGrid1', 'smallGrid2', 'smallGrid3'])){
-            showTipPopup("Game Over<br>");
+            const TipText = Translate(Language, 'GameOver')
+            showTipPopup(TipText);
         }
 		
 
@@ -56,7 +57,8 @@ function Copy(row, col, sourceGridId, Dumb) {
             NoRotationCount++;
 
             if (NoRotationCount > 5) {
-                showTipPopup("Tip:<br>Figure can be rotated<br>Just touch it<br>");
+                const TipText = Translate(Language, 'TipTX1')
+                showTipPopup(TipText);
                 DisableRotationTip = true;
                 NoRotationCount = 0;
             }
@@ -357,9 +359,6 @@ function analyzeColumns(mainGridId) {
     return columnsToClear;
 }
 
-
-
-
 function getFigureFromSmallGrid(smallGridId) {
     const smallGrid = document.getElementById(smallGridId);
 
@@ -610,7 +609,8 @@ function showTipPopup(message) {
 
     // Crea el botón para cerrar
     const closeButton = document.createElement('button');
-    closeButton.textContent = 'Cerrar';
+    console.log(Language);
+    closeButton.textContent = Translate(Language, 'Close');
     closeButton.classList.add('popup-close-button');
     closeButton.onclick = () => {
         popup.remove(); // Elimina el popup del DOM

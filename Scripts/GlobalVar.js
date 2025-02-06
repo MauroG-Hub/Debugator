@@ -11,3 +11,4 @@ const scoreElement = document.getElementById('total-score');
 let Level = 1;
 let figurePriorities = figurePrioritiesLevels[Level - 1];
 let figurePrioritiesFittable = figurePriorities;
+

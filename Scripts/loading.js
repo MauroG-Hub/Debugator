@@ -176,6 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
         item.style.borderRadius = borderRadiusSmall;
     });
 
+    const UnduButtonText = Translate(Language, "Undo");
+    const UnduButton = document.getElementById("Undo-button");
+    UnduButton.innerText=  UnduButtonText;
+
+    const LevelTranslated = Translate(Language, 'Level');
+    const LevelBanner = document.getElementById("level-container");
+    LevelBanner.innerText=  `${LevelTranslated}: 1`;
+
+
     // ** Load initial figures **
     loadFigureOnPageLoad();
     positionUndoButton(screenWidth, screenHeight);

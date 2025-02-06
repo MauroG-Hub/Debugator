@@ -7,6 +7,7 @@
 	<script src="../Scripts/Figures.js" defer></script>
 	<script src="../Scripts/GlobalVar.js" defer></script>
 	<script src="../Scripts/ScoreAndLevel.js" defer></script>
+    <script src="../Scripts/Languages.js" defer></script>
     <script src="../Scripts/loading.js" defer></script>
     <script src="../Scripts/LastState.js" defer></script>
     <script src="../Scripts/script.js" defer></script>
@@ -21,7 +22,7 @@
         <button class="back-button" onclick="location.href='../Index.html'">&larr;</button>
     </div>
 	<div id="level-container">Level: 1</div>
-    <button class="Undo-button hidden" onclick=RecoverLastStep()>Undo</button>
+    <button id="Undo-button" class="Undo-button hidden" onclick=RecoverLastStep()></button>
     <div class="main-wrapper">
         <div id="score-container">
             <div id="total-score">0</div>
