@@ -1,7 +1,5 @@
 
 
-
-
 function Copy(row, col, sourceGridId, Dumb) {
     cleanMainGridValuesInRange('gridContainer', 11, 19);
 
@@ -433,20 +431,24 @@ function enableTouchSupportSmall(gridContainer) {
             document.body.appendChild(activeElement);
         
 
-            // Calcula el offset inicial
-            const rect = target.getBoundingClientRect();
-            touchOffsetX = touch.clientX - rect.left;
-            touchOffsetY = touch.clientY - rect.top;
-        
-            // Posiciona el clon inicialmente
-            activeElement.style.left = `${touch.clientX - touchOffsetX}px`;
-            activeElement.style.top = `${touch.clientY - touchOffsetY}px`;
         
             // Calcula y almacena las coordenadas iniciales relativas al small grid
             const sourceRect = gridContainer.getBoundingClientRect();
             const smallCellSize = sourceRect.width / 5; // Tamaño de la celda del small grid (5x5)
             const initialSmallRow = Math.floor((touch.clientY - sourceRect.top) / smallCellSize);
             const initialSmallCol = Math.floor((touch.clientX - sourceRect.left) / smallCellSize);
+
+            
+            // Calcula el offset inicial
+            const Grid = document.getElementById('smallGrid1');
+            const rect = Grid.getBoundingClientRect();
+            const cellSize = rect.width / 5; // Tamaño de la celda del main grid
+            
+            //event.preventDefault();
+
+            activeElement.style.left = `${touch.clientX - ((initialSmallCol+1)*cellSize)}px`;
+            activeElement.style.top = `${touch.clientY - ((initialSmallRow+1)*cellSize*1.8)}px`;
+            
         
             // Almacena las coordenadas relativas en el elemento activo
             activeElement.setAttribute('data-initial-row', initialSmallRow);
@@ -464,20 +466,26 @@ function enableTouchSupportSmall(gridContainer) {
         const initialSmallRow = parseInt(activeElement.getAttribute('data-initial-row'), 10);
         const initialSmallCol = parseInt(activeElement.getAttribute('data-initial-col'), 10);
         const { FirstRow, FirstCol, LastRow, LastCol } = getFirstAndLastRowColWithValue(figurematrix);
-        const mainGrid = document.getElementById('gridContainer');
-        const rect = mainGrid.getBoundingClientRect();
-        const cellSize = rect.width / 10; // Tamaño de la celda del main grid
-        const destinationRow = Math.floor((touch.clientY - rect.top) / cellSize);
-        const destinationCol = Math.floor((touch.clientX - rect.left) / cellSize);
+        const MainGrid = document.getElementById('gridContainer');
+        const Mainrect = MainGrid.getBoundingClientRect();
+        const MaincellSize = Mainrect.width / 10; // Tamaño de la celda del main grid
+        
 
         //event.preventDefault();
+        const SmallGrid = document.getElementById('smallGrid1');
+        const smallrect = SmallGrid.getBoundingClientRect();
+        const SmallcellSize = smallrect.width / 5; // Tamaño de la celda del main grid
+        let PosY = touch.clientY - ((initialSmallRow+1)*SmallcellSize*1.8);
+        let PosX = touch.clientX - ((initialSmallCol+1)*SmallcellSize)
+        activeElement.style.left = `${PosX}px`;
+        activeElement.style.top = `${PosY}px`;
 
-        activeElement.style.left = `${touch.clientX - ((initialSmallCol-1)*cellSize)}px`;
-        activeElement.style.top = `${touch.clientY - ((initialSmallRow-1)*cellSize)}px`;
-
+        const destinationRow = Math.round(((PosY - (1.62*MaincellSize) - Mainrect.top) / MaincellSize));
+        const destinationCol = Math.round(((PosX - (1.36*MaincellSize) - Mainrect.left) / MaincellSize));
+        
         let sourceGridId = activeElement.getAttribute('data-source-grid-id');
-        let adjustedRow = Math.max(-1, Math.min(destinationRow - initialSmallRow + FirstRow, 10));
-        let adjustedCol = Math.max(-1, Math.min(destinationCol - initialSmallCol + FirstCol, 10));
+        let adjustedRow = Math.max(-1, Math.min(destinationRow + FirstRow, 10));
+        let adjustedCol = Math.max(-1, Math.min(destinationCol + FirstCol, 10));
         if(adjustedRow < 0 ||
             adjustedCol < 0||
             adjustedRow > 9 ||
@@ -494,35 +502,45 @@ function enableTouchSupportSmall(gridContainer) {
 
 
     gridContainer.addEventListener('touchend', (event) => {
+        
         if (!activeElement) return;
-    
-        const touch = event.changedTouches[0];
-        const destinationElement = document.elementFromPoint(touch.clientX, touch.clientY);
-    
-        //if (destinationElement && destinationElement.classList.contains('maingrid-item')) {}
-            const mainGrid = document.getElementById('gridContainer');
-            const rect = mainGrid.getBoundingClientRect();
-            const cellSize = rect.width / 10; // Tamaño de la celda del main grid
-            const sourceGridId = activeElement.getAttribute('data-source-grid-id');
-    
-            // Calcula la posición en el main grid
-            const destinationRow = Math.floor((touch.clientY - rect.top) / cellSize);
-            const destinationCol = Math.floor((touch.clientX - rect.left) / cellSize);
-    
-            // Recupera las coordenadas iniciales relativas al small grid
+        if (!NoDropWhileRotate) {
+        
+            const touch = event.changedTouches[0];
+            const destinationElement = document.elementFromPoint(touch.clientX, touch.clientY);
+        
+            //if (destinationElement && destinationElement.classList.contains('maingrid-item')) {}
             const initialSmallRow = parseInt(activeElement.getAttribute('data-initial-row'), 10);
             const initialSmallCol = parseInt(activeElement.getAttribute('data-initial-col'), 10);
+            const { FirstRow, FirstCol, LastRow, LastCol } = getFirstAndLastRowColWithValue(figurematrix);
+            const MainGrid = document.getElementById('gridContainer');
+            const Mainrect = MainGrid.getBoundingClientRect();
+            const MaincellSize = Mainrect.width / 10; // Tamaño de la celda del main grid
+            const SmallGrid = document.getElementById('smallGrid1');
+            const smallrect = SmallGrid.getBoundingClientRect();
+            const SmallcellSize = smallrect.width / 5; // Tamaño de la celda del main grid
+            let PosY = touch.clientY - ((initialSmallRow+1)*SmallcellSize*1.8);
+            let PosX = touch.clientX - ((initialSmallCol+1)*SmallcellSize)
+            activeElement.style.left = `${PosX}px`;
+            activeElement.style.top = `${PosY}px`;
     
-            let { FirstRow, FirstCol, LastRow, LastCol } = getFirstAndLastRowColWithValue(figurematrix);
-
-            // Ajusta las coordenadas de destino basadas en la posición relativa inicial
-            const adjustedRow = Math.max(-1, Math.min(destinationRow - initialSmallRow + FirstRow, 10));
-            const adjustedCol = Math.max(-1, Math.min(destinationCol - initialSmallCol + FirstCol, 10));
-
-               
+            const destinationRow = Math.round(((PosY - (1.62*MaincellSize) - Mainrect.top) / MaincellSize));
+            const destinationCol = Math.round(((PosX - (1.36*MaincellSize) - Mainrect.left) / MaincellSize));
             
-            // Llama a Copy con las coordenadas ajustadas
-            Copy(adjustedRow, adjustedCol, sourceGridId,0);
+            let sourceGridId = activeElement.getAttribute('data-source-grid-id');
+            let adjustedRow = Math.max(-1, Math.min(destinationRow + FirstRow, 10));
+            let adjustedCol = Math.max(-1, Math.min(destinationCol + FirstCol, 10));
+    
+                   
+                
+                // Llama a Copy con las coordenadas ajustadas
+                Copy(adjustedRow, adjustedCol, sourceGridId,0);
+            
+        
+        };
+        
+        NoDropWhileRotate = false;
+    
         
     
         // Limpia el elemento visual del arrastre
@@ -545,6 +563,9 @@ function enableTouchSupportSmall(gridContainer) {
 }
 
 function rotar(event) {
+
+    NoDropWhileRotate = true;
+
     const smallGrid = event.currentTarget.closest('.small-grid'); // Obtén la small grid asociada
     if (!smallGrid) return;
 
