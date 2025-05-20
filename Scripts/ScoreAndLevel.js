@@ -28,5 +28,5 @@ function UpdateLevel(Points){
 }
 
 function UpdatePriorities(){
-	figurePriorities = figurePrioritiesLevels[Level - 1];
+	figurePriorities = math.min(figurePrioritiesLevels[Level - 1],10);
 }
