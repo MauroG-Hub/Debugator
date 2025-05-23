@@ -13,6 +13,7 @@ function PointSystem(PointsToAdd) {
     }
 	
 	UpdateLevel(TotalPoints);
+	
 }
 
 function UpdateLevel(Points){

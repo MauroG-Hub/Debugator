@@ -182,6 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const UnduButtonText = Translate(Language, "Undo");
     const UnduButton = document.getElementById("Undo-button");
     UnduButton.innerText=  UnduButtonText;
+	
+	const NewGameButtonText = Translate(Language, "NewGame");
+    const NewGameButton = document.getElementById("NewGame-button");
+    NewGameButton.innerText=  NewGameButtonText;
 
     const LevelTranslated = Translate(Language, 'Level');
     const LevelBanner = document.getElementById("level-container");
@@ -191,6 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ** Load initial figures **
     loadFigureOnPageLoad();
     positionUndoButton(screenWidth, screenHeight);
+	positionNewGameButton(screenWidth, screenHeight);
+	
 });
 
 function prepareExpandedList(figureFittable) {
