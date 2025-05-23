@@ -403,7 +403,7 @@ function filterFittingFigures(mainGridId) {
     return updatedFigureFits;
 }
 
-function enableTouchSupportSmall(gridContainer) {
+function enableTouchSupportSmall(gridContainer, document) {
     let activeElement = null;
     let touchOffsetX = 0;
     let touchOffsetY = 0;
@@ -459,7 +459,7 @@ function enableTouchSupportSmall(gridContainer) {
     });
     
 
-    gridContainer.addEventListener('touchmove', (event) => {
+    document.addEventListener('touchmove', (event) => {
         if (!activeElement) return;
 
         const touch = event.touches[0];
@@ -501,55 +501,67 @@ function enableTouchSupportSmall(gridContainer) {
     });
 
 
-    gridContainer.addEventListener('touchend', (event) => {
-        
-        if (!activeElement) return;
-        if (!NoDropWhileRotate) {
-        
-            const touch = event.changedTouches[0];
-            const destinationElement = document.elementFromPoint(touch.clientX, touch.clientY);
-        
-            //if (destinationElement && destinationElement.classList.contains('maingrid-item')) {}
-            const initialSmallRow = parseInt(activeElement.getAttribute('data-initial-row'), 10);
-            const initialSmallCol = parseInt(activeElement.getAttribute('data-initial-col'), 10);
-            const { FirstRow, FirstCol, LastRow, LastCol } = getFirstAndLastRowColWithValue(figurematrix);
-            const MainGrid = document.getElementById('gridContainer');
-            const Mainrect = MainGrid.getBoundingClientRect();
-            const MaincellSize = Mainrect.width / 10; // Tamaño de la celda del main grid
-            const SmallGrid = document.getElementById('smallGrid1');
-            const smallrect = SmallGrid.getBoundingClientRect();
-            const SmallcellSize = smallrect.width / 5; // Tamaño de la celda del main grid
-            let PosY = touch.clientY - ((initialSmallRow+1)*SmallcellSize*1.8);
-            let PosX = touch.clientX - ((initialSmallCol+1)*SmallcellSize)
-            activeElement.style.left = `${PosX}px`;
-            activeElement.style.top = `${PosY}px`;
-    
-            const destinationRow = Math.round(((PosY - (1.62*MaincellSize) - Mainrect.top) / MaincellSize));
-            const destinationCol = Math.round(((PosX - (1.36*MaincellSize) - Mainrect.left) / MaincellSize));
-            
-            let sourceGridId = activeElement.getAttribute('data-source-grid-id');
-            let adjustedRow = Math.max(-1, Math.min(destinationRow + FirstRow, 10));
-            let adjustedCol = Math.max(-1, Math.min(destinationCol + FirstCol, 10));
-    
-                   
-                
-                // Llama a Copy con las coordenadas ajustadas
-                Copy(adjustedRow, adjustedCol, sourceGridId,0);
-            
-        
-        };
-        
-        NoDropWhileRotate = false;
-    
-        
-    
-        // Limpia el elemento visual del arrastre
-        document.body.removeChild(activeElement);
-        activeElement = null;
-        cleanMainGridValuesInRange('gridContainer', 11, 19);
+    document.addEventListener('touchend', (event) => {
+        AfterTouchActions();
 
     });
 
+	document.addEventListener('touchcancel', (event) => {
+		AfterTouchActions();
+	});
+	
+	document.body.addEventListener('touchmove', (e) => {
+		if (activeElement) e.preventDefault();
+	}, { passive: false });
+	
+	function AfterTouchActions(){
+	        if (!activeElement) return;
+			if (!NoDropWhileRotate) {
+			
+				const touch = event.changedTouches[0];
+				const destinationElement = document.elementFromPoint(touch.clientX, touch.clientY);
+			
+				//if (destinationElement && destinationElement.classList.contains('maingrid-item')) {}
+				const initialSmallRow = parseInt(activeElement.getAttribute('data-initial-row'), 10);
+				const initialSmallCol = parseInt(activeElement.getAttribute('data-initial-col'), 10);
+				const { FirstRow, FirstCol, LastRow, LastCol } = getFirstAndLastRowColWithValue(figurematrix);
+				const MainGrid = document.getElementById('gridContainer');
+				const Mainrect = MainGrid.getBoundingClientRect();
+				const MaincellSize = Mainrect.width / 10; // Tamaño de la celda del main grid
+				const SmallGrid = document.getElementById('smallGrid1');
+				const smallrect = SmallGrid.getBoundingClientRect();
+				const SmallcellSize = smallrect.width / 5; // Tamaño de la celda del main grid
+				let PosY = touch.clientY - ((initialSmallRow+1)*SmallcellSize*1.8);
+				let PosX = touch.clientX - ((initialSmallCol+1)*SmallcellSize)
+				activeElement.style.left = `${PosX}px`;
+				activeElement.style.top = `${PosY}px`;
+		
+				const destinationRow = Math.round(((PosY - (1.62*MaincellSize) - Mainrect.top) / MaincellSize));
+				const destinationCol = Math.round(((PosX - (1.36*MaincellSize) - Mainrect.left) / MaincellSize));
+				
+				let sourceGridId = activeElement.getAttribute('data-source-grid-id');
+				let adjustedRow = Math.max(-1, Math.min(destinationRow + FirstRow, 10));
+				let adjustedCol = Math.max(-1, Math.min(destinationCol + FirstCol, 10));
+		
+					   
+					
+					// Llama a Copy con las coordenadas ajustadas
+					Copy(adjustedRow, adjustedCol, sourceGridId,0);
+				
+			
+			};
+			
+			NoDropWhileRotate = false;
+		
+			
+		
+			// Limpia el elemento visual del arrastre
+			document.body.removeChild(activeElement);
+			activeElement = null;
+			cleanMainGridValuesInRange('gridContainer', 11, 19);
+
+	}
+	
     gridContainer.addEventListener('touchcancel', () => {
         if (activeElement) {
             document.body.removeChild(activeElement);

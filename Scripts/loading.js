@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ** Enable touch support for grids **
     ['smallGrid1', 'smallGrid2', 'smallGrid3'].forEach(id => {
-        enableTouchSupportSmall(document.getElementById(id));
+        enableTouchSupportSmall(document.getElementById(id),document);
     });
 
     // ** Apply dynamic border-radius **
