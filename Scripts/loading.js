@@ -1,3 +1,9 @@
+let LastFiguresLoaded = {
+    FigureNumber1: 0,
+    FigureNumber2: 0,
+    FigureNumber3: 0
+};
+
 
 function loadGridStateFromNumber(containerId, figureNumber) {
     const grid = document.getElementById(containerId);
@@ -27,16 +33,24 @@ function loadGridStateFromNumber(containerId, figureNumber) {
     }
 }
 
-function loadFigureOnPageLoad() {
+function loadFigureOnPageLoad(KeepOlds) {
     figureFittable = filterFittingFigures('gridContainer');
     prepareExpandedList(figureFittable);
 
-    let figureNumber = randomFigure();
-    loadGridStateFromNumber('smallGrid1', figureNumber);
-	figureNumber = randomFigure();
-    loadGridStateFromNumber('smallGrid2', figureNumber);
-	figureNumber = randomFigure();
-    loadGridStateFromNumber('smallGrid3', figureNumber);
+	if (!KeepOlds) {		
+		LastFiguresLoaded.FigureNumber1 = randomFigure();
+		LastFiguresLoaded.FigureNumber2 = randomFigure();
+			if (LastFiguresLoaded.FigureNumber1 == LastFiguresLoaded.FigureNumber2) {
+				LastFiguresLoaded.FigureNumber2 = randomFigure();
+			}
+		LastFiguresLoaded.FigureNumber3 = randomFigure();
+			if ((LastFiguresLoaded.FigureNumber1 == LastFiguresLoaded.FigureNumber3)||(LastFiguresLoaded.FigureNumber2 == LastFiguresLoaded.FigureNumber3)) {
+			LastFiguresLoaded.FigureNumber3 = randomFigure();
+			}
+	}
+    loadGridStateFromNumber('smallGrid1', LastFiguresLoaded.FigureNumber1);
+	loadGridStateFromNumber('smallGrid2', LastFiguresLoaded.FigureNumber2);
+	loadGridStateFromNumber('smallGrid3', LastFiguresLoaded.FigureNumber3);
 }
 
 function initializeMainGrid(containerId, rows, cols, cellSize) {

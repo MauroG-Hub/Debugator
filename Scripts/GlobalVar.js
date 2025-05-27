@@ -12,4 +12,4 @@ let Level = 1;
 let figurePriorities = figurePrioritiesLevels[Level - 1];
 let figurePrioritiesFittable = figurePriorities;
 let NoDropWhileRotate = false;
-
+let NoNewFiguresAfterUndo = false;

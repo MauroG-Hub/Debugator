@@ -42,7 +42,8 @@ function Copy(row, col, sourceGridId, Dumb) {
 
         if (checkAllGridsCleared(['smallGrid1', 'smallGrid2', 'smallGrid3'])) {
             cleanedGrids.clear();
-            loadFigureOnPageLoad();
+            loadFigureOnPageLoad(NoNewFiguresAfterUndo);
+			NoNewFiguresAfterUndo = false;
         }
 
         if(doAllFiguresNotFit('gridContainer',['smallGrid1', 'smallGrid2', 'smallGrid3'])){

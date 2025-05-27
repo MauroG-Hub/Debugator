@@ -68,6 +68,7 @@ function RecoverLastStep(){
     });   
 
     PointSystem(0);
+	NoNewFiguresAfterUndo = true;
 	hideNewGameButton();
 
 };

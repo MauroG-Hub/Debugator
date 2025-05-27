@@ -11,6 +11,7 @@ function ClearData(){
     });   
 
     PointSystem(0);
+	UpdateLevel(0);
 	loadFigureOnPageLoad();
 	hideUndoButton();
 
