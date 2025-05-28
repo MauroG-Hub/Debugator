@@ -2,7 +2,7 @@
 function PointSystem(PointsToAdd) {
     
     if(PointsToAdd > 0){
-        TotalPoints += Math.max(Math.floor(((PointsToAdd*14/9)-(5/9))*1.5),1);  
+        TotalPoints += Math.max(Math.floor(((PointsToAdd*14*100/9)-(5/9))*1.5),1);  
     };
 
     // Update the score in the interface
@@ -18,6 +18,7 @@ function PointSystem(PointsToAdd) {
 
 function UpdateLevel(Points){
 	if ((TotalPoints > 1000)&&(TotalPoints < 11000))Level = Math.floor(TotalPoints/1000)+1;
+	if (TotalPoints == 0)Level = 1;
 	UpdatePriorities();
     const LevelTranslated = Translate(Language, 'Level');
     if (levelContainer) {

@@ -4,14 +4,14 @@ function ClearData(){
     hideNewGameButton();
 	ClearGridData("gridContainer");
     TotalPoints = 0;
-    
+    PointSystem(0);
+	
     cleanedGrids.clear();
     LastStep.ClrGrids.forEach((item) => {
         cleanedGrids.add(item);
     });   
 
-    PointSystem(0);
-	UpdateLevel(0);
+    
 	loadFigureOnPageLoad();
 	hideUndoButton();
 
