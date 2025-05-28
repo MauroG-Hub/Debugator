@@ -1,42 +1,13 @@
-let LastStep = {
-    MainGrid: [],
-    SmallGrid1: [],
-    SmallGrid2: [],
-    SmallGrid3: [],
-    FigureNumber1: 0,
-    FigureNumber2: 0,
-    FigureNumber3: 0,
-    Score: 0,
-    ClrGrids: new Set()
-};
+
 
 function SaveLastStep() {
-    const MainGridItem = document.getElementById('gridContainer');
-    const SmallGrid1Item = document.getElementById('smallGrid1');
-    const SmallGrid2Item = document.getElementById('smallGrid2');
-    const SmallGrid3Item = document.getElementById('smallGrid3');
 
-    LastStep.MainGrid = backupGrid(MainGridItem, LastStep.MainGrid);
-    LastStep.SmallGrid1 = backupGrid(SmallGrid1Item, LastStep.SmallGrid1);
-    LastStep.SmallGrid2 = backupGrid(SmallGrid2Item, LastStep.SmallGrid2);
-    LastStep.SmallGrid3 = backupGrid(SmallGrid3Item, LastStep.SmallGrid3);
-    LastStep.FigureNumber1 = parseInt(SmallGrid1Item.getAttribute('data-figure-number') || 0);
-    LastStep.FigureNumber2 = parseInt(SmallGrid2Item.getAttribute('data-figure-number') || 0);
-    LastStep.FigureNumber3 = parseInt(SmallGrid3Item.getAttribute('data-figure-number') || 0);
-
-    LastStep.Score = TotalPoints;
-
-    LastStep.ClrGrids.clear();
-    cleanedGrids.forEach((item) => {
-        LastStep.ClrGrids.add(item);
-    });
-
+	LastStep = UpdateValues();
     showUndoButton();
 
-
-    
-
 };
+
+
 
 function backupGrid(Grid, GridBackup) {
 

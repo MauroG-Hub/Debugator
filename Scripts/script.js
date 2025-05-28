@@ -52,6 +52,7 @@ function Copy(row, col, sourceGridId, Dumb) {
 			showNewGameButton();
         }
 		
+		saveCurrentState();
 
         if (!DisableRotationTip) {
             NoRotationCount++;
