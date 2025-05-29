@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ** Load initial figures **
 	
-	CurrentState = await loadCurrentState();
+	CurrentState = loadCurrentState();
 	
 	if((CurrentState.FigureNumber1 == 0)&&(CurrentState.FigureNumber2 == 0)&&(CurrentState.FigureNumber3 == 0)) loadFigureOnPageLoad();
     positionUndoButton(screenWidth, screenHeight);
