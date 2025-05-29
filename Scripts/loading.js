@@ -207,7 +207,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ** Load initial figures **
-    loadFigureOnPageLoad();
+	
+	CurrentState = await loadCurrentState();
+	
+	if((CurrentState.FigureNumber1 == 0)&&(CurrentState.FigureNumber2 == 0)&&(CurrentState.FigureNumber3 == 0)) loadFigureOnPageLoad();
     positionUndoButton(screenWidth, screenHeight);
 	positionNewGameButton(screenWidth, screenHeight);
 	
