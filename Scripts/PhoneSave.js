@@ -1,4 +1,4 @@
-//import { Storage } from '@capacitor/storage';
+import { Storage } from '@capacitor/storage';
 
 
 async function saveCurrentState() {
