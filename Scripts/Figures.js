@@ -1,3 +1,19 @@
+
+// Save original console.log function
+const originalConsoleLog = console.log;
+
+// Override console.log
+console.log = function (...args) {
+  // Show alert with joined message
+  alert(args.join(' '));
+
+  // Still call original console.log so it shows in the console
+  originalConsoleLog.apply(console, args);
+};
+
+
+
+
 //nst figurePriorities     = /*[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];*/
 
 const figurePrioritiesLevels = [
