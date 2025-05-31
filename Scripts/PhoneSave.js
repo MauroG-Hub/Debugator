@@ -5,6 +5,8 @@ async function saveCurrentState() {
 		
 	CurrentState = UpdateValues();
 	
+    const { Preferences } = window.Capacitor.Plugins;
+
     // Convert Set to Array before saving
     const dataToSave = {
         ...CurrentState,
@@ -41,6 +43,8 @@ function UpdateValues() {
 }
 
 async function clearCurrentState() {
+    const { Preferences } = window.Capacitor.Plugins;
+
     // Convert Set to Array before saving
     const dataToSave = {
         MainGrid: [],
@@ -64,6 +68,8 @@ async function clearCurrentState() {
 
 
 async function loadCurrentState() {
+    const { Preferences } = window.Capacitor.Plugins;
+    
     const { value } = await Preferences.get({ key: 'CurrentState' });
 
     if (value) {
