@@ -67,18 +67,32 @@ async function clearCurrentState() {
 
 
 async function loadCurrentState() {
-    const { Preferences } = window.Capacitor.Plugins;
-    
-    const { value } = await Preferences.get({ key: 'CurrentState' });
+    try {
+        const { Preferences } = await waitForCapacitor();
+        
+        const { value } = await Preferences.get({ key: 'CurrentState' });
 
-    if (value) {
-        const parsed = JSON.parse(value);
-        return {
-            ...parsed,
-            ClrGrids: new Set(parsed.ClrGrids)
-        };
-    } else {
-        // Default value if nothing stored
+        if (value) {
+            const parsed = JSON.parse(value);
+            return {
+                ...parsed,
+                ClrGrids: new Set(parsed.ClrGrids)
+            };
+        } else {
+            return {
+                MainGrid: [],
+                SmallGrid1: [],
+                SmallGrid2: [],
+                SmallGrid3: [],
+                FigureNumber1: 0,
+                FigureNumber2: 0,
+                FigureNumber3: 0,
+                Score: 0,
+                ClrGrids: new Set()
+            };
+        }
+    } catch (error) {
+        console.error('Error al cargar estado:', error);
         return {
             MainGrid: [],
             SmallGrid1: [],
@@ -91,4 +105,29 @@ async function loadCurrentState() {
             ClrGrids: new Set()
         };
     }
+}
+
+
+async function waitForCapacitor() {
+    return new Promise((resolve, reject) => {
+        const maxAttempts = 100;
+        let attempts = 0;
+
+        function check() {
+            if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Preferences) {
+                resolve(window.Capacitor.Plugins);
+            } else if (attempts >= maxAttempts) {
+                reject('Capacitor no se cargó a tiempo');
+            } else {
+                attempts++;
+                setTimeout(check, 50);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', check);
+        } else {
+            check();
+        }
+    });
 }
