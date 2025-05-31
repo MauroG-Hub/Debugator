@@ -1,4 +1,3 @@
-import { Preferences } from '@capacitor/preferences';
 
 
 async function saveCurrentState() {
