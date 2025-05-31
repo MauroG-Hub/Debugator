@@ -1,4 +1,4 @@
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 
 
 async function saveCurrentState() {
@@ -11,7 +11,7 @@ async function saveCurrentState() {
         ClrGrids: Array.from(CurrentState.ClrGrids)
     };
 
-    await Storage.set({
+    await Preferences.set({
         key: 'CurrentState',
         value: JSON.stringify(dataToSave)
     });
@@ -54,7 +54,7 @@ async function clearCurrentState() {
 		ClrGrids: new Set()
     };
 
-    await Storage.set({
+    await Preferences.set({
         key: 'CurrentState',
         value: JSON.stringify(dataToSave)
     });
@@ -64,7 +64,7 @@ async function clearCurrentState() {
 
 
 async function loadCurrentState() {
-    const { value } = await Storage.get({ key: 'CurrentState' });
+    const { value } = await Preferences.get({ key: 'CurrentState' });
 
     if (value) {
         const parsed = JSON.parse(value);
