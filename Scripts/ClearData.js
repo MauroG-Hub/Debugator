@@ -65,7 +65,24 @@ function positionNewGameButton(screenWidth, screenHeight) {
 	if (screenHeight < 900) {
 		Buttonwith = rect.right + 80;
 		Buttonhigth = rect.top + ((rect.bottom - rect.top)/2) + 10;
+
+        if (screenWidth < 285) {
+		Buttonwith = rect.right + 50;
+		Buttonhigth = rect.top + ((rect.bottom - rect.top)/2) + 10;
+	    }
 	}
+    
+    if (screenWidth > 355) {
+		NewGameButton.style.whiteSpace = 'nowrap';
+        if (screenHeight < 610) {
+            Buttonhigth = rect.top + ((rect.bottom - rect.top)/2) + 20;
+        }
+        if (screenHeight < 555) {
+            Buttonhigth = rect.top + ((rect.bottom - rect.top)/2) + 30;
+        }
+	}
+
+
 
     NewGameButton.style.left = `${Buttonwith}px`;
     NewGameButton.style.top = `${Buttonhigth}px`;
