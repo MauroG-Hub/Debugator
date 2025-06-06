@@ -16,7 +16,9 @@ let Translations = {
 		Close: "Close",
 		GameOver: "Game Over<br>",
 		Tip: "Tip",
-		TipTX1: "Tip:<br>Figure can be rotated<br>Just touch it<br>"
+		TipTX1: "Tip:<br>Figure can be rotated<br>Just touch it<br>",
+		Return: "Return",
+		Menu: "Menu"
 	},
 	
 	ES: {
@@ -28,7 +30,9 @@ let Translations = {
 		Close: "Cerrar",
 		GameOver: "Perdiste<br>",
 		Tip: "Consejo",
-		TipTX1: "Consejo:<br>Las figuras pueden girar<br>con un toque<br>"
+		TipTX1: "Consejo:<br>Las figuras pueden girar<br>con un toque<br>",
+		Return: "Regresar",
+		Menu: "Menu"
 	},
 	
 	FR: {
@@ -40,7 +44,9 @@ let Translations = {
 		Close: "Fermer",
 		GameOver: "Partie perdue<br>",
 		Tip: "Conseil",
-		TipTX1: "Conseil:<br>Les formes peuvent pivoter<br>avec une touche<br>"
+		TipTX1: "Conseil:<br>Les formes peuvent pivoter<br>avec une touche<br>",
+		Return: "Retourner",
+		Menu: "Menu"
 	}
 	
 };

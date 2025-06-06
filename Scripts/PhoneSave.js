@@ -16,6 +16,7 @@ async function saveCurrentState() {
         key: 'CurrentState',
         value: JSON.stringify(dataToSave)
     });
+
 }
 
 
@@ -41,26 +42,56 @@ function UpdateValues() {
     return newLastStep;
 }
 
-async function clearCurrentState() {
-    const { Preferences } = window.Capacitor.Plugins;
+function clrGrid(Grid, GridBackup) {
 
-    // Convert Set to Array before saving
-    const dataToSave = {
-        MainGrid: [],
-		SmallGrid1: [],
-		SmallGrid2: [],
-		SmallGrid3: [],
-		FigureNumber1: 0,
-		FigureNumber2: 0,
-		FigureNumber3: 0,
-		Score: 0,
-		ClrGrids: new Set()
-    };
+    GridBackup = []; // Reset the backup
+    const cells = Array.from(Grid.children);
 
-    await Preferences.set({
-        key: 'CurrentState',
-        value: JSON.stringify(dataToSave)
+    cells.forEach(cell => {
+        GridBackup.push({
+            value: 0,
+            text: '0',
+        });
     });
+
+    return GridBackup;
+};
+
+async function clearCurrentState() {
+
+     const MainGridItem = document.getElementById('gridContainer');
+     const SmallGrid1Item = document.getElementById('smallGrid1');
+     const SmallGrid2Item = document.getElementById('smallGrid2');
+     const SmallGrid3Item = document.getElementById('smallGrid3');
+
+        const newLastStep = {
+            MainGrid: clrGrid(MainGridItem, []),
+            SmallGrid1: clrGrid(SmallGrid1Item, []),
+            SmallGrid2: clrGrid(SmallGrid2Item, []),
+            SmallGrid3: clrGrid(SmallGrid3Item, []),
+            FigureNumber1: 0,
+            FigureNumber2: 0,
+            FigureNumber3: 0,
+            Score: 0,
+            ClrGrids: new Set(cleanedGrids)
+        };
+
+    CurrentState = newLastStep;
+
+        const { Preferences } = window.Capacitor.Plugins;
+
+        // Convert Set to Array before saving
+        const dataToSave = {
+            ...CurrentState,
+            ClrGrids: Array.from(CurrentState.ClrGrids)
+        };
+
+        await Preferences.set({
+            key: 'CurrentState',
+            value: JSON.stringify(dataToSave)
+        });
+
+ 
 }
 
 
@@ -68,12 +99,14 @@ async function clearCurrentState() {
 
 async function loadCurrentState() {
     try {
+
         const { Preferences } = await waitForCapacitor();
-        
+
         const { value } = await Preferences.get({ key: 'CurrentState' });
 
         if (value) {
             const parsed = JSON.parse(value);
+
             return {
                 ...parsed,
                 ClrGrids: new Set(parsed.ClrGrids)
@@ -110,7 +143,7 @@ async function loadCurrentState() {
 
 async function waitForCapacitor() {
     return new Promise((resolve, reject) => {
-        const maxAttempts = 100;
+        const maxAttempts = 1;
         let attempts = 0;
 
         function check() {
@@ -131,3 +164,18 @@ async function waitForCapacitor() {
         }
     });
 }
+
+function ApplyRecoverState(){
+    ApplyGridSaveData("gridContainer", CurrentState.MainGrid, 0);
+    ApplyGridSaveData("smallGrid1", CurrentState.SmallGrid1, CurrentState.FigureNumber1);
+    ApplyGridSaveData("smallGrid2", CurrentState.SmallGrid2, CurrentState.FigureNumber2);
+    ApplyGridSaveData("smallGrid3", CurrentState.SmallGrid3, CurrentState.FigureNumber3);
+    TotalPoints = CurrentState.Score;
+
+    cleanedGrids.clear();
+        CurrentState.ClrGrids.forEach((item) => {
+            cleanedGrids.add(item);
+        });
+
+    PointSystem(0);
+};

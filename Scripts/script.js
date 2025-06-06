@@ -46,13 +46,20 @@ function Copy(row, col, sourceGridId, Dumb) {
 			NoNewFiguresAfterUndo = false;
         }
 
+        saveCurrentState();
+
         if(doAllFiguresNotFit('gridContainer',['smallGrid1', 'smallGrid2', 'smallGrid3'])){
             const TipText = Translate(Language, 'GameOver')
             showTipPopup(TipText);
-			showNewGameButton();
+
+            (async () => {
+                clearCurrentState();
+            	showNewGameButton();
+            })();
+
         }
 		
-		saveCurrentState();
+
 
         if (!DisableRotationTip) {
             NoRotationCount++;

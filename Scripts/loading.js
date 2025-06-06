@@ -207,13 +207,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ** Load initial figures **
-	
-	CurrentState = loadCurrentState();
-	
-	if((CurrentState.FigureNumber1 == 0)&&(CurrentState.FigureNumber2 == 0)&&(CurrentState.FigureNumber3 == 0)) loadFigureOnPageLoad();
+
+	(async () => {
+
+        CurrentState = await loadCurrentState();
+
+        if (!(CurrentState.FigureNumber1 > 0) &&
+            !(CurrentState.FigureNumber2 > 0) &&
+            !(CurrentState.FigureNumber3 > 0)) {
+            loadFigureOnPageLoad();
+        }
+        else
+        {
+            ApplyRecoverState();
+        }
     positionUndoButton(screenWidth, screenHeight);
 	positionNewGameButton(screenWidth, screenHeight);
-	
+	})();
+
+    updateMenuButtonLabel();
+    renderMenuButtons(menuButtons); 
 });
 
 function prepareExpandedList(figureFittable) {
@@ -226,4 +239,11 @@ function prepareExpandedList(figureFittable) {
             }
         }
     });
+}
+
+function updateMenuButtonLabel() {
+    const btn = document.getElementById('menu-toggle-btn');
+    if (btn) {
+        btn.textContent = Translate(Language, 'Menu');
+    }
 }

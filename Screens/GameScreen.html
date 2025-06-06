@@ -6,6 +6,7 @@
     <title>Grid Master</title>
 	<script src="../Scripts/Figures.js" defer></script>
 	<script src="../Scripts/GlobalVar.js" defer></script>
+    <script src="../Scripts/Menubtn.js" defer></script>
 	<script src="../Scripts/PhoneSave.js" defer></script>
 	<script src="../Scripts/ScoreAndLevel.js" defer></script>
     <script src="../Scripts/Languages.js" defer></script>
@@ -21,7 +22,12 @@
 </head>
 <body>
 	<div class="top-left-button-wrapper">
-        <button class="back-button" onclick="location.href='../Index.html'">&larr;</button>
+        <div class="dropdown">
+            <button id="menu-toggle-btn" class="dropdown-button" onclick="toggleDropdown()">&larr;</button>
+            <div class="dropdown-content" id="dropdownMenu">
+                
+            </div>
+        </div>
     </div>
 	<div id="level-container">Level: 1</div>
     <button id="Undo-button" class="Undo-button hidden" onclick=RecoverLastStep()></button>
