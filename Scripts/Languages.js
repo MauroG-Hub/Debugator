@@ -18,7 +18,10 @@ let Translations = {
 		Tip: "Tip",
 		TipTX1: "Tip:<br>Figure can be rotated<br>Just touch it<br>",
 		Return: "Return",
-		Menu: "Menu"
+		Menu: "Menu",
+		DisableSound: "Disable Sound",
+		EnableSound: "Enable Sound"
+
 	},
 	
 	ES: {
@@ -32,7 +35,9 @@ let Translations = {
 		Tip: "Consejo",
 		TipTX1: "Consejo:<br>Las figuras pueden girar<br>con un toque<br>",
 		Return: "Regresar",
-		Menu: "Menu"
+		Menu: "Menu",
+		DisableSound: "Apagar Sonido",
+		EnableSound: "Encender Sonido"
 	},
 	
 	FR: {
@@ -46,7 +51,9 @@ let Translations = {
 		Tip: "Conseil",
 		TipTX1: "Conseil:<br>Les formes peuvent pivoter<br>avec une touche<br>",
 		Return: "Retourner",
-		Menu: "Menu"
+		Menu: "Menu",
+		DisableSound: "Désactiver son",
+		EnableSound: "Activer son"
 	}
 	
 };

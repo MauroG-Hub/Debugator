@@ -34,7 +34,9 @@ function Copy(row, col, sourceGridId, Dumb) {
         const figureNumber = parseInt(smallGrid.getAttribute('data-figure-number')) || 0;
         clearGrid(sourceGridId);
         // Call PointSystem with the figure number
-        PointSystem(countOnesInFigure(figureNumber));
+        let AmountofMiniBlocks = countOnesInFigure(figureNumber);
+
+        PointSystem(AmountofMiniBlocks);
 
         let columnsToClear = analyzeColumns('gridContainer');
         let rowsToClear = analyzeRows('gridContainer');
@@ -47,6 +49,9 @@ function Copy(row, col, sourceGridId, Dumb) {
         }
 
         saveCurrentState();
+
+        playSoundLoop(AmountofMiniBlocks, "BlockDroped");
+    
 
         if(doAllFiguresNotFit('gridContainer',['smallGrid1', 'smallGrid2', 'smallGrid3'])){
             const TipText = Translate(Language, 'GameOver')
@@ -329,7 +334,10 @@ function clearRowsAndColumns(mainGridId, rowsToClear, columnsToClear) {
             items[index].textContent = 0;
         }
     });
-	PointSystem((rowsToClear.length + columnsToClear.length)*10);
+    let Miniblockscleared = (rowsToClear.length + columnsToClear.length)*10;
+	PointSystem(Miniblockscleared);
+    playSoundLoop(Miniblockscleared,'BlockCleared');
+
 	
 	
 }

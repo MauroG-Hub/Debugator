@@ -2,7 +2,8 @@
 
 const menuButtons = [
     { textKey: 'Return', href: '../index.html' },
-    { textKey: 'NewGame', onClick: () => ClearData() }
+    { textKey: 'NewGame', onClick: () => ClearData() },
+    { textKey: 'DisableSound', onClick: () => ToggleSound() }
 ];
 
 
@@ -14,9 +15,17 @@ function toggleDropdown() {
 }
 
 window.onclick = function(event) {
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const dropdownButton = document.querySelector('.dropdown-button');
+
     if (!event.target.matches('.dropdown-button')) {
-        document.getElementById("dropdownMenu").style.display = "none";
+        const clickedElement = event.target;
+        const buttonKey = clickedElement.getAttribute('data-button-key');
+        if (buttonKey != 'DisableSound' && buttonKey != 'EnableSound'){
+            dropdownMenu.style.display = "none";
+        }
     }
+    
 };
 
 
@@ -31,6 +40,10 @@ function renderMenuButtons(buttons) {
 
         element.textContent = label || btn.textKey;
 
+        if (btn.textKey) {
+            element.setAttribute('data-button-key', btn.textKey);
+        }
+
         if (btn.href) {
             element.href = btn.href;
         } else if (btn.onClick) {
@@ -38,7 +51,7 @@ function renderMenuButtons(buttons) {
             element.onclick = (e) => {
                 e.preventDefault();
                 btn.onClick();
-                document.getElementById("dropdownMenu").style.display = "none";
+                
             };
         }
 

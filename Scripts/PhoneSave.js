@@ -36,6 +36,8 @@ function UpdateValues() {
         FigureNumber2: parseInt(SmallGrid2Item.getAttribute('data-figure-number') || 0),
         FigureNumber3: parseInt(SmallGrid3Item.getAttribute('data-figure-number') || 0),
         Score: TotalPoints,
+        language: Language,
+        Sound: CurrentState.Sound,
         ClrGrids: new Set(cleanedGrids)
     };
 
@@ -64,17 +66,22 @@ async function clearCurrentState() {
      const SmallGrid2Item = document.getElementById('smallGrid2');
      const SmallGrid3Item = document.getElementById('smallGrid3');
 
-        const newLastStep = {
-            MainGrid: clrGrid(MainGridItem, []),
-            SmallGrid1: clrGrid(SmallGrid1Item, []),
-            SmallGrid2: clrGrid(SmallGrid2Item, []),
-            SmallGrid3: clrGrid(SmallGrid3Item, []),
-            FigureNumber1: 0,
-            FigureNumber2: 0,
-            FigureNumber3: 0,
-            Score: 0,
-            ClrGrids: new Set(cleanedGrids)
-        };
+
+    const newLastStep = new GameState(
+        clrGrid(MainGridItem, []),
+        clrGrid(SmallGrid1Item, []),
+        clrGrid(SmallGrid2Item, []),
+        clrGrid(SmallGrid3Item, []),
+        0, // FigureNumber1
+        0, // FigureNumber2
+        0, // FigureNumber3
+        0, // Score
+        'EN',
+        true,
+        new Set(cleanedGrids),
+        
+    );
+
 
     CurrentState = newLastStep;
 
@@ -112,31 +119,12 @@ async function loadCurrentState() {
                 ClrGrids: new Set(parsed.ClrGrids)
             };
         } else {
-            return {
-                MainGrid: [],
-                SmallGrid1: [],
-                SmallGrid2: [],
-                SmallGrid3: [],
-                FigureNumber1: 0,
-                FigureNumber2: 0,
-                FigureNumber3: 0,
-                Score: 0,
-                ClrGrids: new Set()
-            };
+            return new GameState();
+
         }
     } catch (error) {
         console.error('Error al cargar estado:', error);
-        return {
-            MainGrid: [],
-            SmallGrid1: [],
-            SmallGrid2: [],
-            SmallGrid3: [],
-            FigureNumber1: 0,
-            FigureNumber2: 0,
-            FigureNumber3: 0,
-            Score: 0,
-            ClrGrids: new Set()
-        };
+        return new GameState();
     }
 }
 

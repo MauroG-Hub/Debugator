@@ -14,26 +14,37 @@ let figurePrioritiesFittable = figurePriorities;
 let NoDropWhileRotate = false;
 let NoNewFiguresAfterUndo = false;
 
-let LastStep = {
-    MainGrid: [],
-    SmallGrid1: [],
-    SmallGrid2: [],
-    SmallGrid3: [],
-    FigureNumber1: 0,
-    FigureNumber2: 0,
-    FigureNumber3: 0,
-    Score: 0,
-    ClrGrids: new Set()
-};
 
-let CurrentState = {
-    MainGrid: [],
-    SmallGrid1: [],
-    SmallGrid2: [],
-    SmallGrid3: [],
-    FigureNumber1: 0,
-    FigureNumber2: 0,
-    FigureNumber3: 0,
-    Score: 0,
-    ClrGrids: new Set()
-};
+class GameState {
+       constructor(
+        mainGrid = [],
+        smallGrid1 = [],
+        smallGrid2 = [],
+        smallGrid3 = [],
+        figure1 = 0,
+        figure2 = 0,
+        figure3 = 0,
+        score = 0,
+        language = 'EN',
+        Sound = true,
+        clrGrids = new Set(),
+        
+    ) {
+        this.MainGrid = mainGrid;
+        this.SmallGrid1 = smallGrid1;
+        this.SmallGrid2 = smallGrid2;
+        this.SmallGrid3 = smallGrid3;
+        this.FigureNumber1 = figure1;
+        this.FigureNumber2 = figure2;
+        this.FigureNumber3 = figure3;
+        this.Score = score;
+        this.language = language;
+        this.Sound = Sound;
+        this.ClrGrids = clrGrids;
+        
+    }
+}
+
+let LastStep = new GameState();
+let CurrentState = new GameState();
+
