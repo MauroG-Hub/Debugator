@@ -101,10 +101,8 @@ function positionUndoButton(screenWidth, screenHeight) {
         if(screenHeight < 1000){
             Buttonhigth = rect.top + rect.height + 40;
             if(screenHeight < 530){
-                const MainGridContainer = document.querySelector('#gridContainer');
-                const rect2 = MainGridContainer.getBoundingClientRect();
-                Buttonwith = rect2.right - 35;
-                Buttonhigth = rect2.top - 30;
+                Buttonwith = rect.right + 40;
+                Buttonhigth = rect.top + (rect.height/2);
             }
         }
     }

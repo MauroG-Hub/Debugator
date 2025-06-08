@@ -49,8 +49,7 @@ function Copy(row, col, sourceGridId, Dumb) {
         }
 
         saveCurrentState();
-
-        playSoundLoop(AmountofMiniBlocks, "BlockDroped");
+        if ((columnsToClear == 0)&&(rowsToClear == 0)) playSound(AmountofMiniBlocks);
     
 
         if(doAllFiguresNotFit('gridContainer',['smallGrid1', 'smallGrid2', 'smallGrid3'])){
@@ -336,7 +335,7 @@ function clearRowsAndColumns(mainGridId, rowsToClear, columnsToClear) {
     });
     let Miniblockscleared = (rowsToClear.length + columnsToClear.length)*10;
 	PointSystem(Miniblockscleared);
-    playSoundLoop(Miniblockscleared,'BlockCleared');
+    playSoundLoop(Miniblockscleared/10,'LineCleared');
 
 	
 	
