@@ -84,30 +84,52 @@ function showUndoButton() {
 function positionUndoButton(screenWidth, screenHeight) {
     const smallGridsContainer = document.querySelector('#smallgridoutsidewrapper');
     const undoButton = document.querySelector('.Undo-button');
+    const maningrid = document.querySelector('.grid-wrapperOutside');
+    const Menu = document.querySelector('#menu-toggle-btn');
+    const Score = document.querySelector('#score-container');
+
+    let fontSize = (cellSize < 30) ? (Math.max(10, cellSize - 10) + "px") : "20px";
+    undoButton.style.fontSize = fontSize;
 
     const rect = smallGridsContainer.getBoundingClientRect();
-    let Buttonwith = rect.right + 60;
-    let Buttonhigth = rect.top + (rect.height/2);
+    const SizeUndo = undoButton.getBoundingClientRect();
+    const SizeMenu = Menu.getBoundingClientRect();
+    const SizeMainGrid = maningrid.getBoundingClientRect();
+    const SizeScore = Score.getBoundingClientRect();
+    
+    let ButtonX = 0;
+    let ButtonY = 0;
     
 
-    if(screenWidth < 570){
-        Buttonwith = rect.right + 40;
-    }
+    let BottomGap = screenHeight - rect.bottom;
+    let RightGap = screenWidth - rect.right;
+    let TopGap = SizeMainGrid.top - SizeMenu.bottom;
+    let TopLeftGap = SizeScore.left;
 
-    if(screenWidth < 550){
-        Buttonwith = rect.right - (rect.width/2);
-        Buttonhigth = rect.top + rect.height + 50;
 
-        if(screenHeight < 1000){
-            Buttonhigth = rect.top + rect.height + 40;
-            if(screenHeight < 530){
-                Buttonwith = rect.right + 40;
-                Buttonhigth = rect.top + (rect.height/2);
-            }
-        }
-    }
+    if (SizeUndo.height < (BottomGap - 10)) {
+        // Place button below, centered horizontally
+        ButtonX = rect.right - (rect.width / 2);
+        ButtonY = Math.min(
+            screenHeight - ((screenHeight - rect.bottom) / 2),
+            rect.bottom + cellSize
+        );
+    } else if (SizeUndo.width < (RightGap - 10)) {
+        // Place button to the right, aligned vertically
+        ButtonY = rect.top + (rect.height / 2);
+        ButtonX = (RightGap > (SizeUndo.width * 2))
+            ? SizeMainGrid.right + (SizeUndo.width / 2)
+            : rect.right + (RightGap / 2);
+    } else {
+        // Default position near the menu
+        ButtonY = SizeMenu.bottom + TopGap / 2;
+        const gap = TopLeftGap - SizeMenu.right;
+        ButtonX = gap < (SizeUndo.width * 1.3)
+            ? TopLeftGap / 2
+            : SizeMenu.right + (gap / 2);
+    }    
 
-    undoButton.style.left = `${Buttonwith}px`;
-    undoButton.style.top = `${Buttonhigth}px`;
+    undoButton.style.left = `${ButtonX}px`;
+    undoButton.style.top = `${ButtonY}px`;
 
 };

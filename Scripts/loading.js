@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const CellSizeW = Math.round(((screenWidth * 0.98) - 21.6)/10.7);
     const CellSizeH = Math.round(((screenHeight*0.95)-46.83-17.8-41.8)/(2+10.7+2.31));
 
-    let cellSize = Math.min(CellSizeW, CellSizeH);
+    cellSize = Math.min(CellSizeW, CellSizeH);
     cellSize = Math.min(cellSize, 45);
 
     // ** Apply grid dimensions and gaps **
@@ -226,7 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	})();
 
     updateMenuButtonLabel();
-    renderMenuButtons(menuButtons); 
+    renderMenuButtons(menuButtons);
+    UpdateLevel();
 });
 
 function prepareExpandedList(figureFittable) {

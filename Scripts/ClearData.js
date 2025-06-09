@@ -55,37 +55,44 @@ function ClearGridData(GridID){
 };
 
 function positionNewGameButton(screenWidth, screenHeight) {
-    const ReferenceContainer = document.querySelector('#score-container');
+    const Score = document.querySelector('#score-container');
     const NewGameButton = document.querySelector('.NewGame-button');
-
-    const rect = ReferenceContainer.getBoundingClientRect();
-    let Buttonwith = rect.left + ((rect.right-rect.left)/2);
-    let Buttonhigth = rect.top - 15;
-  
-	if (screenHeight < 900) {
-		Buttonwith = rect.right + 80;
-		Buttonhigth = rect.top + ((rect.bottom - rect.top)/2) + 10;
-
-        if (screenWidth < 285) {
-		Buttonwith = rect.right + 50;
-		Buttonhigth = rect.top + ((rect.bottom - rect.top)/2) + 10;
-	    }
-	}
+    const Level = document.querySelector('#level-container');
+    const maningrid = document.querySelector('.grid-wrapperOutside');
     
-    if (screenWidth > 355) {
-		NewGameButton.style.whiteSpace = 'nowrap';
-        if (screenHeight < 610) {
-            Buttonhigth = rect.top + ((rect.bottom - rect.top)/2) + 20;
-        }
-        if (screenHeight < 555) {
-            Buttonhigth = rect.top + ((rect.bottom - rect.top)/2) + 30;
-        }
-	}
+
+    let fontSize = (cellSize < 30) ? (Math.max(10, cellSize - 10) + "px") : "20px";
+    NewGameButton.style.fontSize = fontSize;
+
+    const SizeScore = Score.getBoundingClientRect();
+    const SizeLevel = Level.getBoundingClientRect();
+    const SizeNewGameButton = NewGameButton.getBoundingClientRect();
+    const SizeMainGrid = maningrid.getBoundingClientRect();
+
+    let ButtonX = 0;
+    let ButtonY = 0;
+
+    let RightGap = screenWidth - SizeScore.right;
+    let TopGap = SizeScore.top;
+   
+    
+    if(TopGap > (SizeNewGameButton.height + 10) ){
+        ButtonY = TopGap/2;
+        ButtonX = screenWidth/2;
+    }
+    else{
+        ButtonY = SizeLevel.bottom + (SizeMainGrid.top-SizeLevel.bottom) / 2;
+        const gap = RightGap - SizeLevel.left;
+        ButtonX = gap < (SizeNewGameButton.width * 1.3)
+            ? (RightGap / 2) + SizeScore.right
+            : SizeLevel.left + (gap / 2);
+    }
+	
 
 
 
-    NewGameButton.style.left = `${Buttonwith}px`;
-    NewGameButton.style.top = `${Buttonhigth}px`;
+    NewGameButton.style.left = `${ButtonX}px`;
+    NewGameButton.style.top = `${ButtonY}px`;
 
 };
 

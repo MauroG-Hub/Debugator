@@ -12,17 +12,20 @@ function PointSystem(PointsToAdd) {
         console.error('Element #total-score not found in the DOM.');
     }
 	
-	UpdateLevel(TotalPoints);
+	UpdateLevel();
 	
 }
 
-function UpdateLevel(Points){
+function UpdateLevel(){
+    let fontSize = (cellSize < 30) ? (Math.max(10, cellSize - 10) + "px") : "20px";
+
 	if ((TotalPoints > 1000)&&(TotalPoints < 11000))Level = Math.floor(TotalPoints/1000)+1;
 	if (TotalPoints == 0)Level = 1;
 	UpdatePriorities();
     const LevelTranslated = Translate(Language, 'Level');
     if (levelContainer) {
         levelContainer.textContent = `${LevelTranslated}: ${Level}`;
+        levelContainer.style.fontSize = fontSize;
     } else {
         console.error('Level container not found in the DOM.');
     }

@@ -32,11 +32,14 @@ window.onclick = function(event) {
 // Cargar botones del menú desde menubtn.js
 function renderMenuButtons(buttons) {
     const container = document.getElementById('dropdownMenu');
+    const Menu = document.getElementById('menu-toggle-btn');
+    
     container.innerHTML = '';
 
     buttons.forEach(btn => {
         const element = document.createElement('a');
         const label = Translate(Language, btn.textKey || ''); // Traducir usando la clave
+        let fontSize = (cellSize < 30) ? (Math.max(10, cellSize - 10) + "px") : "20px";
 
         element.textContent = label || btn.textKey;
 
@@ -54,7 +57,8 @@ function renderMenuButtons(buttons) {
                 
             };
         }
-
+        element.style.fontSize = fontSize;
+        Menu.style.fontSize = fontSize;
         container.appendChild(element);
     });
 }
