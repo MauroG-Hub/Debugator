@@ -1,42 +1,6 @@
-/*
-const container = document.createElement('div');
-document.body.appendChild(container);
-Object.assign(container.style, {
-  position: 'fixed', bottom: '0', left: '0', maxHeight: '50%', overflowY: 'auto',
-  background: '#fff', color: '#000', border: '1px solid #000', padding: '4px',
-  fontFamily: 'monospace', fontSize: '12px', zIndex: '9999', whiteSpace: 'pre-wrap'
-});
-
-function addMessage(type, text) {
-  const msg = document.createElement('div');
-  msg.textContent = `[${type.toUpperCase()}] ${text}`;
-  container.appendChild(msg);
-}
-
-['log', 'warn', 'error'].forEach(type => {
-  const original = console[type];
-  console[type] = (...args) => {
-    original.apply(console, args);
-    addMessage(type, args.join(' '));
-  };
-});
-
-window.onerror = (msg, url, line, col) =>
-  addMessage('error', `${msg} at ${url}:${line}:${col}`);
-
-window.addEventListener('unhandledrejection', e =>
-  addMessage('error', 'Unhandled Promise: ' + (e.reason?.stack || e.reason)));
-
-
 
 
 //nst figurePriorities     = /*[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];*/
-
-
-window.addEventListener('resize', function() {
-    location.reload();
-});
-
 
 
 const figurePrioritiesLevels = [
@@ -241,41 +205,56 @@ const figurePrioritiesLevels = [
   ]
 
 
-  function getFigureName(number) {
+function getFigureName(number) {
     try {
-        // Generate the figure name based on the number
+        // Generate the figure name by padding the number with leading zeros (e.g., 3 -> "Figure03")
         const figureName = `Figure${String(number).padStart(2, '0')}`;
-        // Attempt to retrieve the corresponding constant using eval
+
+        // Attempt to retrieve the figure constant by evaluating its name (dangerous if not controlled)
         const figure = eval(figureName); // Note: Only use eval if the content is safe
 
+        // If the figure does not exist, throw an error
         if (!figure) {
             throw new Error(`The figure with number ${number} does not exist.`);
         }
+        // Return the generated figure name
         return figureName;
     } catch (error) {
+        // Log the error message to the console
         console.error(`Error: ${error.message}`);
+        // Return a string describing the failure to get the figure name
         return `Unable to get figure name: ${error.message}`;
     }
 }
-  
+
 function getFigureValues(number) {
+  // Get the figure name string using the provided number
   const figureName = getFigureName(number);
+
+  // Retrieve the value of the variable with the name figureName (using eval)
   return eval(figureName);
 }
 
+
 function countOnesInFigure(numero) {
   try {
+      // Get the figure name string using the provided number
       const nombreFigura = getFigureName(numero);
-      const figura = eval(nombreFigura); // Nota: eval solo debe usarse si el contenido es seguro
 
+      // Retrieve the figure array/object using eval (only if safe)
+      const figura = eval(nombreFigura); // Note: eval should only be used if the content is safe
 
-      // Contar los unos
+      // Count the number of ones in the figure by flattening the array and filtering for 1's
       const cuenta = figura.flat().filter(num => num === 1).length;
 
+      // Return the count of ones
       return cuenta;
 
   } catch (error) {
+      // Log the error message to the console
       console.error(`Error: ${error.message}`);
+
+      // Return a string indicating the calculation failed
       return `No se pudo calcular la cantidad de unos: ${error.message}`;
   }
 }

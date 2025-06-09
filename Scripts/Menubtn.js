@@ -1,19 +1,17 @@
-
-
 const menuButtons = [
-    { textKey: 'Return', href: '../index.html' },
-    { textKey: 'NewGame', onClick: () => ClearData() },
-    { textKey: 'DisableSound', onClick: () => ToggleSound() }
+    { textKey: 'Return', href: '../index.html' },                  // Button to return to the main page
+    { textKey: 'NewGame', onClick: () => ClearData() },            // Button to start a new game
+    { textKey: 'DisableSound', onClick: () => ToggleSound() }      // Button to toggle sound
 ];
 
 
-
-
+// Toggles the visibility of the dropdown menu
 function toggleDropdown() {
     const menu = document.getElementById("dropdownMenu");
     menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
+// Hide dropdown when clicking outside, except when clicking on the dropdown button or specific sound options
 window.onclick = function(event) {
     const dropdownMenu = document.getElementById("dropdownMenu");
     const dropdownButton = document.querySelector('.dropdown-button');
@@ -25,28 +23,29 @@ window.onclick = function(event) {
             dropdownMenu.style.display = "none";
         }
     }
-    
 };
 
 
-// Cargar botones del menú desde menubtn.js
+// Render menu buttons from the menuButtons array
 function renderMenuButtons(buttons) {
     const container = document.getElementById('dropdownMenu');
     const Menu = document.getElementById('menu-toggle-btn');
     
-    container.innerHTML = '';
+    container.innerHTML = ''; // Clear previous content
 
     buttons.forEach(btn => {
         const element = document.createElement('a');
-        const label = Translate(Language, btn.textKey || ''); // Traducir usando la clave
+        const label = Translate(Language, btn.textKey || ''); // Translate using the text key
         let fontSize = (cellSize < 30) ? (Math.max(10, cellSize - 10) + "px") : "20px";
 
         element.textContent = label || btn.textKey;
 
+        // Assign data attribute for the button key if present
         if (btn.textKey) {
             element.setAttribute('data-button-key', btn.textKey);
         }
 
+        // Set href or onclick depending on button configuration
         if (btn.href) {
             element.href = btn.href;
         } else if (btn.onClick) {
@@ -54,7 +53,6 @@ function renderMenuButtons(buttons) {
             element.onclick = (e) => {
                 e.preventDefault();
                 btn.onClick();
-                
             };
         }
         element.style.fontSize = fontSize;
@@ -64,8 +62,7 @@ function renderMenuButtons(buttons) {
 }
 
 
-
-// Esperar a que DOM cargue para renderizar botones
+// Render menu buttons after the DOM has loaded
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof renderMenuButtons === 'function') {
         renderMenuButtons(menuButtons);

@@ -1,4 +1,4 @@
-
+// Library of sound objects mapped by their names
 const SoundLibrary = {
     Droped01:       new Audio('../Sounds/Droped01.mp3'),
     Droped02:       new Audio('../Sounds/Droped02.mp3'),
@@ -17,6 +17,7 @@ const SoundLibrary = {
 };
 
 
+// Mapping from block numbers to corresponding sound names
 const SoundNames = {
   1: "Droped01",
   2: "Droped02",
@@ -45,9 +46,10 @@ const SoundNames = {
   25: "Droped20",
 };
 
-const audioQueue = [];
-let isPlaying = false;
+const audioQueue = []; // Queue to hold pending sounds to play
+let isPlaying = false; // Whether a sound is currently playing
 
+// Plays a sound in a loop a specified number of times
 function playSoundLoop(times, soundName) {
   let count = 0;
   function play() {
@@ -60,6 +62,7 @@ function playSoundLoop(times, soundName) {
 }
 
 
+// Plays the sound associated with a number of blocks
 function playSound(Bloks) {
   if(CurrentState.Sound){
     const soundName = SoundNames[Bloks];
@@ -68,53 +71,52 @@ function playSound(Bloks) {
 }
 
 
-// 1. Función para agregar UN sonido a la cola (asíncrono no bloqueante)
+// 1. Function to add a single sound to the queue (asynchronous, non-blocking)
 function addToQueue(soundName) {
   if (!SoundLibrary[soundName]) {
-    console.warn(`⚠️ El sonido "${soundName}" no existe en SoundLibrary.`);
+    console.warn(`⚠️ The sound "${soundName}" does not exist in SoundLibrary.`);
     return;
   }
 
   audioQueue.push(soundName);
 
-  // Si no hay nada reproduciéndose, inicia la cola
+  // If nothing is currently playing, start the queue
   if (!isPlaying) {
     playQueue();
   }
 }
 
-// 2. Función que reproduce en secuencia
+// 2. Function that plays sounds in sequence from the queue
 function playQueue() {
   if (isPlaying || audioQueue.length === 0) return;
 
   isPlaying = true;
-  const soundName = audioQueue.shift(); // Extrae el primer sonido
+  const soundName = audioQueue.shift(); // Remove the first sound from the queue
   const soundClone = SoundLibrary[soundName].cloneNode();
 
   soundClone.play();
 
   soundClone.addEventListener('ended', () => {
     isPlaying = false;
-    playQueue(); // Reproduce el siguiente sonido en la cola
+    playQueue(); // Play the next sound in the queue
   });
 }
 
-// 3. Función para limpiar la cola (opcional)
+// 3. Function to clear the audio queue (optional)
 function clearQueue() {
   audioQueue.length = 0;
 }
 
+// Toggles the sound state on/off and updates the menu button accordingly
 function ToggleSound() {
     CurrentState.Sound = !CurrentState.Sound;
     saveCurrentState();
     
+    // Find the sound button in the menu and update its label
     const soundButton = menuButtons.find(btn => btn.textKey === 'DisableSound' || btn.textKey === 'EnableSound');
 
     if (soundButton) {
         soundButton.textKey = CurrentState.Sound ? 'DisableSound' : 'EnableSound';
     }
     renderMenuButtons(menuButtons);
-
-   
 }
-

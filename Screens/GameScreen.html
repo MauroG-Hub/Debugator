@@ -2,46 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Prevent zooming and scaling for mobile users -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>Grid Master</title>
-	<script src="../Scripts/Figures.js" defer></script>
-	<script src="../Scripts/GlobalVar.js" defer></script>
+    <!-- Game logic and utility scripts (loaded in order, all deferred) -->
+    <script src="../Scripts/Figures.js" defer></script>
+    <script src="../Scripts/GlobalVar.js" defer></script>
     <script src="../Scripts/Menubtn.js" defer></script>
-	<script src="../Scripts/PhoneSave.js" defer></script>
-	<script src="../Scripts/ScoreAndLevel.js" defer></script>
+    <script src="../Scripts/PhoneSave.js" defer></script>
+    <script src="../Scripts/ScoreAndLevel.js" defer></script>
     <script src="../Scripts/Languages.js" defer></script>
     <script src="../Scripts/loading.js" defer></script>
     <script src="../Scripts/LastState.js" defer></script>
-	<script src="../Scripts/ClearData.js" defer></script>
-    <script src="../Scripts/script.js" defer></script>
+    <script src="../Scripts/ClearData.js" defer></script>
+    <script src="../Scripts/GameFunctions.js" defer></script>
+    <script src="../Scripts/TouchSupport.js" defer></script>
     <script src="../Scripts/ValidateFit.js" defer></script>
     <script src="../Scripts/Sounds.js" defer></script>
-	<link rel="stylesheet" href="../Styles/stylesGame.css">
+    <!-- Main game styles and special component styles -->
+    <link rel="stylesheet" href="../Styles/stylesGame.css">
     <link rel="stylesheet" href="../Styles/StyleDynamicBtns.css">
     <link rel="stylesheet" href="../Styles/StyleTipPopUp.css">
-	<link rel="stylesheet" href="../Styles/background.css">
+    <link rel="stylesheet" href="../Styles/background.css">
 </head>
 <body>
-	<div class="top-left-button-wrapper">
+    <!-- Top-left menu with dropdown for navigation and actions -->
+    <div class="top-left-button-wrapper">
         <div class="dropdown">
             <button id="menu-toggle-btn" class="dropdown-button shared-font" onclick="toggleDropdown()">&larr;</button>
             <div class="dropdown-content" id="dropdownMenu">
-                
+                <!-- Dropdown menu items will be rendered here by JS -->
             </div>
         </div>
     </div>
-	<div id="level-container" class="shared-font">Level: 1</div>
-    <button id="Undo-button" class="Undo-button  shared-font" onclick=RecoverLastStep()></button>
-	<button id="NewGame-button" class="NewGame-button  shared-font" onclick=ClearData()></button>
+    <!-- Level indicator fixed at the top right -->
+    <div id="level-container" class="shared-font">Level: 1</div>
+    <!-- Undo and New Game buttons, hidden or shown by JS as needed -->
+    <button id="Undo-button" class="Undo-button hidden shared-font" onclick=RecoverLastStep()></button>
+    <button id="NewGame-button" class="NewGame-button hidden shared-font" onclick=ClearData()></button>
     <div class="main-wrapper">
+        <!-- Score display -->
         <div id="score-container">
             <div id="total-score">0</div>
         </div>
+        <!-- Main grid area for game interaction -->
         <div class="grid-wrapper grid-wrapperOutside">
             <div class="grid-wrapper grid-wrapperInside">
                 <div class="grid-container" id="gridContainer"></div>
             </div>
         </div>
+        <!-- Section for the three draggable small grids (bottom area) -->
         <div class="grid-wrapper grid-wrapperOutside" id="smallgridoutsidewrapper">
             <div class="grid-wrapper grid-wrapperInside">
                 <div class="small-grids">
@@ -52,7 +62,7 @@
             </div>
         </div>
     </div>
-    </div>
+    <!-- Background animation layer (spans for visual effects) -->
     <div class="background">
         <span></span>
         <span></span>
@@ -104,7 +114,7 @@
         <span></span>
         <span></span>
         <span></span>
+        <span></span>
     </div>
-    
 </body>
 </html>

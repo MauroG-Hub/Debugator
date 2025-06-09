@@ -1,39 +1,36 @@
-
-
+/* Styles for the Undo popup container */
 #Undo-container {
-    position: fixed;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    text-align: center;
-    
+    position: fixed; /* Position the popup in a fixed spot on the viewport */
+    top: 50%; /* Vertically center */
+    left: 50%; /* Horizontally center */
+    transform: translate(-50%, -50%); /* Precisely center the popup */
+    padding: 20px; /* Inner space around content */
+    background-color: #fff; /* White background */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    z-index: 1000; /* Make sure it's on top of other elements */
+    text-align: center; /* Center text horizontally */
 }
 
+/* Styles for the Undo button */
 .Undo-button {
-    position: fixed;
-    position: fixed;
-    top: 10%;
-    left: calc(100% - 40px);
-    transform: translate(-50%, -50%);
-    text-align: center;
-    font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: black;
-    padding: 5px 10px;
-    border-radius: 50px;
-    border: none;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    position: fixed; /* Button stays at a fixed position even when scrolling */
+    top: 10%; /* Place button near the top */
+    left: calc(100% - 40px); /* Place button near the right edge */
+    transform: translate(-50%, -50%); /* Adjust position for perfect placement */
+    text-align: center; /* Center the text inside the button */
+    font-size: 20px; /* Set the font size */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    color: black; /* Black text */
+    padding: 5px 10px; /* Space inside the button */
+    border-radius: 50px; /* Fully rounded corners */
+    border: none; /* No border */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for elevation */
+    z-index: 1000; /* Ensure the button is on top */
 }
 
+/* Utility class to hide any element */
 .hidden {
-    display: none;
+    display: none; /* Completely hide the element from layout and view */
 }
-

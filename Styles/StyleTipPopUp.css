@@ -1,27 +1,28 @@
 .tip-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    text-align: center;
+    position: fixed; /* Popup is fixed relative to the viewport */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Precise centering */
+    padding: 20px; /* Space inside the popup */
+    background-color: #fff; /* White background */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    z-index: 1000; /* Keep popup above most elements */
+    text-align: center; /* Center popup content */
 }
 
 .popup-close-button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    border: none;
-    background-color: #007BFF;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
+    margin-top: 10px; /* Space above the button */
+    padding: 5px 10px; /* Inner padding for button */
+    border: none; /* Remove default border */
+    background-color: #007BFF; /* Bright blue background */
+    color: #fff; /* White text */
+    cursor: pointer; /* Cursor pointer on hover */
+    border-radius: 5px; /* Rounded corners */
 }
 
+/* Darker blue background when hovered */
 .popup-close-button:hover {
     background-color: #0056b3;
 }

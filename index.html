@@ -4,22 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grid Master</title>
+    <!-- Main styles for the initial screen -->
     <link rel="stylesheet" href="Styles/stylesInitScreen.css">
-	<link rel="stylesheet" href="Styles/background.css">
+    <!-- Background animation or design styles -->
+    <link rel="stylesheet" href="Styles/background.css">
+    <!-- Language support script (deferred for performance) -->
     <script src="Scripts/Languages.js" defer></script>
+    <!-- Initial screen logic (deferred for performance) -->
     <script src="Scripts/loadingInitScreen.js" defer></script>
 </head>
 <body>
     <div class="main-wrapper">
+        <!-- Start button for launching the game -->
         <button class="start-button" id="Startbutton"></button>
+        <!-- Language selection buttons -->
         <div id="LanguageWrapper">
             <button class="Language-button" onclick="SetLanguage('EN')">English</button>
             <button class="Language-button" onclick="SetLanguage('ES')">Español</button>
             <button class="Language-button" onclick="SetLanguage('FR')">Français</button>
         </div>
-        <span class="Version">V3.8</span>
+        <!-- Version indicator -->
+        <span class="Version">V4.0</span>
     </div>
     <div class="background">
+        <!-- Background spans for animated or visual effects -->
         <span></span>
         <span></span>
         <span></span>

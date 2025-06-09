@@ -1,31 +1,35 @@
 
 function doAllFiguresNotFit(mainGridId, smallGridIds) {
-	let AllEmpty = true;
-	
-     // Iterate over each small grid ID
+    let AllEmpty = true; // Track if all small grids are empty
+    
+    // Iterate over each small grid ID
     for (let smallGridId of smallGridIds) {
-		
-		// Get figure and check if any rotation fits
-		let figure = getFigureFromSmallGrid(smallGridId);
-		
-		 // Skip if figure is empty or contains only zeros
-		let flatFigure = figure.flat();
-		
-		
+        
+        // Get the figure matrix from the small grid
+        let figure = getFigureFromSmallGrid(smallGridId);
+        
+        // Skip if figure is empty or contains only zeros
+        let flatFigure = figure.flat();
+        
         if (Array.isArray(figure) && !flatFigure.every(val => val === 0)) {
-			AllEmpty = false;
-		   if (doesAnyRotationFit(mainGridId, figure)) {
-            // If any figure fits, return false
-			
-            return false;
-			
-			} 
+            AllEmpty = false;
+            // Check if any rotation of the figure fits in the main grid
+            if (doesAnyRotationFit(mainGridId, figure)) {
+                // If any figure fits, return false
+                return false;
+            } 
         }  
     }
-    // If none of the figures fit, return true
-	if (AllEmpty) { return false; } else { return true };
+    // If none of the figures fit but at least one is not empty, return true
+    if (AllEmpty) { 
+        return false; 
+    } else { 
+        return true; 
+    }
 }
 
+
+// Check if any rotation of the figure fits in the main grid
 function doesAnyRotationFit(mainGridId, figureMatrix) {
     if (!Array.isArray(figureMatrix) || !Array.isArray(figureMatrix[0])) {
         console.error('figureMatrix is not a valid 2D array.');
@@ -47,14 +51,16 @@ function doesAnyRotationFit(mainGridId, figureMatrix) {
         const rotatedSubFigure = extractSubFigure(rotatedMatrix, coordinates);
         
         if (doesFigureFitInGrid(mainGrid, rotatedSubFigure)) {
-            return true; // Break and return true if any rotation fits
+            return true; // If any rotation fits, return true
         }
-        rotatedMatrix = rotateMatrix(rotatedMatrix); // Rotate 90° clockwise
+        rotatedMatrix = rotateMatrix(rotatedMatrix); // Rotate 90° clockwise for next attempt
     }
     
     return false; // No rotation fits
 }
 
+
+// Rotate a matrix 90 degrees clockwise
 function rotateMatrix(figureMatrix) {
     if (!Array.isArray(figureMatrix) || !Array.isArray(figureMatrix[0])) {
         console.error('figureMatrix is not a valid 2D array.');
@@ -64,7 +70,7 @@ function rotateMatrix(figureMatrix) {
     const gridSize = figureMatrix.length; // Assuming the matrix is square
     const rotatedMatrix = Array.from({ length: gridSize }, () => Array(gridSize).fill(0));
 
-    // Rotate the matrix
+    // Perform the rotation
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
             const newRow = col;
@@ -77,6 +83,7 @@ function rotateMatrix(figureMatrix) {
 }
 
 function doesFigureFitInGrid(mainGrid, figureSubFigure) {
+    // Check that the input is a valid 2D array
     if (!Array.isArray(figureSubFigure) || !Array.isArray(figureSubFigure[0])) {
         console.error('figureSubFigure is not a valid 2D array.');
         return false;
@@ -91,11 +98,9 @@ function doesFigureFitInGrid(mainGrid, figureSubFigure) {
     // Iterate over every valid starting position in the main grid
     for (let startRow = 0; startRow <= gridSize - subGridHeight; startRow++) {
         for (let startCol = 0; startCol <= gridSize - subGridWidth; startCol++) {
-            
+            // Check if the figure can fit in the main grid at this position
             if (compareSubmatrices(mainGrid, figureSubFigure, startRow, startCol)) {
-                
-                
-                return true; // Break and return true on the first valid position
+                return true; // Return true on the first valid position
             }
         }
     }
@@ -103,7 +108,10 @@ function doesFigureFitInGrid(mainGrid, figureSubFigure) {
     return false; // No valid position found
 }
 
+
+// Compares a figure's submatrix with a subgrid of the main grid
 function compareSubmatrices(mainGrid, figureSubFigure, startRow, startCol) {
+    // Validate that figureSubFigure is a 2D array
     if (!Array.isArray(figureSubFigure) || !Array.isArray(figureSubFigure[0])) {
         console.error('figureSubFigure is not a valid 2D array.');
         return false;
@@ -115,33 +123,37 @@ function compareSubmatrices(mainGrid, figureSubFigure, startRow, startCol) {
     // Extract the corresponding subgrid from the main grid
     const subGrid = extractSubgrid(mainGrid, startRow, startCol, subGridHeight, subGridWidth);
 
+    // Ensure the subgrid is a valid 2D array
     if (!Array.isArray(subGrid) || !Array.isArray(subGrid[0])) {
         console.error('Failed to extract a valid subgrid.');
         return false;
     }
 
-    // Compare each position in the matrices
+    // Compare each position in the matrices for conflicts
     for (let row = 0; row < subGridHeight; row++) {
         for (let col = 0; col < subGridWidth; col++) {
-            
+            // If both the figure and the subgrid have a nonzero value, they conflict
             if (figureSubFigure[row][col] !== 0 && subGrid[row][col] !== 0) {
-                
-                return false; // Conflict: A `1` in figureSubmatrix does not correspond to a `0` in subGrid
+                return false; // Conflict found, so the figure cannot fit here
             }
         }
     }
 
-    return true; // All `1`s in figureSubmatrix correspond to `0`s in subGrid
+    return true; // All ones in figureSubFigure correspond to zeros in subGrid
 }
 
+
+// Extracts a submatrix from a figure matrix using given boundaries
 function extractSubFigure(figureMatrix, boundaries) {
     const { FirstRow, FirstCol, LastRow, LastCol } = boundaries;
 
+    // Validate that figureMatrix is a 2D array
     if (!Array.isArray(figureMatrix) || !Array.isArray(figureMatrix[0])) {
         console.error('The provided figureMatrix is not a valid 2D array.');
         return null;
     }
 
+    // Validate that boundaries are within the matrix
     if (
         FirstRow < 0 || FirstCol < 0 || 
         LastRow >= figureMatrix.length || LastCol >= figureMatrix[0].length
@@ -160,11 +172,13 @@ function extractSubFigure(figureMatrix, boundaries) {
     return subMatrix;
 }
 
+
+// Extracts a rectangular subgrid from the main grid based on start position and size
 function extractSubgrid(mainGrid, startRow, startCol, subGridHeight, subGridWidth) {
-  
     const mainGridItems = mainGrid.children;
     const gridSize = Math.sqrt(mainGridItems.length); // Assuming the grid is square
 
+    // Validate the requested subgrid is within the grid bounds
     if (startRow < 0 || startCol < 0 || startRow + subGridHeight > gridSize || startCol + subGridWidth > gridSize) {
         console.error('Invalid subgrid dimensions or starting position.');
         return null;
@@ -188,5 +202,6 @@ function extractSubgrid(mainGrid, startRow, startCol, subGridHeight, subGridWidt
 
     return subGrid;
 }
+
 
 

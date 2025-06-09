@@ -1,6 +1,5 @@
-
 html, body {
-    overflow: hidden;
+    overflow: hidden; /* Prevent scrolling on the whole page */
 }
 
 body {
@@ -10,38 +9,39 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #20368d; /* O el color que prefieras */
+    background-color: #20368d; /* Main background color */
     min-height: 100vh;
 }
 
-/* Marco que rodea los puntos */
+/* Frame that surrounds the score or LED points */
 .marco {
-    background: #111; /* Color oscuro interno */
-    border: 15px solid #222; /* Borde del marco */
-    border-radius: 8px; /* Bordes redondeados */
+    background: #111; /* Dark background inside the frame */
+    border: 15px solid #222; /* Frame border */
+    border-radius: 8px; /* Rounded corners */
     padding: 10px;
-    box-shadow: 0 0 20px #000; /* Efecto de profundidad */
+    box-shadow: 0 0 20px #000; /* Shadow effect for depth */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Estilo de los puntos LED */
+/* Style for the LED points */
 .punto {
     width: 20px;
     height: 20px;
-    background-color: #00BFFF; /* Azul brillante */
-    border-radius: 50%; /* Forma de círculo */
-    box-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 40px #00BFFF; /* Efecto de brillo */
-    margin: 10px; /* Espaciado entre puntos */
+    background-color: #00BFFF; /* Bright blue */
+    border-radius: 50%; /* Circle shape */
+    box-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 40px #00BFFF; /* Glow effect */
+    margin: 10px; /* Space between points */
 }
 
+/* Score styling */
 #total-score {
     font-family: 'Courier New', monospace;
-    font-size: 5rem; /* Ajusta el tamaño según el diseño */
-    color: #00BFFF; /* Azul brillante */
+    font-size: 5rem; /* Adjust size as needed */
+    color: #00BFFF; /* Bright blue */
     text-shadow: 0 0 10px #00BFFF, 0 0 20px #00BFFF, 0 0 20px #00BFFF;
-    background: linear-gradient(to bottom, #111, #222); /* Fondo negro degradado */
+    background: linear-gradient(to bottom, #111, #222); /* Gradient black background */
     padding: 20px 10px;
     margin-top: 20px;
     border-radius: 12px;
@@ -53,164 +53,166 @@ body {
     text-align: center;
 }
 
-		
-		.grid-wrapper {
-			position: relative; /* Para controlar el apilamiento */
-			background-color: rgba(230, 230, 230, 0.799); /* Color del fondo del marco */
-			z-index: 3; /* Asegura que esté sobre las animaciones */
-			border-radius: 15px;
-		}
+/* Wrapper for the main grid for stacking control */
+.grid-wrapper {
+    position: relative; /* Allows control of stacking context */
+    background-color: rgba(230, 230, 230, 0.799); /* Background color */
+    z-index: 3; /* Ensures it's above animations */
+    border-radius: 15px;
+}
 
-		.grid-wrapperInside {
-			border: 4px solid #3a21ff; /* Marco alrededor del grid */
-			margin: 0px;
-			padding: 0px; /* Espaciado interno entre el grid y el borde */
-		}
+/* Blue border around the grid (inner wrapper) */
+.grid-wrapperInside {
+    border: 4px solid #3a21ff;
+    margin: 0px;
+    padding: 0px;
+}
 
-		.grid-wrapperOutside {
-			border: 3px solid #00b0f0; /* Marco alrededor del grid */	
-			margin-bottom: 20px;
-			padding: 0px; /* Espaciado interno entre el grid y el borde */
-			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); /* Sombra para resaltar el marco */
-		}
+/* Light blue border and shadow around the grid (outer wrapper) */
+.grid-wrapperOutside {
+    border: 3px solid #00b0f0;
+    margin-bottom: 20px;
+    padding: 0px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+}
 
-        .grid-container {
-            max-width: 100%;
-            display: grid;
-            grid-template-columns: repeat(10, 20px);
-            grid-template-rows: repeat(10, 20px);
-            gap: 3px;
-			position: relative;
-			z-index: 4;
-			border: 2px dashed transparent;
-            margin: auto;
-			padding: 5px;
-        }
+/* Main grid styling */
+.grid-container {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(10, 20px);
+    grid-template-rows: repeat(10, 20px);
+    gap: 3px;
+    position: relative;
+    z-index: 4;
+    border: 2px dashed transparent;
+    margin: auto;
+    padding: 5px;
+}
 
-        .small-grids {
-            display: flex;
-            justify-content: space-between;
-            width: 80%;
-			position: relative;
-			z-index: 2;
-            margin: 10px 10px 5px 10px;
-            
-        }
+/* Container for the three small grids */
+.small-grids {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    position: relative;
+    z-index: 2;
+    margin: 10px 10px 5px 10px;
+}
 
-        .small-grid {
-            max-width: 100%;
-            display: grid;
-            grid-template-columns: repeat(5, 5px);
-            grid-template-rows: repeat(5, 5px);
-            gap: 1px;
-            margin: auto;
-            position: relative;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
+/* Small grid styling */
+.small-grid {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 5px);
+    grid-template-rows: repeat(5, 5px);
+    gap: 1px;
+    margin: auto;
+    position: relative;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
-        .grid-item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 15px; /* Bordes redondeados */
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            /*width: 45px;  /*Ajusta según tu diseño */
-            /*height: 45px; /* Ajusta según tu diseño */
-            font-size: 0px;
-        }
-        
+/* Generic grid cell styling */
+.grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    font-size: 0px; /* Hidden by default for visual-only blocks */
+}
 
-		.smallgrid-item:active {
-			opacity: 0.5; /* Reduce la opacidad durante el arrastre */
-			border: 2px dashed #000;
-		}
-		
-		.grid-container.drag-over {
-			border-color: #00f; /* Cambia el color del borde al arrastrar */
-		}
+/* Style for active (touched) small grid cells */
+.smallgrid-item:active {
+    opacity: 0.5; /* Lower opacity while dragging */
+    border: 2px dashed #000;
+}
 
+/* Highlight border when dragging over main grid */
+.grid-container.drag-over {
+    border-color: #00f;
+}
 
-        /* Asociar Valores con colores */
+/* Remove all visual effects for empty cells (main grid and small grid) */
+.maingrid-item[data-value="0"]{
+    background-color: transparent; 
+    color: transparent;
+    box-shadow: none;
+    transform: none;
+}
 
-        .maingrid-item[data-value="0"]{
-            background-color: transparent; 
-            color: transparent;
-            box-shadow: none; /* Sin efecto 3D para valores cero */
-            transform: none;  /* Sin transformación */
-        }
+.smallgrid-item[data-value="0"]{
+    background-color: transparent; 
+    color: transparent;
+    box-shadow: none;
+    transform: none;
+}
 
-		.smallgrid-item[data-value="0"]{
-            background-color: transparent; 
-            color: transparent;
-            box-shadow: none; /* Sin efecto 3D para valores cero */
-            transform: none;  /* Sin transformación */
-        }
-
-        /* Estilo para celdas grandes */
+/* Larger border radius for large grid cells */
 .maingrid-item {
-    border-radius: 8px; /* Bordes más redondeados */
+    border-radius: 8px;
 }
 
-/* Estilo para celdas pequeñas */
+/* Smaller border radius for small grid cells */
 .smallgrid-item {
-    border-radius: 4px; /* Menos redondeo */
+    border-radius: 4px;
 }
 
+/* Visual effects for filled cells (not zero) */
+.grid-item[data-value]:not([data-value="0"]) {
+    transform: translateY(-3px) scale(1.05); /* Lifted effect */
+    box-shadow: 
+        inset 3px 3px 6px rgba(255, 255, 255, 0.6),
+        inset -3px -3px 6px rgba(0, 0, 0, 0.3),
+        8px 8px 16px rgba(0, 0, 0, 0.5);
+}
 
-        
-        
-            .grid-item[data-value]:not([data-value="0"]) {
-                transform: translateY(-3px) scale(1.05); /* Efecto de elevación */
-                box-shadow: 
-                    inset 3px 3px 6px rgba(255, 255, 255, 0.6), /* Luz interior superior más intensa */
-                    inset -3px -3px 6px rgba(0, 0, 0, 0.3), /* Sombra interior inferior más marcada */
-                    8px 8px 16px rgba(0, 0, 0, 0.5); /* Sombra exterior más intensa */
-            }
-		
-        .grid-item[data-value="1"]{background-color: yellow; color: yellow;}
-        .grid-item[data-value="2"]{background-color: blue; color: blue;}
-        .grid-item[data-value="3"]{background-color: green; color: green;}
-        .grid-item[data-value="4"]{background-color: red; color: red;}
-        .grid-item[data-value="5"]{background-color: lightblue; color: lightblue;}
-        .grid-item[data-value="6"]{background-color: lightgreen; color: lightgreen;}
-        .grid-item[data-value="7"]{background-color: pink; color: pink;}
-        .grid-item[data-value="8"]{background-color: magenta; color: magenta;}
-        .grid-item[data-value="9"]{background-color: orange; color: orange;}
+/* Color mapping for different values */
+.grid-item[data-value="1"] { background-color: yellow; color: yellow; }
+.grid-item[data-value="2"] { background-color: blue; color: blue; }
+.grid-item[data-value="3"] { background-color: green; color: green; }
+.grid-item[data-value="4"] { background-color: red; color: red; }
+.grid-item[data-value="5"] { background-color: lightblue; color: lightblue; }
+.grid-item[data-value="6"] { background-color: lightgreen; color: lightgreen; }
+.grid-item[data-value="7"] { background-color: pink; color: pink; }
+.grid-item[data-value="8"] { background-color: magenta; color: magenta; }
+.grid-item[data-value="9"] { background-color: orange; color: orange; }
 
-        .grid-item[data-value="11"]{background-color: yellow; color: yellow; opacity: 40%;}
-        .grid-item[data-value="12"]{background-color: blue; color: blue; opacity: 40%;}
-        .grid-item[data-value="13"]{background-color: green; color: green; opacity: 40%;}
-        .grid-item[data-value="14"]{background-color: red; color: red; opacity: 40%;}
-        .grid-item[data-value="15"]{background-color: lightblue; color: lightblue; opacity: 40%;}
-        .grid-item[data-value="16"]{background-color: lightgreen; color: lightgreen; opacity: 40%;}
-        .grid-item[data-value="17"]{background-color: pink; color: pink; opacity: 40%;}
-        .grid-item[data-value="18"]{background-color: magenta; color: magenta; opacity: 40%;}
-        .grid-item[data-value="19"]{background-color: orange; color: orange; opacity: 40%;}
+/* Lower opacity for "Dumb" or hint overlays (values 11-19) */
+.grid-item[data-value="11"] { background-color: yellow; color: yellow; opacity: 40%; }
+.grid-item[data-value="12"] { background-color: blue; color: blue; opacity: 40%; }
+.grid-item[data-value="13"] { background-color: green; color: green; opacity: 40%; }
+.grid-item[data-value="14"] { background-color: red; color: red; opacity: 40%; }
+.grid-item[data-value="15"] { background-color: lightblue; color: lightblue; opacity: 40%; }
+.grid-item[data-value="16"] { background-color: lightgreen; color: lightgreen; opacity: 40%; }
+.grid-item[data-value="17"] { background-color: pink; color: pink; opacity: 40%; }
+.grid-item[data-value="18"] { background-color: magenta; color: magenta; opacity: 40%; }
+.grid-item[data-value="19"] { background-color: orange; color: orange; opacity: 40%; }
 
+/* Main content wrapper for overall layout */
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100vm; /* Adjust as needed */
+    position: relative;
+    box-sizing: border-box;
+}
 
-        .main-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 100vm; /* Ajusta según tu diseño */
-            position: relative;
-            box-sizing: border-box;
-        }
-
-        /* Contenedor de la puntuación con estilo de caja 3D */
+/* Score container with 3D look */
 #score-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
     position: relative;
-    z-index: 10; /* Asegura que esté encima de otros elementos */
+    z-index: 10;
 }
     
 #total-score {
@@ -225,14 +227,15 @@ body {
                 0 4px 8px rgba(0, 0, 0, 0.5),
                 0 6px 20px rgba(0, 0, 0, 0.3);
     text-align: center;
-    -webkit-text-fill-color: initial; /* Ajusta a color por defecto */
-    color: white; /* Asegúrate de que el texto sea visible */
+    -webkit-text-fill-color: initial;
+    color: white;
 }
 
 .shared-font {
     font-family: serif;
 }
 
+/* Top-left wrapper for placing a button (like "back") */
 .top-left-button-wrapper {
     position: fixed;
     top: 10px;
@@ -240,6 +243,7 @@ body {
     z-index: 1000;
 }
 
+/* Styles for the "back" button */
 .back-button {
     font-size: 1.5rem;
     padding: 10px 20px;
@@ -257,7 +261,7 @@ body {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-
+/* Level indicator, fixed in the top right */
 #level-container {
     position: fixed;
     top: 10px;
@@ -270,17 +274,20 @@ body {
     z-index: 1000;
 }
 
+/* Duplicate definition for another top-left usage */
 .top-left-button-wrapper {
     position: absolute;
     top: 10px;
     left: 10px;
 }
 
+/* Dropdown menu wrapper */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
+/* Dropdown trigger button */
 .dropdown-button {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 5px 10px;
@@ -292,6 +299,7 @@ body {
     z-index: 1000;
 }
 
+/* Dropdown content styling */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -302,6 +310,7 @@ body {
     z-index: 1;
 }
 
+/* Individual dropdown menu items */
 .dropdown-content a {
     color: black;
     padding: 10px 12px;
@@ -309,6 +318,7 @@ body {
     display: block;
 }
 
+/* Hover effect for dropdown menu items */
 .dropdown-content a:hover {
     background-color: #e0e0e0;
 }
