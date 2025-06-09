@@ -43,6 +43,7 @@ function Copy(row, col, sourceGridId, Dumb) {
         // Analyze which columns and rows need to be cleared and clear them
         let columnsToClear = analyzeColumns('gridContainer');
         let rowsToClear = analyzeRows('gridContainer');
+        let TotalRows = columnsToClear.length + rowsToClear.length;
         clearRowsAndColumns('gridContainer', rowsToClear, columnsToClear);
 
         // If all small grids are cleared, reload new figures
@@ -56,7 +57,7 @@ function Copy(row, col, sourceGridId, Dumb) {
         saveCurrentState();
 
         // Play sound only if no rows or columns were cleared
-        if ((columnsToClear == 0) && (rowsToClear == 0)) playSound(AmountofMiniBlocks);
+        if (TotalRows == 0) playSound(AmountofMiniBlocks);
 
         // Show Game Over if none of the figures fit
         if (doAllFiguresNotFit('gridContainer', ['smallGrid1', 'smallGrid2', 'smallGrid3'])) {
