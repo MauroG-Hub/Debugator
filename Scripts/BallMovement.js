@@ -30,7 +30,7 @@ function startSmoothMove(direction) {
 const targetY = baseRow * cellSize;
 const targetX = baseCol * cellSize;
 
-epsilon = cellSize/3;
+epsilon = cellSize/100;
 
 
 switch (direction) {
