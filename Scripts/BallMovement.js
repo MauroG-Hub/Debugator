@@ -3,7 +3,7 @@ let playerY = 0;
 let moveDir = null;
 let isMoving = false;
 
-const epsilon = 0.2; // margen aceptable de error decimal
+const epsilon = 0.3; // margen aceptable de error decimal
 
 
 function startSmoothMove(direction) {
@@ -30,7 +30,6 @@ function startSmoothMove(direction) {
 const targetY = baseRow * cellSize;
 const targetX = baseCol * cellSize;
 
-epsilon = cellSize/100;
 
 
 switch (direction) {
