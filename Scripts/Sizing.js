@@ -7,7 +7,7 @@
 
 
     const CellSizeW = (screenWidth*0.9) / cols;
-    const CellSizeH = (screenWidth*0.9) / rows;
+    const CellSizeH = (screenHeight*0.9) / rows;
 
     cellSize = Math.min(CellSizeW, CellSizeH);
 

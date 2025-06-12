@@ -3,6 +3,9 @@ let playerY = 0;
 let moveDir = null;
 let isMoving = false;
 
+const epsilon = 0.1; // margen aceptable de error decimal
+
+
 function startSmoothMove(direction) {
   let baseCol = Math.floor(playerX / cellSize);
   let baseRow = Math.floor(playerY / cellSize);
@@ -33,7 +36,7 @@ switch (direction) {
     } else {
   
       playerY -= speed;
-      if (playerY <= (baseRow - 1) * cellSize) {
+      if (Math.abs(playerY - (baseRow - 1) * cellSize) < epsilon) {
   
         baseRow--;
         const nextCell = grid[index(baseCol, baseRow)];
@@ -51,7 +54,7 @@ switch (direction) {
       wallAhead = true;
     } else {
       playerY += speed;
-      if (playerY >= (baseRow + 1) * cellSize) {
+      if (pMath.abs(playerY - (baseRow + 1) * cellSize) < epsilon) {
         baseRow++;
         const nextCell = grid[index(baseCol, baseRow)];
 
@@ -67,7 +70,7 @@ switch (direction) {
       wallAhead = true;
     } else {
       playerX -= speed;
-      if (playerX <= (baseCol - 1) * cellSize) {
+      if (Math.abs(playerX - (baseCol - 1) * cellSize) < epsilon) {
         baseCol--;
         const nextCell = grid[index(baseCol, baseRow)];
 
@@ -83,7 +86,7 @@ switch (direction) {
       wallAhead = true;
     } else {
       playerX += speed;
-      if (playerX >= (baseCol + 1) * cellSize) {
+      if (Math.abs(playerX - (baseCol + 1) * cellSize) < epsilon) {
         baseCol++;
         const nextCell = grid[index(baseCol, baseRow)];
 
