@@ -6,8 +6,8 @@
     const screenHeight = window.innerHeight; // Screen height
 
 
-    const CellSizeW = (screenWidth*0.9) / cols;
-    const CellSizeH = (screenHeight*0.9) / rows;
+    const CellSizeW = (screenWidth*0.8) / cols;
+    const CellSizeH = (screenHeight*0.8) / rows;
 
     cellSize = Math.min(CellSizeW, CellSizeH);
 
