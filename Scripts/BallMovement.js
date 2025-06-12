@@ -4,7 +4,6 @@ let moveDir = null;
 let isMoving = false;
 
 function startSmoothMove(direction) {
-  console.log("1");
   let baseCol = Math.floor(playerX / cellSize);
   let baseRow = Math.floor(playerY / cellSize);
 
@@ -12,7 +11,7 @@ function startSmoothMove(direction) {
   if (isMoving) return;
   isMoving = true;
   moveDir = direction;
-  console.log("2");
+
   const speed = 10; // píxeles por frame
 
   function animate() {
@@ -27,20 +26,20 @@ function startSmoothMove(direction) {
 
 switch (direction) {
   case 'up':
-    console.log("4");
+
     if (baseRow <= 0 || cell.walls[0]) {
-      console.log("5");
+
       wallAhead = true;
     } else {
-      console.log("6");
+  
       playerY -= speed;
       if (playerY <= (baseRow - 1) * cellSize) {
-        console.log("7");
+  
         baseRow--;
         const nextCell = grid[index(baseCol, baseRow)];
 
         if (handleVisitedMemory(nextCell)) {
-          console.log("8");
+   
           wallAhead = true;
         }
       }
@@ -107,7 +106,7 @@ switch (direction) {
     if (!wallAhead) {
       requestAnimationFrame(animate);
     } else {
-      console.log("12");
+  
       // Ajustar a grilla exacta
       playerX = baseCol * cellSize;
       playerY = baseRow * cellSize;

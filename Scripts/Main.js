@@ -48,7 +48,7 @@ let playerCol = 0;        // empieza a la izquierda
   function generateAndShowMaze() {
     cols = mazeSizes[Level].rows;
     rows = mazeSizes[Level].cols;
-    cellSize = canvas.width / cols;
+    ResizeCanvas();
     Level++;
     generateMaze();
     markMultiWayCells();
@@ -70,6 +70,5 @@ let playerCol = 0;        // empieza a la izquierda
   }
 
 detectSwipe(direction => {
-    console.log("Swipe detectado:", direction);
     if(direction == "up" || direction == "down" || direction == "left" || direction == "right") startSmoothMove(direction);
 });

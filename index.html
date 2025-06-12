@@ -3,31 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <title>Laberinto en Canvas</title>
-  <style>
-    canvas {
-      border: 1px solid black;
-      display: block;
-      margin: auto;
-    }
-    button {
-      display: block;
-      margin: 20px auto;
-    }
-  </style>
-    
+  <link rel="stylesheet" href="Styles/background.css">
+  <link rel="stylesheet" href="Styles/stylesGame.css">
   <script src="Scripts/SwipeDetect.js" defer></script>
   <script src="Scripts/BallMovement.js" defer></script>
   <script src="Scripts/Main.js" defer></script>
+  <script src="Scripts/Sizing.js" defer></script>
   <!-- 🧠 Lógica del laberinto -->
   <script src="Scripts/GenerateMaze.js" defer></script>
   <!-- 🎨 Dibujo y ejecución -->
   <script src="Scripts/InsertMaze.js" defer></script>
+
+  
  
 </head>
 <body>
+<div class="main-wrapper">
+        <button onclick="generateAndShowMaze()">Generar laberinto</button>
+        <canvas id="mazeCanvas" width="400" height="627"></canvas>
+        <span class="Version">V1.0</span>
+    </div>
 
-<button onclick="generateAndShowMaze()">Generar laberinto</button>
-<canvas id="mazeCanvas" width="400" height="627"></canvas>
+<div class="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
 
 
