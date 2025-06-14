@@ -122,7 +122,6 @@ switch (direction) {
       playerX = baseCol * cellSize;
       playerY = baseRow * cellSize;
       isMoving = false;
-console.log("X: " + baseCol + " Y: " + baseRow);
 
       const finalCell = grid[index(baseCol, baseRow)];
       if (finalCell.visitedMemory === true) {
@@ -135,6 +134,13 @@ console.log("X: " + baseCol + " Y: " + baseRow);
         showFirstGoal = false;
         showSecondGoal = true;
        }
+
+       // 🟥 Detectar si llegó a la posición de la pelota roja
+       if (showSecondGoal && baseCol === 0 && baseRow === rows - 1) {
+         BtnNext.disabled = false;
+       }
+}
+
     }
   }
 
