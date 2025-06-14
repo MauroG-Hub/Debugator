@@ -2,6 +2,9 @@ let playerX = 0;
 let playerY = 0;
 let moveDir = null;
 let isMoving = false;
+let goalReached = false;
+let showFirstGoal = true;   // 🔵 pelota negra en la meta
+let showSecondGoal = false; // 🔴 pelota roja en el inicio
 
 const epsilon = 0.3; // margen aceptable de error decimal
 
