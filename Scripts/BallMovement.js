@@ -30,7 +30,6 @@ function startSmoothMove(direction) {
 const targetY = baseRow * cellSize;
 const targetX = baseCol * cellSize;
 
-console.log("X: " + baseCol + " Y: " + baseRow);
 
 
 switch (direction) {
@@ -120,6 +119,7 @@ switch (direction) {
       playerX = baseCol * cellSize;
       playerY = baseRow * cellSize;
       isMoving = false;
+console.log("X: " + baseCol + " Y: " + baseRow);
 
       const finalCell = grid[index(baseCol, baseRow)];
       if (finalCell.visitedMemory === true) {
