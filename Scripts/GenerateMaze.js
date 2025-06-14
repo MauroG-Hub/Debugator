@@ -48,6 +48,32 @@ function index(x, y) {
     return x + y * cols;
   }
 
+
+function generateAndShowMaze() {
+    cols = mazeSizes[Level].rows;
+    rows = mazeSizes[Level].cols;
+    ResizeCanvas();
+    generateMaze();
+    markMultiWayCells();
+    playerRow = rows - 1;
+    playerCol = 0;
+    playerX = 0;
+    playerY = (rows - 1) * cellSize;
+    moveDir = null;
+    isMoving = false;
+
+    drawMaze();
+    drawStartAndEnd();
+
+        // inicia el loop si aún no está corriendo
+    if (!window._gameLoopStarted) {
+        window._gameLoopStarted = true;
+        gameLoop();
+    }
+  }
+
+
+
 function generateMaze() {
     initGrid();
 
