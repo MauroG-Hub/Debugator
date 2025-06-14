@@ -125,6 +125,13 @@ console.log("X: " + baseCol + " Y: " + baseRow);
       if (finalCell.visitedMemory === true) {
         finalCell.visitedMemory = false; // desmarca si se detuvo ahí
       }
+
+       // 🎯 Verificar si llegó al objetivo
+       if (!goalReached && baseCol === cols - 1 && baseRow === 0) {
+        goalReached = true;
+        showFirstGoal = false;
+        showSecondGoal = true;
+       }
     }
   }
 
