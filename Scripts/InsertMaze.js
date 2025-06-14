@@ -15,15 +15,27 @@ function drawMaze() {
 function drawStartAndEnd() {
   const radius = cellSize * 0.3;
 
-  // Meta (negro)
-  const endX = (cols - 0.5) * cellSize;
-  const endY = cellSize / 2;
-  ctx.beginPath();
-  ctx.fillStyle = 'black';
-  ctx.arc(endX, endY, radius, 0, Math.PI * 2);
-  ctx.fill();
+  // 🎯 Primer objetivo (pelota negra en esquina superior derecha)
+  if (showFirstGoal) {
+    const endX = (cols - 0.5) * cellSize;
+    const endY = cellSize / 2;
+    ctx.beginPath();
+    ctx.fillStyle = 'black';
+    ctx.arc(endX, endY, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
 
-  // Pelota azul en movimiento
+  // 🎁 Segundo objetivo (pelota roja en esquina inferior izquierda)
+  if (showSecondGoal) {
+    const redX = cellSize / 2;
+    const redY = (rows - 0.5) * cellSize;
+    ctx.beginPath();
+    ctx.fillStyle = 'red';
+    ctx.arc(redX, redY, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // 🔵 Pelota azul (jugador)
   ctx.beginPath();
   ctx.fillStyle = 'blue';
   ctx.arc(playerX + cellSize / 2, playerY + cellSize / 2, radius, 0, Math.PI * 2);
