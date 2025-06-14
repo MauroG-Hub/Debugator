@@ -7,8 +7,8 @@ const epsilon = 0.3; // margen aceptable de error decimal
 
 
 function startSmoothMove(direction) {
-  let baseCol = Math.floor(playerX / cellSize);
-  let baseRow = Math.floor(playerY / cellSize);
+  let baseCol = Math.round(playerX / cellSize);
+  let baseRow = Math.round(playerY / cellSize);
 
 
   if (isMoving) return;
