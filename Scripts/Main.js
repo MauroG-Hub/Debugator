@@ -1,4 +1,4 @@
-
+/*
 const container = document.createElement('div');
 document.body.appendChild(container);
 Object.assign(container.style, {
@@ -28,7 +28,7 @@ window.addEventListener('unhandledrejection', e =>
   addMessage('error', 'Unhandled Promise: ' + (e.reason?.stack || e.reason)));
 
 
-
+*/
 
 
 const canvas = document.getElementById('mazeCanvas');
