@@ -78,29 +78,19 @@ let playerRow = rows - 1; // empieza abajo
 let playerCol = 0;        // empieza a la izquierda
 
 
-  function generateAndShowMaze() {
-    cols = mazeSizes[Level].rows;
-    rows = mazeSizes[Level].cols;
-    ResizeCanvas();
-    Level++;
-    generateMaze();
-    markMultiWayCells();
-    playerRow = rows - 1;
-    playerCol = 0;
-    playerX = 0;
-    playerY = (rows - 1) * cellSize;
-    moveDir = null;
-    isMoving = false;
+document.addEventListener('DOMContentLoaded', function () {
+  // Tu función aquí
+  Next();
+});
 
-    drawMaze();
-    drawStartAndEnd();
+function Next(){
+   const BtnNext = document.getElementById('BtnNext');
+   BtnNext.disabled = true;
 
-        // inicia el loop si aún no está corriendo
-    if (!window._gameLoopStarted) {
-        window._gameLoopStarted = true;
-        gameLoop();
-    }
-  }
+   generateAndShowMaze();
+   Level++;
+}
+
 
 detectSwipe(direction => {
     if(direction == "up" || direction == "down" || direction == "left" || direction == "right") startSmoothMove(direction);
