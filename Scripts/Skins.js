@@ -1,5 +1,15 @@
 let currentSkin = 'pasto'; // puedes cambiarlo en tiempo real
 
+const grassImage = new Image();
+grassImage.src = 'pasto-textura.png'; // asegúrate de tener esta imagen en tu proyecto
+
+const grassPattern = { ready: false, pattern: null };
+
+grassImage.onload = () => {
+  grassPattern.pattern = ctx.createPattern(grassImage, 'repeat');
+  grassPattern.ready = true;
+};
+
 
 
 function getSkin(name) {
