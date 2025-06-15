@@ -1,9 +1,9 @@
     canvas {
-      border: 1px solid black;
-      display: block;
-      margin: auto;
-      background: whitesmoke;
-    }
+  background-color: #ffffff;
+  border: 2px solid #444;
+  display: block;
+  margin: auto;
+}
     button {
       display: block;
       margin: 20px auto;
