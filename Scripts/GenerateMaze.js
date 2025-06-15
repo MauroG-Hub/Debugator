@@ -10,17 +10,25 @@
     }
 
     draw() {
-      const x = this.x * cellSize;
-      const y = this.y * cellSize;
+  const x = this.x * cellSize;
+  const y = this.y * cellSize;
 
-      ctx.strokeStyle = 'black';
-      ctx.lineWidth = 2;
+  const skin = getSkin(currentSkin);
 
-      if (this.walls[0]) line(x, y, x + cellSize, y); // top
-      if (this.walls[1]) line(x + cellSize, y, x + cellSize, y + cellSize); // right
-      if (this.walls[2]) line(x + cellSize, y + cellSize, x, y + cellSize); // bottom
-      if (this.walls[3]) line(x, y + cellSize, x, y); // left
-    }
+  // Fondo de la celda
+  ctx.fillStyle = skin.backgroundColor;
+  ctx.fillRect(x, y, cellSize, cellSize);
+
+  // Paredes del laberinto
+  ctx.strokeStyle = skin.wallColor;
+  ctx.lineWidth = skin.lineWidth;
+
+  if (this.walls[0]) line(x, y, x + cellSize, y); // top
+  if (this.walls[1]) line(x + cellSize, y, x + cellSize, y + cellSize); // right
+  if (this.walls[2]) line(x + cellSize, y + cellSize, x, y + cellSize); // bottom
+  if (this.walls[3]) line(x, y + cellSize, x, y); // left
+}
+
 
     getNeighbor() {
       const neighbors = [];
