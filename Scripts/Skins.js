@@ -18,7 +18,7 @@ function getSkin(name) {
       return {
         backgroundColor: '#ffffff', // color del camino
         wallStyle: grassPattern.ready ? grassPattern.pattern : '#228B22',
-        wallWidth: 6
+        wallWidth: cellSize/2;
       };
 
     case 'nieve':
