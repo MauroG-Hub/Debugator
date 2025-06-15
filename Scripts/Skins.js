@@ -1,3 +1,7 @@
+let currentSkin = 'pasto'; // puedes cambiarlo en tiempo real
+
+
+
 function getSkin(name) {
   switch (name) {
     case 'pasto':
