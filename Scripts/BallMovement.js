@@ -139,7 +139,6 @@ switch (direction) {
        if (showSecondGoal && baseCol === 0 && baseRow === rows - 1) {
          BtnNext.disabled = false;
        }
-}
 
     }
   }
