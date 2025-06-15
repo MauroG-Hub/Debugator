@@ -15,18 +15,18 @@
 
   const skin = getSkin(currentSkin);
 
-  // Fondo de la celda
+  // Fondo del camino
   ctx.fillStyle = skin.backgroundColor;
   ctx.fillRect(x, y, cellSize, cellSize);
 
-  // Paredes del laberinto
-  ctx.strokeStyle = skin.wallColor;
-  ctx.lineWidth = skin.lineWidth;
+  // Estilo de pared
+  ctx.strokeStyle = skin.wallStyle;
+  ctx.lineWidth = skin.wallWidth;
 
-  if (this.walls[0]) line(x, y, x + cellSize, y); // top
-  if (this.walls[1]) line(x + cellSize, y, x + cellSize, y + cellSize); // right
-  if (this.walls[2]) line(x + cellSize, y + cellSize, x, y + cellSize); // bottom
-  if (this.walls[3]) line(x, y + cellSize, x, y); // left
+  if (this.walls[0]) line(x, y, x + cellSize, y);
+  if (this.walls[1]) line(x + cellSize, y, x + cellSize, y + cellSize);
+  if (this.walls[2]) line(x + cellSize, y + cellSize, x, y + cellSize);
+  if (this.walls[3]) line(x, y + cellSize, x, y);
 }
 
 
