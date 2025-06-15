@@ -33,6 +33,7 @@ window.addEventListener('unhandledrejection', e =>
 
 const canvas = document.getElementById('mazeCanvas');
 const ctx = canvas.getContext('2d');
+const BtnNext = document.getElementById('BtnNext');
 
 const mazeSizes = [
   { rows: 3, cols: 5 },
@@ -84,9 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function Next(){
-   const BtnNext = document.getElementById('BtnNext');
    BtnNext.disabled = true;
-
+   
    generateAndShowMaze();
    Level++;
 }
