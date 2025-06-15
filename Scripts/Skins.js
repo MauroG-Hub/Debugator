@@ -6,30 +6,30 @@ function getSkin(name) {
   switch (name) {
     case 'pasto':
       return {
-        backgroundColor: '#7ec77b',
-        wallColor: '#4a3d26',
-        lineWidth: 2
+        backgroundColor: '#ffffff', // color del camino
+        wallStyle: grassPattern.ready ? grassPattern.pattern : '#228B22',
+        wallWidth: 6
       };
 
     case 'nieve':
       return {
-        backgroundColor: '#e8f9ff',
-        wallColor: '#b0c4de',
-        lineWidth: 1.5
+        backgroundColor: '#f0f8ff',
+        wallStyle: '#b0c4de',
+        wallWidth: 4
       };
 
     case 'desierto':
       return {
-        backgroundColor: '#f4e7c5',
-        wallColor: '#d2b48c',
-        lineWidth: 2
+        backgroundColor: '#fff8dc',
+        wallStyle: '#c2a770',
+        wallWidth: 5
       };
 
-    default: // skin por defecto
+    default:
       return {
         backgroundColor: '#ffffff',
-        wallColor: '#000000',
-        lineWidth: 2
+        wallStyle: '#000000',
+        wallWidth: 2
       };
   }
 }
