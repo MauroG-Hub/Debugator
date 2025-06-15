@@ -61,6 +61,9 @@ function generateAndShowMaze() {
     playerY = (rows - 1) * cellSize;
     moveDir = null;
     isMoving = false;
+    goalReached = false;
+    showFirstGoal = true;   // 🔵 pelota negra en la meta
+    showSecondGoal = false; // 🔴 pelota roja en el inicio
 
     drawMaze();
     drawStartAndEnd();
