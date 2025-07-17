@@ -1,0 +1,207 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* fondo blanco principal */
+  color: #222222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra superior negra con espacio para logo */
+.header-bar {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Logo, puedes ajustar tamaño */
+.header-bar img.logo {
+  height: 50px;
+  width: auto;
+}
+
+/* Título en la barra superior (opcional) */
+.header-bar h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  user-select: none;
+}
+
+/* Contenedor principal, con margen automático y ancho máximo */
+.main-content {
+  flex-grow: 1;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff; /* fondo blanco para el contenido */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+/* Barra inferior negra */
+.footer-bar {
+  background-color: #000000;
+  color: #cccccc;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+/* El resto de estilos (inputs, labels, tabla, botones) puedes usar el estilo gris metálico que te pasé antes */
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #222222;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  color: #111111;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #666666;
+  outline: none;
+  box-shadow: 0 0 5px #888888;
+}
+
+table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  background-color: #fff;
+  color: #222;
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 2px solid #888888;
+  color: #222222;
+  background: linear-gradient(to bottom, #dddddd, #bbbbbb);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6),
+              0 2px 4px rgba(0,0,0,0.15);
+  text-shadow: 0 -1px 1px rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+}
+
+button:hover {
+  background: linear-gradient(to bottom, #eeeeee, #cccccc);
+  border-color: #555555;
+}
+
+button:active {
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+  transform: translateY(1px);
+}
+
+.boton-rojo {
+  background: linear-gradient(to bottom, #cc5555, #992222);
+  border-color: #aa3333;
+  color: #fff0f0;
+}
+
+.boton-rojo:hover {
+  background: linear-gradient(to bottom, #dd6666, #aa3333);
+}
+
+.boton-verde {
+  background: linear-gradient(to bottom, #66bb66, #227722);
+  border-color: #339933;
+  color: #f0fff0;
+}
+
+.boton-verde:hover {
+  background: linear-gradient(to bottom, #77cc77, #338833);
+}
+
+.boton-azul {
+  background: linear-gradient(to bottom, #6699cc, #224466);
+  border-color: #3366aa;
+  color: #f0f8ff;
+}
+
+.boton-azul:hover {
+  background: linear-gradient(to bottom, #77aadd, #336699);
+}
+
+table input {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  color: #222;
+  border-radius: 4px;
+}
+
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #bbb; /* color base gris claro */
+
+  /* Texto con gradiente metálico */
+  background: linear-gradient(135deg,
+    #d0d0d0 0%,
+    #f0f0f0 25%,
+    #b0b0b0 50%,
+    #e0e0e0 75%,
+    #c0c0c0 100%);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Sombra para dar profundidad */
+  text-shadow:
+    0 1px 0 #999,
+    0 2px 4px rgba(0,0,0,0.4),
+    0 -1px 3px rgba(255,255,255,0.6);
+
+  /* Efecto brillo */
+  position: relative;
+}
+
+h1::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: -10%;
+  width: 120%;
+  height: 40%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 80%);
+  transform: rotate(-25deg);
+  pointer-events: none;
+  filter: blur(4px);
+}

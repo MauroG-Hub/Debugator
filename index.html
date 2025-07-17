@@ -2,84 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Laberinto en Canvas</title>
-  <link rel="stylesheet" href="Styles/background.css">
-  <link rel="stylesheet" href="Styles/stylesGame.css">
+  <title> IDEB - Reporte de Servicios</title>
+  <link rel="stylesheet" href="CSS/Styles.css">
+  <script src="Scripts/FrontEnd.js" defer></script>
 
-  <script src="Scripts/Skins.js" defer></script>
-  <script src="Scripts/SwipeDetect.js" defer></script>
-  <script src="Scripts/BallMovement.js" defer></script>
-  <script src="Scripts/Main.js" defer></script>
-  <script src="Scripts/Sizing.js" defer></script>
-  <!-- 🧠 Lógica del laberinto -->
-  <script src="Scripts/GenerateMaze.js" defer></script>
-  <!-- 🎨 Dibujo y ejecución -->
-  <script src="Scripts/InsertMaze.js" defer></script>
-
-  
- 
 </head>
 <body>
-<div class="main-wrapper">
-        <button id="BtnNext" onclick="Next()">Siguiente</button>
-        <canvas id="mazeCanvas" width="400" height="627"></canvas>
-        <span class="Version">V1.08</span>
-    </div>
+   <header class="header-bar">
+    <img src="Pictures/Logo.png" alt="Logo de la compañía" class="logo" />
+    <h1>Reporte de Servicios</h1>
+  </header>
+  
+  <main class="main-content">
+    <form id="serviceReport">
+    <label>Fecha del Servicio:</label>
+    <input type="date" name="fecha_servicio" required>
 
-<div class="background">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+    <label>Nombre del Técnico:</label>
+    <input type="text" name="tecnico" required>
+
+    <label>Empresa / Cliente:</label>
+    <input type="text" name="empresa_cliente" required>
+
+    <label>Descripción del Servicio:</label>
+    <textarea name="descripcion" rows="4" required></textarea>
+
+    <label>Materiales Utilizados:</label>
+    <textarea name="materiales" rows="3"></textarea>
+
+   <label>Fechas:</label>
+	<table>
+	  <thead>
+		<tr>
+		  <th>#</th>
+		  <th>Fecha</th>
+		  <th>Horas Trabajadas</th>
+		  <th>Acción</th>
+		</tr>
+	  </thead>
+	  <tbody id="tablaHoras">
+		<!-- Las filas se insertan dinámicamente -->
+	  </tbody>
+	</table>
+	<button type="button" class="boton-glossy boton-azul" onclick="agregarFila()">Agregar Día</button>
+
+    <label>Nombre de quien recibe:</label>
+    <input type="text" name="persona_recibe" required>
+	
+	<label>Firma:</label>
+	<canvas id="canvasFirma" width="400" height="150" style="border:1px solid #ccc; border-radius:6px; touch-action: none;"></canvas>
+	<br>
+	<button type="button" id="limpiarFirma" class="boton-glossy boton-rojo">Limpiar Firma</button>
+	<input type="hidden" name="firma_data" id="firmaData">
 
 
+    <label>Fecha de la Firma:</label>
+    <input type="date" name="fecha_firma" required>
 
+    <button type="submit" class="boton-glossy boton-azul">Guardar Reporte</button>
+  </form>
+
+    </form>
+  </main>
+  
+    <footer class="footer-bar">
+    IDEB © 2025 - Todos los derechos reservados
+  </footer>
+  
+  
+  <script>
+    document.getElementById('serviceReport').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("Reporte guardado (aquí iría la lógica para enviar o guardar los datos).");
+      // Aquí podrías enviar los datos a un servidor o descargarlos como archivo, según lo necesites.
+    });
+  </script>
 </body>
 </html>
