@@ -9,7 +9,7 @@
       <td>${contadorFilas}</td>
       <td><input type="date" name="dia${contadorFilas}_fecha" required></td>
       <td><input type="number" name="dia${contadorFilas}_horas" min="0" step="0.5" required></td>
-      <td><button type="button" class="boton-glossy boton-rojo" onclick="eliminarFila(this)">Eliminar</button></td>
+      <td><button type="button" class="boton-glossy boton-rojo btn-eliminar" onclick="eliminarFila(this)">Eliminar</button></td>
     `;
 
     tbody.appendChild(fila);
@@ -25,79 +25,87 @@
   window.onload = agregarFila;
   
   
-  
-  const canvas = document.getElementById('canvasFirma');
-const ctx = canvas.getContext('2d');
-let dibujando = false;
-let ultimoX = 0;
-let ultimoY = 0;
+  let canvas, ctx, firmando = false;
 
-function empezarDibujo(e) {
-  dibujando = true;
-  const pos = obtenerPosicion(e);
-  ultimoX = pos.x;
-  ultimoY = pos.y;
-}
-
-function dibujar(e) {
-  if (!dibujando) return;
-  e.preventDefault();
-  const pos = obtenerPosicion(e);
-
-  ctx.strokeStyle = '#000000'; // color negro para la firma
+function abrirModalFirma() {
+  document.getElementById("modalFirma").style.display = "flex";
+  canvas = document.getElementById("canvasFirma");
+  ctx = canvas.getContext("2d");
+  ctx.strokeStyle = "#000";
   ctx.lineWidth = 2;
-  ctx.lineCap = 'round';
 
+  canvas.addEventListener("mousedown", comenzarFirma);
+  canvas.addEventListener("mousemove", dibujarFirma);
+  canvas.addEventListener("mouseup", terminarFirma);
+  canvas.addEventListener("mouseout", terminarFirma);
+
+  // Soporte táctil
+  canvas.addEventListener("touchstart", comenzarFirmaTouch);
+  canvas.addEventListener("touchmove", dibujarFirmaTouch);
+  canvas.addEventListener("touchend", terminarFirma);
+}
+
+function cerrarModalFirma() {
+  document.getElementById("modalFirma").style.display = "none";
+  limpiarFirma(); // opcional
+}
+
+function comenzarFirma(e) {
+  firmando = true;
   ctx.beginPath();
-  ctx.moveTo(ultimoX, ultimoY);
-  ctx.lineTo(pos.x, pos.y);
+  ctx.moveTo(e.offsetX, e.offsetY);
+  e.preventDefault();
+}
+
+function dibujarFirma(e) {
+  if (!firmando) return;
+  ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
-
-  ultimoX = pos.x;
-  ultimoY = pos.y;
+  e.preventDefault();
 }
 
-function terminarDibujo() {
-  dibujando = false;
+function terminarFirma() {
+  firmando = false;
 }
 
-// Obtener posición del cursor o toque relativa al canvas
-function obtenerPosicion(e) {
+function comenzarFirmaTouch(e) {
   const rect = canvas.getBoundingClientRect();
-  if (e.touches) {
-    return {
-      x: e.touches[0].clientX - rect.left,
-      y: e.touches[0].clientY - rect.top
-    };
-  } else {
-    return {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    };
-  }
+  const touch = e.touches[0];
+  ctx.beginPath();
+  ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+  firmando = true;
+  e.preventDefault();
 }
 
-// Limpiar el canvas
-document.getElementById('limpiarFirma').addEventListener('click', () => {
+function dibujarFirmaTouch(e) {
+  if (!firmando) return;
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+  ctx.stroke();
+  e.preventDefault();
+}
+
+function limpiarFirma() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  document.getElementById('firmaData').value = '';
-});
+}
 
-// Eventos mouse
-canvas.addEventListener('mousedown', empezarDibujo);
-canvas.addEventListener('mousemove', dibujar);
-canvas.addEventListener('mouseup', terminarDibujo);
-canvas.addEventListener('mouseout', terminarDibujo);
+function guardarFirma() {
+  const imagen = canvas.toDataURL("image/png");
+  document.getElementById("firmaGuardada").value = imagen;
+  cerrarModalFirma();
+}
 
-// Eventos touch
-canvas.addEventListener('touchstart', empezarDibujo);
-canvas.addEventListener('touchmove', dibujar);
-canvas.addEventListener('touchend', terminarDibujo);
-canvas.addEventListener('touchcancel', terminarDibujo);
-
+  
 // Al enviar el formulario, guarda la imagen de la firma en un campo oculto
 document.getElementById('serviceReport').addEventListener('submit', function(e) {
   const firmaDataURL = canvas.toDataURL();
   document.getElementById('firmaData').value = firmaDataURL;
   // Aquí puedes enviar la imagen base64 al backend o hacer lo que necesites con ella
+});
+
+
+document.getElementById("tablaHoras").addEventListener("input", function () {
+  const contenedor = document.querySelector(".tabla-contenedor");
+  contenedor.scrollLeft = 0; // vuelve al inicio si se expandió
 });
