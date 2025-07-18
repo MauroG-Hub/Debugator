@@ -16,39 +16,61 @@
  <main class="main-scroll">
     <div class="main-content">
     <form id="serviceReport">
-    <label>Fecha del Servicio:</label>
-    <input type="date" name="fecha_servicio" required>
 
     <label>Nombre del Técnico:</label>
     <input type="text" name="tecnico" required>
 
-    <label>Empresa / Cliente:</label>
+    <label>Cliente:</label>
     <input type="text" name="empresa_cliente" required>
+
+    <label>Persona Contacto:</label>
+    <input type="text" name="persona_recibe" required>
+
+    <label>Motivo de la solicitud:</label>
+    <input type="text" name="persona_recibe" required>
 
     <label>Descripción del Servicio:</label>
     <textarea name="descripcion" rows="4" required></textarea>
 
-    <label>Materiales Utilizados:</label>
-    <textarea name="materiales" rows="3"></textarea>
+    <label>Plan de trabajo:</label>
+    <textarea name="descripcion" rows="4" required></textarea>
+
+<div class="form-group">
+  <label for="tipoServicio">Tipo de Servicio:</label>
+  <select id="tipoServicio" name="tipoServicio" required class="input-estilizado" onchange="verificarOtro()">
+    <option value="">-- Selecciona un tipo --</option>
+    <option value="Preventivo">Preventivo</option>
+    <option value="Correctivo">Correctivo</option>
+    <option value="Modificado">Modificado</option>
+    <option value="Mal Funcionamiento">Mal Funcionamiento</option>
+    <option value="Otro">Otro</option>
+  </select>
+</div>
+
+<!-- Este bloque se mostrará solo si se selecciona "Otro" -->
+<div id="campoEspecifique" class="form-group" style="display: none;">
+  <label for="especifique">Especifique:</label>
+  <textarea id="especifique" name="Especifique" rows="1"></textarea>
+</div>
+
 
    <label>Fechas:</label>
 	<table>
-	  <thead>
-		<tr>
-		  <th>#</th>
-		  <th>Fecha</th>
-		  <th>Horas Trabajadas</th>
-		  <th>Acción</th>
-		</tr>
-	  </thead>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Fecha</th>
+        <th>Entrada</th>
+        <th>Salida</th>
+        <th>Acción</th>
+      </tr>
+</thead>
 	  <tbody id="tablaHoras">
 		<!-- Las filas se insertan dinámicamente -->
 	  </tbody>
 	</table>
 	<button type="button" class="boton-glossy boton-azul" onclick="agregarFila()">Agregar Día</button>
 
-    <label>Nombre de quien recibe:</label>
-    <input type="text" name="persona_recibe" required>
 
     <label>Comentarios del cliente:</label>
     <textarea name="descripcion" rows="4" required></textarea>
