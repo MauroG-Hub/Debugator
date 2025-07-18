@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <title> IDEB - Reporte de Servicios</title>
   <link rel="stylesheet" href="CSS/Styles.css">
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
   <script src="Scripts/FrontEnd.js" defer></script>
+  <script type="module"  src="Scripts/GenerateFile.js" defer></script>
+  
 
 </head>
 <body>
@@ -18,26 +21,26 @@
     <form id="serviceReport">
 
     <label>Nombre del Técnico:</label>
-    <input type="text" name="tecnico" required>
+  <input type="text" name="tecnico" required>
 
-    <label>Cliente:</label>
-    <input type="text" name="empresa_cliente" required>
+  <label>Cliente:</label>
+  <input type="text" name="empresa_cliente" required>
 
-    <label>Persona Contacto:</label>
-    <input type="text" name="persona_recibe" required>
+  <label>Persona Contacto:</label>
+  <input type="text" name="persona_contacto" required>
 
-    <label>Motivo de la solicitud:</label>
-    <input type="text" name="persona_recibe" required>
+  <label>Motivo de la Solicitud:</label>
+  <input type="text" name="motivo_solicitud" required>
 
-    <label>Descripción del Servicio:</label>
-    <textarea name="descripcion" rows="4" required></textarea>
+  <label>Descripción del Servicio:</label>
+  <textarea name="descripcion_servicio" rows="4" required></textarea>
 
-    <label>Plan de trabajo:</label>
-    <textarea name="descripcion" rows="4" required></textarea>
+  <label>Plan de Trabajo:</label>
+  <textarea name="plan_trabajo" rows="4" required></textarea>
 
 <div class="form-group">
   <label for="tipoServicio">Tipo de Servicio:</label>
-  <select id="tipoServicio" name="tipoServicio" required class="input-estilizado" onchange="verificarOtro()">
+  <select id="tipoServicio"  name="tipo_servicio" required class="input-estilizado" onchange="verificarOtro()">
     <option value="">-- Selecciona un tipo --</option>
     <option value="Preventivo">Preventivo</option>
     <option value="Correctivo">Correctivo</option>
@@ -48,9 +51,9 @@
 </div>
 
 <!-- Este bloque se mostrará solo si se selecciona "Otro" -->
-<div id="campoEspecifique" class="form-group" style="display: none;">
-  <label for="especifique">Especifique:</label>
-  <textarea id="especifique" name="Especifique" rows="1"></textarea>
+<div id="campoEspecifique" class="form-group">
+  <label>Especifique:</label>
+  <input type="text" id="especifique" name="especifique">
 </div>
 
 
@@ -72,16 +75,14 @@
 	<button type="button" class="boton-glossy boton-azul" onclick="agregarFila()">Agregar Día</button>
 
 
-    <label>Comentarios del cliente:</label>
-    <textarea name="descripcion" rows="4" required></textarea>
-	
-	<label>Firma:</label>
-	<button type="button" class="boton-glossy boton-azul" onclick="abrirModalFirma()">Firmar</button>
+   <label>Comentarios del Cliente:</label>
+  <textarea name="comentarios_cliente" rows="4" required></textarea>
 
+  <label>Firma:</label>
+  <button type="button" class="boton-glossy boton-azul" onclick="abrirModalFirma()">Firmar</button>
 
-
-    <label>Fecha de la Firma:</label>
-    <input type="date" name="fecha_firma" required>
+  <label>Fecha de la Firma:</label>
+  <input type="date" name="fecha_firma" required>
 
     <button type="submit" class="boton-glossy boton-azul">Guardar Reporte</button>
     </form>
@@ -107,13 +108,5 @@
 <!-- Campo oculto para guardar la imagen base64 -->
 <input type="hidden" id="firmaGuardada" name="firmaGuardada">
 
-
-  <script>
-    document.getElementById('serviceReport').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert("Reporte guardado (aquí iría la lógica para enviar o guardar los datos).");
-      // Aquí podrías enviar los datos a un servidor o descargarlos como archivo, según lo necesites.
-    });
-  </script>
 </body>
 </html>

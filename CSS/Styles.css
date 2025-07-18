@@ -89,6 +89,8 @@ label {
   margin-top: 15px;
   font-weight: bold;
   color: #222222;
+  font-size: 0.9rem;
+
 }
 
 input, textarea, select {
