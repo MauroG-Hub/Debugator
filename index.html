@@ -13,7 +13,8 @@
     <h1>Reporte de Servicios</h1>
   </header>
   
-  <main class="main-content">
+ <main class="main-scroll">
+    <div class="main-content">
     <form id="serviceReport">
     <label>Fecha del Servicio:</label>
     <input type="date" name="fecha_servicio" required>
@@ -48,28 +49,43 @@
 
     <label>Nombre de quien recibe:</label>
     <input type="text" name="persona_recibe" required>
+
+    <label>Comentarios del cliente:</label>
+    <textarea name="descripcion" rows="4" required></textarea>
 	
 	<label>Firma:</label>
-	<canvas id="canvasFirma" width="400" height="150" style="border:1px solid #ccc; border-radius:6px; touch-action: none;"></canvas>
-	<br>
-	<button type="button" id="limpiarFirma" class="boton-glossy boton-rojo">Limpiar Firma</button>
-	<input type="hidden" name="firma_data" id="firmaData">
+	<button type="button" class="boton-glossy boton-azul" onclick="abrirModalFirma()">Firmar</button>
+
 
 
     <label>Fecha de la Firma:</label>
     <input type="date" name="fecha_firma" required>
 
     <button type="submit" class="boton-glossy boton-azul">Guardar Reporte</button>
-  </form>
-
     </form>
+    </div>
   </main>
   
     <footer class="footer-bar">
     IDEB © 2025 - Todos los derechos reservados
   </footer>
   
-  
+  <div id="modalFirma" class="modal-firma">
+  <div class="modal-contenido">
+    <h3>Firma del Cliente</h3>
+    <canvas id="canvasFirma" width="400" height="200"></canvas>
+    <div class="firma-botones">
+      <button type="button" class="boton-glossy boton-rojo" onclick="limpiarFirma()">Limpiar</button>
+      <button type="button" class="boton-glossy boton-verde" onclick="guardarFirma()">Guardar</button>
+      <button type="button" class="boton-glossy boton-rojo" onclick="cerrarModalFirma()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Campo oculto para guardar la imagen base64 -->
+<input type="hidden" id="firmaGuardada" name="firmaGuardada">
+
+
   <script>
     document.getElementById('serviceReport').addEventListener('submit', function(e) {
       e.preventDefault();
