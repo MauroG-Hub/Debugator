@@ -237,7 +237,7 @@ function ValidateData(){
 
 async function SendtoGdrive(blob) {
   const formData = new FormData();
-  formData.append("archivo", blob, "reporte-servicio.pdf");
+  formData.append("file", blob, "reporte-servicio.pdf");
 
   const response = await fetch("https://reporter-4k2k.onrender.com/upload", {
     method: "POST",
