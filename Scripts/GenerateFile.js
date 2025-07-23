@@ -130,6 +130,8 @@ let DataRaw = {
 
 };
 
+let authInProgress = false;
+
 
 document.getElementById('serviceReport').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -236,18 +238,70 @@ function ValidateData(){
 
 
 async function SendtoGdrive(blob) {
-  const formData = new FormData();
-  formData.append("file", blob, "reporte-servicio.pdf");
+  try {
+    // Primero intenta subir directamente
+    const result = await tryUpload(blob);
+    console.log('✅ Archivo subido:', result.url);
+    
+  } catch (error) {
+    if (error.message.includes('No autenticado') && !authInProgress) {
+      // Si falla por autenticación, inicia el flujo
+      console.log('🔐 Iniciando autenticación automática...');
+      authInProgress = true;
+      
+      await startAuth();
+      
+      // Reintenta después de autenticar
+      const result = await tryUpload(blob);
+      console.log('✅ Archivo subido después de autenticar:', result.url);
+      
+    } else {
+      console.error('Error crítico:', error);
+    }
+  } finally {
+    authInProgress = false;
+  }
+}
 
-  const response = await fetch("https://reporter-4k2k.onrender.com/upload", {
-    method: "POST",
-    body: formData,
+// Función para intentar la subida
+async function tryUpload(blob) {
+  const formData = new FormData();
+  formData.append('file', blob, 'reporte-servicio.pdf');
+
+  const response = await fetch('https://reporter-4k2k.onrender.com/upload', {
+    method: 'POST',
+    body: formData
   });
 
-  if (response.ok) {
-    const result = await response.json();
-    console.log("Subido a Google Drive. ID:", result.fileId);
-  } else {
-    console.error("Error al subir:", await response.text());
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText);
   }
+
+  return await response.json();
+}
+
+
+// Función de autenticación mejorada
+async function startAuth() {
+  return new Promise((resolve) => {
+    const authWindow = window.open(
+      'https://reporter-4k2k.onrender.com/auth',
+      '_blank',
+      'width=500,height=600'
+    );
+
+    const checkAuth = setInterval(async () => {
+      try {
+        const response = await fetch('https://reporter-4k2k.onrender.com/check-auth');
+        if (response.ok) {
+          clearInterval(checkAuth);
+          authWindow.close();
+          resolve();
+        }
+      } catch (e) {
+        console.log('Esperando autenticación...');
+      }
+    }, 2000);
+  });
 }
