@@ -1,4 +1,3 @@
-//3:17
 
 //import { PDFDocument, rgb } from 'pdf-lib';
   const { PDFDocument } = PDFLib;
@@ -132,7 +131,7 @@ let DataRaw = {
 
 };
 
-let authInProgress = false;
+
 
 
 document.getElementById('serviceReport').addEventListener('submit', function(e) {
@@ -239,110 +238,13 @@ function ValidateData(){
 
 
 
-async function SendtoGdrive(blob) {
-  try {
-    // Intento inicial
-    let result = await tryUpload(blob);
-    
-    // Si falla por 401, autentica y reintenta
-    if (result.error === 'needs_auth') {
-      await startAuth();
-      result = await tryUpload(blob);
-    }
-    
-    console.log('✅ Archivo subido:', result.url);
-    return result;
-    
-  } catch (error) {
-    console.error('Error crítico:', error);
-    throw error;
-  }
-}
 
 
-// Función para intentar la subida
-async function tryUpload(blob) {
-  const formData = new FormData();
-  formData.append('file', blob, 'reporte-servicio.pdf');
-
-  // Verifica si hay token guardado
-  const authToken = localStorage.getItem('drive_token');
-  
-  const response = await fetch('https://reporter-4k2k.onrender.com/upload', {
-    method: 'POST',
-    body: formData,
-    headers: authToken ? {
-      'Authorization': `Bearer ${authToken}`
-    } : {}
-  });
-
-  if (response.status === 401) {
-    localStorage.removeItem('drive_token');
-    throw new Error('Necesita reautenticación');
-  }
-
-  if (!response.ok) throw new Error(await response.text());
-
-  return await response.json();
-}
 
 
-// Función de autenticación mejorada
-async function startAuth() {
-  return new Promise((resolve) => {
-    const authWindow = window.open(
-      'https://reporter-4k2k.onrender.com/auth',
-      'authPopup',
-      'width=500,height=600'
-    );
 
-    const checkAuth = setInterval(async () => {
-      try {
-        const res = await fetch('https://reporter-4k2k.onrender.com/check-auth');
-        if (res.ok) {
-          const { token } = await res.json();
-          localStorage.setItem('drive_token', token);
-          clearInterval(checkAuth);
-          authWindow.close();
-          resolve();
-        }
-      } catch (e) {
-        console.log('Esperando autenticación...');
-      }
-    }, 2000);
-  });
-}
 
-const tokenClient = google.accounts.oauth2.initTokenClient({
-  client_id: 'TU_CLIENT_ID_OAUTH_GOOGLE',
-  scope: 'https://www.googleapis.com/auth/drive.file',
-  callback: (response) => {
-    if (response.access_token) {
-      uploadToBackend(file, response.access_token);  // 👈 envías token y archivo
-    }
-  },
-});
 
-function requestTokenAndUpload(file) {
-  tokenClient.requestAccessToken();
-}
 
-function uploadToBackend(file, accessToken) {
-  const formData = new FormData();
-  formData.append('file', file);
 
-  fetch('https://reporter-4k2k.onrender.com/upload', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,  // 👈 token aquí
-    },
-    body: formData,
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Archivo subido con ID:', data.fileId);
-  })
-  .catch(err => {
-    console.error('Error al subir:', err);
-  });
-}
+
