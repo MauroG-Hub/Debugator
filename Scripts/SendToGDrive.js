@@ -59,9 +59,12 @@ async function startAuth() {
     );
 
     function receiveMessage(event) {
+
+        console.log("📨 Mensaje recibido:", event);
       //if (event.origin !== 'https://reporter-4k2k.onrender.com') return; // seguridad
       if (event.data.tokens && event.data.tokens.access_token) {
         localStorage.setItem('drive_token', event.data.tokens.access_token);
+        console.log("✅ Token guardado en localStorage:", event.data.tokens.access_token);
         window.removeEventListener('message', receiveMessage);
         authWindow.close();
         authInProgress = false;
