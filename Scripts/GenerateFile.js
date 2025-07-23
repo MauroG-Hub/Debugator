@@ -141,7 +141,7 @@ document.getElementById('serviceReport').addEventListener('submit', async functi
 
   if (!token) {
     try {
-      await iniciarOAuth(); // Abre el popup y espera token
+      await startAuth(); // Abre el popup y espera token
       token = localStorage.getItem('drive_token');
       if (!token) throw new Error("Token no recibido");
     } catch (err) {
