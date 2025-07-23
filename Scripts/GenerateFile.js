@@ -134,10 +134,27 @@ let DataRaw = {
 
 
 
-document.getElementById('serviceReport').addEventListener('submit', function(e) {
-      e.preventDefault();
-      GeneratePDf();
-    });
+document.getElementById('serviceReport').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  let token = localStorage.getItem('drive_token');
+
+  if (!token) {
+    try {
+      await iniciarOAuth(); // Abre el popup y espera token
+      token = localStorage.getItem('drive_token');
+      if (!token) throw new Error("Token no recibido");
+    } catch (err) {
+      console.error("Error de autenticación:", err);
+      alert("No se pudo autenticar con Google Drive.");
+      return;
+    }
+  }
+
+  // Ya estás autenticado, ahora sí genera el PDF
+  GeneratePDf();
+});
+
 
 async function GeneratePDf(){
   GetDataRaw();
