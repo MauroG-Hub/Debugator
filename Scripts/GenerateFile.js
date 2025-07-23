@@ -312,3 +312,37 @@ async function startAuth() {
     }, 2000);
   });
 }
+
+const tokenClient = google.accounts.oauth2.initTokenClient({
+  client_id: 'TU_CLIENT_ID_OAUTH_GOOGLE',
+  scope: 'https://www.googleapis.com/auth/drive.file',
+  callback: (response) => {
+    if (response.access_token) {
+      uploadToBackend(file, response.access_token);  // 👈 envías token y archivo
+    }
+  },
+});
+
+function requestTokenAndUpload(file) {
+  tokenClient.requestAccessToken();
+}
+
+function uploadToBackend(file, accessToken) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  fetch('https://reporter-4k2k.onrender.com/upload', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,  // 👈 token aquí
+    },
+    body: formData,
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Archivo subido con ID:', data.fileId);
+  })
+  .catch(err => {
+    console.error('Error al subir:', err);
+  });
+}
