@@ -239,44 +239,47 @@ function ValidateData(){
 
 async function SendtoGdrive(blob) {
   try {
-    // Primero intenta subir directamente
-    const result = await tryUpload(blob);
+    // Intento inicial
+    let result = await tryUpload(blob);
+    
+    // Si falla por 401, autentica y reintenta
+    if (result.error === 'needs_auth') {
+      await startAuth();
+      result = await tryUpload(blob);
+    }
+    
     console.log('✅ Archivo subido:', result.url);
+    return result;
     
   } catch (error) {
-    if (error.message.includes('No autenticado') && !authInProgress) {
-      // Si falla por autenticación, inicia el flujo
-      console.log('🔐 Iniciando autenticación automática...');
-      authInProgress = true;
-      
-      await startAuth();
-      
-      // Reintenta después de autenticar
-      const result = await tryUpload(blob);
-      console.log('✅ Archivo subido después de autenticar:', result.url);
-      
-    } else {
-      console.error('Error crítico:', error);
-    }
-  } finally {
-    authInProgress = false;
+    console.error('Error crítico:', error);
+    throw error;
   }
 }
+
 
 // Función para intentar la subida
 async function tryUpload(blob) {
   const formData = new FormData();
   formData.append('file', blob, 'reporte-servicio.pdf');
 
+  // Verifica si hay token guardado
+  const authToken = localStorage.getItem('drive_token');
+  
   const response = await fetch('https://reporter-4k2k.onrender.com/upload', {
     method: 'POST',
-    body: formData
+    body: formData,
+    headers: authToken ? {
+      'Authorization': `Bearer ${authToken}`
+    } : {}
   });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText);
+  if (response.status === 401) {
+    localStorage.removeItem('drive_token');
+    throw new Error('Necesita reautenticación');
   }
+
+  if (!response.ok) throw new Error(await response.text());
 
   return await response.json();
 }
@@ -287,14 +290,16 @@ async function startAuth() {
   return new Promise((resolve) => {
     const authWindow = window.open(
       'https://reporter-4k2k.onrender.com/auth',
-      '_blank',
+      'authPopup',
       'width=500,height=600'
     );
 
     const checkAuth = setInterval(async () => {
       try {
-        const response = await fetch('https://reporter-4k2k.onrender.com/check-auth');
-        if (response.ok) {
+        const res = await fetch('https://reporter-4k2k.onrender.com/check-auth');
+        if (res.ok) {
+          const { token } = await res.json();
+          localStorage.setItem('drive_token', token);
           clearInterval(checkAuth);
           authWindow.close();
           resolve();
