@@ -11,9 +11,9 @@ function agregarFila() {
 
   fila.innerHTML = `
     <td rowspan="2">${contadorFilas}</td>
-    <td><input type="date" name="dia${contadorFilas}_fecha" required></td>
-    <td><input type="time" name="dia${contadorFilas}_entrada" required></td>
-    <td><input type="time" name="dia${contadorFilas}_salida" required></td>
+    <td><input type="date" name="dia${contadorFilas}_fecha" <!--required-->></td>
+    <td><input type="time" name="dia${contadorFilas}_entrada" <!--required-->></td>
+    <td><input type="time" name="dia${contadorFilas}_salida" <!--required-->></td>
     <td rowspan="2" style="text-align:center; vertical-align: middle;">
       <button type="button" class="boton-glossy boton-rojo boton-pequeño" onclick="eliminarFila(this)">Eliminar</button>
     </td>
@@ -25,7 +25,7 @@ function agregarFila() {
 
   filaDescripcion.innerHTML = `
     <td colspan="3">
-      <textarea name="dia${contadorFilas}_descripcion" rows="2" placeholder="Descripción de actividades..." required style="width: 100%;"></textarea>
+      <textarea name="dia${contadorFilas}_descripcion" rows="2" placeholder="Descripción de actividades..." <!--required--> style="width: 100%;"></textarea>
     </td>
   `;
 

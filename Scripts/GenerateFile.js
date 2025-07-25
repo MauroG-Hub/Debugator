@@ -136,11 +136,12 @@ let DataRaw = {
 
 document.getElementById('serviceReport').addEventListener('submit', async function (e) {
   e.preventDefault();
-
+  console.log("LLamada inicial");
   let token = localStorage.getItem('drive_token');
 
   if (!token) {
     try {
+       console.log("No token");
       await startAuth(); // Abre el popup y espera token
       token = localStorage.getItem('drive_token');
       if (!token) throw new Error("Token no recibido");
@@ -152,11 +153,13 @@ document.getElementById('serviceReport').addEventListener('submit', async functi
   }
 
   // Ya estás autenticado, ahora sí genera el PDF
+  console.log("LLamada a generar archivo");
   GeneratePDf();
 });
 
 
 async function GeneratePDf(){
+  console.log("GeneratePDf");
   GetDataRaw();
   ValidateData();
   const pdfBlob = await FillPDF();         // espera la creación del PDF
@@ -164,6 +167,7 @@ async function GeneratePDf(){
 }
 
 async function FillPDF() {
+  console.log("FillPDF");
   // Carga el archivo PDF de plantilla
   const url = '/Layout/Layout1.pdf'; // ajusta según la ruta real
   const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
@@ -239,6 +243,7 @@ form.getFields().forEach(field => field.enableReadOnly());
 }
 
 function GetDataRaw() {
+  console.log("GetDataRaw");
   const form = document.getElementById('serviceReport');
   const formData = new FormData(form);
 
@@ -250,7 +255,7 @@ function GetDataRaw() {
 }
 
 function ValidateData(){
-
+  console.log("ValidateData");
 }
 
 

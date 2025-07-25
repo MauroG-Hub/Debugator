@@ -3,6 +3,7 @@ let authInProgress = false;
 
 // Función para enviar el PDF Blob a Google Drive vía backend
 async function SendtoGdrive(blob) {
+  console.log("SendtoGdrive");
   try {
     let result = await tryUpload(blob);
 
@@ -22,6 +23,7 @@ async function SendtoGdrive(blob) {
 
 // Intento de subida con el token guardado
 async function tryUpload(blob) {
+  console.log("tryUpload");
   const formData = new FormData();
   formData.append('file', blob, 'reporte-servicio.pdf');
 
@@ -48,30 +50,44 @@ async function tryUpload(blob) {
 
 // Abre ventana popup para autenticarse y recibir el token via postMessage
 async function startAuth() {
+  console.log("startAuth");
   return new Promise((resolve, reject) => {
+    console.log("NewPromise");
     if (authInProgress) return reject(new Error('Autenticación ya en progreso'));
     authInProgress = true;
-
-    const authWindow = window.open(
-      'https://reporter-4k2k.onrender.com/auth',
+    console.log("Auth in progress");
+    const frontendOrigin = window.location.origin; // Ej: 'https://debugator.netlify.app'
+    window.open(
+      `https://reporter-4k2k.onrender.com/auth?state=${encodeURIComponent(frontendOrigin)}`,
       'authPopup',
       'width=500,height=600'
     );
+    console.log("antes de recibir mensaje");
+   function receiveMessage(event) {
+      console.log("🔔 Mensaje recibido:", event.origin, event.data);
 
-    function receiveMessage(event) {
+      // Dominios permitidos (deben coincidir con el backend)
+      const allowedOrigins = [
+        'https://reporter-4k2k.onrender.com',
+        'https://debugator.netlify.app',
+        'http://localhost'
+      ];
 
-        console.log("📨 Mensaje recibido:", event);
-      //if (event.origin !== 'https://reporter-4k2k.onrender.com') return; // seguridad
-      if (event.data.tokens && event.data.tokens.access_token) {
+      if (!allowedOrigins.includes(event.origin)) {
+        console.warn("⚠ Origen no permitido:", event.origin);
+        return;
+      }
+
+      if (event.data?.type === 'oauth2' && event.data.tokens?.access_token) {
+        console.log("✅ Token válido recibido");
         localStorage.setItem('drive_token', event.data.tokens.access_token);
-        console.log("✅ Token guardado en localStorage:", event.data.tokens.access_token);
         window.removeEventListener('message', receiveMessage);
-        authWindow.close();
+        authWindow?.close();
         authInProgress = false;
         resolve();
-      }
-    }
+  }
+}
 
-    window.addEventListener('message', receiveMessage);
-  });
+        window.addEventListener('message', receiveMessage);
+      });
 }
