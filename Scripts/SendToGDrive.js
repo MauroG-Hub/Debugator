@@ -56,17 +56,20 @@ async function startAuth() {
     if (authInProgress) return reject(new Error('Autenticación ya en progreso'));
     authInProgress = true;
     console.log("Auth in progress");
-    const frontendOrigin = window.location.origin; // Ej: 'https://debugator.netlify.app'
-    window.open(
+    const frontendOrigin = window.location.origin;
+
+    // 👇 1. Declara authWindow como variable local en el Promise
+    const authWindow = window.open(
       `https://reporter-4k2k.onrender.com/auth?state=${encodeURIComponent(frontendOrigin)}`,
       'authPopup',
       'width=500,height=600'
     );
     console.log("antes de recibir mensaje");
-   function receiveMessage(event) {
+
+    // 👇 2. Asegúrate de que receiveMessage pueda acceder a authWindow
+    const receiveMessage = (event) => {
       console.log("🔔 Mensaje recibido:", event.origin, event.data);
 
-      // Dominios permitidos (deben coincidir con el backend)
       const allowedOrigins = [
         'https://reporter-4k2k.onrender.com',
         'https://debugator.netlify.app',
@@ -82,12 +85,12 @@ async function startAuth() {
         console.log("✅ Token válido recibido");
         localStorage.setItem('drive_token', event.data.tokens.access_token);
         window.removeEventListener('message', receiveMessage);
-        authWindow?.close();
+        authWindow?.close(); // 👈 Ahora authWindow está definido
         authInProgress = false;
         resolve();
-  }
-}
+      }
+    };
 
-        window.addEventListener('message', receiveMessage);
-      });
+    window.addEventListener('message', receiveMessage);
+  });
 }
