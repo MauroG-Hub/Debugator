@@ -29,7 +29,7 @@ async function tryUpload(blob) {
 
   const authToken = localStorage.getItem('drive_token');
 
-  const response = await fetch('https://reporter-4k2k.onrender.com/upload', {
+  const response = await fetch('https://reporter-4k2k.onrender.com/upload-drive', {
     method: 'POST',
     headers: authToken ? { 'Authorization': `Bearer ${authToken}` } : {},
     body: formData
