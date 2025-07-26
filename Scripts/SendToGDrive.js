@@ -1,4 +1,3 @@
-//6:17
 
 let authInProgress = false;
 

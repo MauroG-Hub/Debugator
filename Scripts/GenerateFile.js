@@ -164,6 +164,7 @@ async function GeneratePDf(){
   ValidateData();
   const pdfBlob = await FillPDF();         // espera la creación del PDF
   await SendtoGdrive(pdfBlob);             // lo envía después
+  await sendToMail(pdfBlob, 'mauroagp@gmail.com', 'Prueba de reportes');
 }
 
 async function FillPDF() {
