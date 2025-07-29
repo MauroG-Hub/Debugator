@@ -12,6 +12,8 @@
   <script src="Scripts/SendToMail.js" defer></script>
   <script src="Scripts/GetDataFromSQL.js" defer></script>
   <script src="Scripts/ValidateInfoToPDF.js" defer></script>
+  <script src="Scripts/Signature.js" defer></script>
+  <script src="Scripts/TableDatesFormat.js" defer></script>
   
 </head>
 <body>
@@ -49,10 +51,10 @@
   <input type="text" name="MotivoSolicitud" > <!--required-->
 
   <label>Descripción del Servicio:</label>
-  <textarea name="DescripcionServicio" rows="4" > <!--required--></textarea>
+  <textarea name="DescripcionServicio" rows="4" > </textarea>
 
   <label>Plan de Trabajo:</label>
-  <textarea name="PlandeTrabajo" rows="4" > <!--required--></textarea>
+  <textarea name="PlandeTrabajo" rows="4" > </textarea>
 
 <div class="form-group">
   <label for="tipoServicio">Tipo de Servicio:</label>
@@ -74,20 +76,9 @@
 
 
    <label>Fechas:</label>
-	<table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Fecha</th>
-        <th>Entrada</th>
-        <th>Salida</th>
-        <th>Acción</th>
-      </tr>
-</thead>
-	  <tbody id="tablaHoras">
-		<!-- Las filas se insertan dinámicamente -->
-	  </tbody>
-	</table>
+  <div id="TableDates">
+     
+  </div>
 	<button type="button" class="boton-glossy boton-azul" onclick="agregarFila()">Agregar Día</button>
 
 
