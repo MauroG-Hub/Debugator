@@ -131,6 +131,20 @@ let DataRaw = {
 
 };
 
+let DataCustomer = {
+  SolicitadoPor: "",
+  Codigo: "",
+  Equipo: "",
+  Ubicacion: "",
+  Ciudad: "",
+  Cliente: "",
+  Seccion: "",
+  PersonaContacto: "",
+  Cargo: "",
+  Direccion: "",
+  Telefono: "",
+  
+};
 
 
 
@@ -161,6 +175,7 @@ document.getElementById('serviceReport').addEventListener('submit', async functi
 async function GeneratePDf(){
   console.log("GeneratePDf");
   GetDataRaw();
+  GetCustomerInfo();
   ValidateData();
   const pdfBlob = await FillPDF();         // espera la creación del PDF
   await SendtoGdrive(pdfBlob);             // lo envía después
@@ -253,6 +268,11 @@ function GetDataRaw() {
       DataRaw[key] = formData.get(key);
     }
   }
+}
+
+function GetCustomerInfo(){
+  let SelectedCustomer = ReadListOfcustomer();
+  DataCustomer = ReadDatabase(SelectedCustomer);
 }
 
 function ValidateData(){
