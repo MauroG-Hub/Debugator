@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="CSS/Styles.css">
   <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
   <script src="Scripts/FrontEnd.js" defer></script>
-  <script type="module"  src="Scripts/GenerateFile.js" defer></script>
+  <script type="module" src="Scripts/GenerateFile.js" defer></script>
   <script src="Scripts/SendToGDrive.js" defer></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="Scripts/SendToMail.js" defer></script>
@@ -25,6 +25,8 @@
  <main class="main-scroll">
     <div class="main-content">
     <form id="serviceReport">
+
+  <button type="button" class="boton-glossy boton-azul" onclick="enviarConsultaConAutenticacion()">Seleccionar Cliente</button>
     
   <label>Solicitado Por:</label>
   <input type="text" name="SolicitadoPor" > <!--required-->

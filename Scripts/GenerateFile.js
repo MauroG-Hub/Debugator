@@ -1,6 +1,7 @@
 
 //import { PDFDocument, rgb } from 'pdf-lib';
   const { PDFDocument } = PDFLib;
+ 
 
 const PDFFieldsName = {
   Numero: "Text38",
@@ -175,7 +176,6 @@ document.getElementById('serviceReport').addEventListener('submit', async functi
 async function GeneratePDf(){
   console.log("GeneratePDf");
   GetDataRaw();
-  GetCustomerInfo();
   ValidateData();
   const pdfBlob = await FillPDF();         // espera la creación del PDF
   await SendtoGdrive(pdfBlob);             // lo envía después
